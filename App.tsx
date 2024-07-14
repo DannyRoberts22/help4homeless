@@ -12,7 +12,7 @@ import { Platform, StatusBar } from 'react-native';
 function App(): JSX.Element {
   return (
     <>
-    {Platform.OS === 'ios' ? <StatusBar barStyle="dark-content" /> : undefined}
+    {/* {Platform.OS === 'ios' ? <StatusBar barStyle="dark-content" /> : undefined} */}
     <Navigation />
     </>
   )
