@@ -6,13 +6,13 @@
  */
 import 'react-native-gesture-handler';
 import React from 'react';
-import {Navigation} from './src/infrastructure/navigation/navigation';
+import {Navigation} from './src/infrastructure/navigation/root-navigator';
 import { Platform, StatusBar } from 'react-native';
 
 function App(): JSX.Element {
   return (
     <>
-    {/* {Platform.OS === 'ios' ? <StatusBar barStyle="dark-content" /> : undefined} */}
+    {Platform.OS === 'ios' ? <StatusBar barStyle="dark-content" /> : undefined}
     <Navigation />
     </>
   )
