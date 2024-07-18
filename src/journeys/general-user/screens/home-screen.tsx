@@ -1,11 +1,14 @@
 import React from 'react';
-import { Text } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-
+import {View, Text} from 'react-native';
+import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
+import Icon from 'react-native-vector-icons/FontAwesome';
 export const HomeScreen = () => {
   return (
-    <SafeAreaView>
+    <SafeAreaViewStatus>
       <Text>HomeScreen</Text>
-    </SafeAreaView>
+      <View>
+        <Icon name="home" size={30} color="blue" />
+      </View>
+    </SafeAreaViewStatus>
   );
 };
