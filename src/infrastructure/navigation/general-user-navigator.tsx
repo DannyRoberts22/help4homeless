@@ -8,6 +8,7 @@ import {NotificationScreen} from '@src/journeys/general-user/screens/notificatio
 import screenNames from '@src/constants/screen-names';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {getMappedIcons} from '@src/utils/getMappedIcons';
+import {theme} from '@src/theme';
 
 const Tab = createBottomTabNavigator();
 
@@ -20,6 +21,11 @@ const GeneralUserNavigator = () => {
           headerShown: false,
           title: title,
           tabBarIcon: () => <Icon name={iconName} size={size} color={color} />,
+          tabBarStyle: {
+            backgroundColor: theme.colors.primary,
+          },
+          tabBarActiveTintColor: theme.colors.white,
+          tabBarLabelStyle: {fontSize: 12},
         };
       }}>
       <Tab.Screen name={screenNames.HOME_SCREEN} component={HomeScreen} />

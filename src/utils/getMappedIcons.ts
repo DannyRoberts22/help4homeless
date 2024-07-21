@@ -17,7 +17,7 @@ export const getMappedIcons = (route: {route: {name: string}}) => {
   return {
     iconName: getIconName(route?.route?.name as keyof typeof mapScreenIcons),
     size: 25,
-    color: theme.colors.primary,
+    color: theme.colors.white,
     title: getScreenTitle(route?.route?.name as keyof typeof mapScreenIcons),
   };
 };
