@@ -4,18 +4,19 @@ import {RootStackParamList} from '@src/types/navigation-types';
 import screenNames from '../../constants/screen-names';
 import GeneralUserNavigator from './general-user-navigator';
 import ShelterUserNavigator from './shelter-user-navigator';
-import {theme} from '@src/theme';
 
 const Stack = createStackNavigator<RootStackParamList>();
+
 const MainNavigator = () => {
+  const isGeneralUser = true;
   return (
     <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-        // headerTintColor: 'red',
-        // headerStyle: {backgroundColor: theme.colors.primary},
-        // HeaderStatusBarColor
-      }}>
+      screenOptions={{headerShown: false}}
+      initialRouteName={
+        isGeneralUser
+          ? screenNames.GENERAL_USER_NAVIGATOR
+          : screenNames.SHELTER_USER_NAVIGATOR
+      }>
       <Stack.Screen
         name={screenNames.GENERAL_USER_NAVIGATOR}
         component={GeneralUserNavigator}

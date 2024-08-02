@@ -11,7 +11,7 @@ export const ScreenHeaderView = styled(View)`
 
 export const ScreenTitle = styled(Text)`
   font-weight: bold;
-  font-size: 25px;
+  font-size: ${({theme}) => theme.fontSizes.screenHeader};
   color: ${({theme}) => theme.colors.white};
   text-align: center;
 `;

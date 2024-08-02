@@ -1,13 +1,14 @@
 import React from 'react';
 import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
-import {Text, Button} from 'react-native';
+import {Button} from 'react-native';
 import TextInput from '@src/components/utility/text-input/TextInput';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '@src/types/navigation-types';
 import screenNames from '@src/constants/screen-names';
 import {InnerContainer} from '@src/components/layout/InnerContainer';
-import {Spacer} from '@src/components/layout/Spacer';
+import TextLabel from '@src/components/utility/text-label/TextLabel';
 import {theme} from '@src/theme';
+import {Spacer} from '@src/components/layout/Spacer';
 
 type SignupScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 
@@ -19,17 +20,19 @@ export const SignupScreen = ({
   return (
     <SafeAreaViewStatus>
       <InnerContainer>
-        <Text>Name:</Text>
+        <TextLabel text="Name:" />
         <TextInput placeholder="Name" />
-        <Text>Phone number:</Text>
+        <TextLabel text="Phone Number:" />
         <TextInput placeholder="Phone number" keyboardType="numeric" />
-        <Text>Email:</Text>
+        <TextLabel text="Email:" />
         <TextInput placeholder="Email" />
-        <Text>Password:</Text>
+        <TextLabel text="Password:" />
         <TextInput placeholder="Password" secureTextEntry />
-        <Text>Password Again:</Text>
+        <TextLabel text="Password Again:" />
         <TextInput placeholder="Password Again" secureTextEntry />
+        <Spacer size={theme.space.lg} />
         <Button
+          color={theme.colors.white}
           title="Sign Up"
           onPress={() =>
             navigation.replace(screenNames.MAIN_NAVIGATOR, {

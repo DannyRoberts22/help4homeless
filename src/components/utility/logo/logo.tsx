@@ -1,3 +1,4 @@
+import React from 'react';
 import * as CSS from './logo.styles';
 
 export const Logo = () => {

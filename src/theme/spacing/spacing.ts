@@ -6,7 +6,7 @@ export const lineHeights = {
 export const space = {
   xs: '4px',
   sm: '8px',
-  m: '16px',
+  md: '16px',
   lg: '32px',
   xl: '64px',
 } as const;

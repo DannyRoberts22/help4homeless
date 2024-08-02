@@ -2,10 +2,12 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {InnerContainer} from '@src/components/layout/InnerContainer';
 import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
 import TextInput from '@src/components/utility/text-input/TextInput';
+import TextLabel from '@src/components/utility/text-label/TextLabel';
 import screenNames from '@src/constants/screen-names';
+import {theme} from '@src/theme';
 import {RootStackParamList} from '@src/types/navigation-types';
 import React from 'react';
-import {Button, Text} from 'react-native';
+import {Button} from 'react-native';
 
 type ForgottenPasswordScreenNavigationProp =
   StackNavigationProp<RootStackParamList>;
@@ -21,9 +23,13 @@ export const ForgottenPasswordScreen = ({
   return (
     <SafeAreaViewStatus>
       <InnerContainer>
-        <Text>Email:</Text>
+        <TextLabel text="Email:" />
         <TextInput placeholder="Email" />
-        <Button title="Reset Password?" onPress={() => handleReset()} />
+        <Button
+          color={theme.colors.white}
+          title="Reset Password?"
+          onPress={() => handleReset()}
+        />
       </InnerContainer>
     </SafeAreaViewStatus>
   );

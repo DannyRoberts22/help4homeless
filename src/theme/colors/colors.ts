@@ -3,6 +3,7 @@ type Colors = {
   secondary: string;
   black: string;
   white: string;
+  softWhite: string;
 };
 
 export const colors: Colors = {
@@ -12,5 +13,6 @@ export const colors: Colors = {
   primary: '#27537C',
   secondary: '#FF0000',
   black: '#000000',
-  white: '#EEEEEE',
+  white: '#FFFFFF',
+  softWhite: '#DDDDDD',
 };

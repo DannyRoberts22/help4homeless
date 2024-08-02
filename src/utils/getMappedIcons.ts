@@ -4,12 +4,10 @@ import {mapScreenIcons} from '@src/constants/screens';
 type ScreenNameKey = keyof typeof mapScreenIcons;
 
 const getIconName = (key: ScreenNameKey): string => {
-  console.log('mapScreenIcons', mapScreenIcons);
   return mapScreenIcons[key].iconName;
 };
 
 const getScreenTitle = (key: ScreenNameKey): string => {
-  console.log('mapScreenIcons', mapScreenIcons);
   return mapScreenIcons[key].title;
 };
 
