@@ -1,4 +1,5 @@
 export const fontSizes = {
   screenHeader: '24px',
-  textLabel: '16px',
+  arrowLabel: '20px',
+  inputTextLabel: '16px',
 };

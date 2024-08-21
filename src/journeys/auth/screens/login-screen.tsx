@@ -8,7 +8,7 @@ import screenNames from '@src/constants/screen-names';
 import {InnerContainer} from '@src/components/layout/InnerContainer';
 import {Spacer} from '@src/components/layout/Spacer';
 import {theme} from '@src/theme';
-import TextLabel from '@src/components/utility/text-label/TextLabel';
+import InputTextLabel from '@src/components/utility/input-text-label/InputTextLabel';
 
 type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 
@@ -20,9 +20,9 @@ export const LoginScreen = ({
   return (
     <SafeAreaViewStatus>
       <InnerContainer>
-        <TextLabel text="Email:" />
+        <InputTextLabel text="Email:" />
         <TextInput placeholder="Email" />
-        <TextLabel text="Password:" />
+        <InputTextLabel text="Password:" />
         <TextInput placeholder="Password" secureTextEntry />
         <Button
           color={theme.colors.white}

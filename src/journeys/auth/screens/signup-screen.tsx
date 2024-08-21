@@ -6,7 +6,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '@src/types/navigation-types';
 import screenNames from '@src/constants/screen-names';
 import {InnerContainer} from '@src/components/layout/InnerContainer';
-import TextLabel from '@src/components/utility/text-label/TextLabel';
+import InputTextLabel from '@src/components/utility/input-text-label/InputTextLabel';
 import {theme} from '@src/theme';
 import {Spacer} from '@src/components/layout/Spacer';
 
@@ -20,15 +20,15 @@ export const SignupScreen = ({
   return (
     <SafeAreaViewStatus>
       <InnerContainer>
-        <TextLabel text="Name:" />
+        <InputTextLabel text="Name:" />
         <TextInput placeholder="Name" />
-        <TextLabel text="Phone Number:" />
+        <InputTextLabel text="Phone Number:" />
         <TextInput placeholder="Phone number" keyboardType="numeric" />
-        <TextLabel text="Email:" />
+        <InputTextLabel text="Email:" />
         <TextInput placeholder="Email" />
-        <TextLabel text="Password:" />
+        <InputTextLabel text="Password:" />
         <TextInput placeholder="Password" secureTextEntry />
-        <TextLabel text="Password Again:" />
+        <InputTextLabel text="Password Again:" />
         <TextInput placeholder="Password Again" secureTextEntry />
         <Spacer size={theme.space.lg} />
         <Button
