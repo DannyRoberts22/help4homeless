@@ -8,7 +8,7 @@ import screenNames from '@src/constants/screen-names';
 const Stack = createStackNavigator();
 
 export const Navigation = () => {
-  const isUserSignedIn = false;
+  const isUserSignedIn = true;
   return (
     <NavigationContainer>
       <Stack.Navigator

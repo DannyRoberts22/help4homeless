@@ -6,5 +6,5 @@ export const InnerContainer = styled(View)`
   background-color: ${({theme}) => theme.colors.primary};
   justify-content: center;
   align-itmes: center;
-  padding: 40px;
+  padding: ${({theme}) => theme.space.xl};
 `;

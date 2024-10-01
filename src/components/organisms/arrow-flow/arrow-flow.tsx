@@ -19,11 +19,6 @@ const ArrowFlow = () => {
         color={theme.colors.white}
       />
       <ArrowFlowLabel>Help</ArrowFlowLabel>
-      <Icon
-        name="arrow-down"
-        size={theme.imageSizing.md}
-        color={theme.colors.white}
-      />
     </ArrowFlowContainer>
   );
 };
