@@ -32,9 +32,22 @@ export const TitleContainer = styled.View`
   padding: 10px;
   max-height: 100px;
 `;
+export const DetailsContainer = styled.View`
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  height: 100%;
+  flex: 2;
+`;
 
 export const Title = styled.Text`
   color: white;
   font-size: 18px;
   font-weight: bold;
+`;
+
+export const PeopleProfileCardContainer = styled(CardContainer)`
+  flex-direction: row;
+  align-items: center;
+  flex: 1;
+  margin-vertical: 10px;
 `;

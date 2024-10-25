@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
 import {InnerContainer} from '@src/components/layout/InnerContainer';
 import mockNewsData from '../../../../mocks/newsData.json';
-// @ts-ignore
 import {ActivityIndicator, Button, Dimensions, View} from 'react-native';
 import {HorizontalFlatListContainer} from '../styles/home-screen.styles';
 import {FlatList} from 'react-native-gesture-handler';
@@ -18,11 +17,9 @@ import {ImageBackgroundCard} from '@src/components/organisms/image-background-ca
 export const HomeScreen = () => {
   const [newsData, setNewsData] = useState<MappedItem[]>([]);
   const [postcode, setPostcode] = useState<string>('');
-  console.log('🚀 ~ getHomelessShelters ~ postcode:', postcode);
 
   const [shelters, setShelters] = useState<any>([]);
   const [shelterError, setShelterError] = useState<boolean>(false);
-  console.log('🚀 ~ HomeScreen ~ shelterError:', shelterError);
   const [loading, setLoading] = useState<boolean>(false);
 
   const CARD_WIDTH = Dimensions.get('window').width * 0.7;
@@ -39,7 +36,6 @@ export const HomeScreen = () => {
 
   const getHomelessShelters = () => {
     setLoading(true);
-    console.log('🚀 ~ getHomelessShelters ~ postcode:', postcode);
     getHomelessShelterList(postcode)
       .then((response: any) => {
         setShelterError(false);

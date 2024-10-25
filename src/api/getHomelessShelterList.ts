@@ -1,8 +1,10 @@
-// @ts-ignore
-import {GOOGLE_MAPS_API_KEY} from '@env';
+import env from 'react-native-config';
+import {ShelterItem} from '@src/types/shelter-api-types';
 
-export const getHomelessShelterList = async (postcode: string) => {
-  const apiKey = GOOGLE_MAPS_API_KEY;
+export const getHomelessShelterList = async (
+  postcode: string,
+): Promise<ShelterItem[]> => {
+  const apiKey = env.GOOGLE_MAPS_API_KEY;
 
   // Step 1: Convert postcode to latitude and longitude using Geocoding API
   const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${postcode}&key=${apiKey}`;
@@ -28,8 +30,7 @@ export const getHomelessShelterList = async (postcode: string) => {
 
     const placesResponse = await fetch(placesUrl);
     const placesData = await placesResponse.json();
-
-    console.log('Shelters:', JSON.stringify(placesData.results, null, 2));
+    console.log('🚀 ~ placesData:', placesData);
 
     return placesData.results; // Return the results for further processing
   } catch (error) {
