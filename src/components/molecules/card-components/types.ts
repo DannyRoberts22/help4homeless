@@ -1,6 +1,6 @@
 export type CardProps = {
   cardWidth?: number;
-  height: 'sm' | 'md' | 'lg';
+  height: 'xs' | 'sm' | 'md' | 'lg';
 };
 
 export type ImageProps = {

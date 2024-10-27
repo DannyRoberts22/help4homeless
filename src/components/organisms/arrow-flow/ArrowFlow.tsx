@@ -1,7 +1,7 @@
 import {theme} from '@src/theme';
 import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {ArrowFlowContainer, ArrowFlowLabel} from './arrow-flow.styles';
+import {ArrowFlowContainer, ArrowFlowLabel} from './styles';
 
 const ArrowFlow = () => {
   return (

@@ -2,9 +2,9 @@ import React from 'react';
 import {
   CardContainer,
   CardImageBackground,
-  DetailsContainer,
+  TitleContainer,
   Title,
-} from '@src/components/molecules/card-components/style';
+} from '@src/components/molecules/card-components/styles';
 import {MappedItem} from '@src/types/news-api-types';
 
 export const ImageBackgroundCard = ({
@@ -17,9 +17,9 @@ export const ImageBackgroundCard = ({
   return (
     <CardContainer cardWidth={cardWidth} height="lg">
       <CardImageBackground source={{uri: item.urlToImage}}>
-        <DetailsContainer>
+        <TitleContainer>
           <Title>{item.title}</Title>
-        </DetailsContainer>
+        </TitleContainer>
       </CardImageBackground>
     </CardContainer>
   );

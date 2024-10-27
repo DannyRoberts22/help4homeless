@@ -4,7 +4,7 @@ import {
   CardContainer,
   CardBackground,
   CardText,
-} from '@src/components/molecules/card-components/style';
+} from '@src/components/molecules/card-components/styles';
 import {LinkContainer} from '@src/journeys/general-user/styles/home-screen.styles';
 import {ShelterItem} from '@src/types/shelter-api-types';
 

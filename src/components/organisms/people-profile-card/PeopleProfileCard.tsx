@@ -1,23 +1,24 @@
 import {
-  PeopleProfileCardContainer,
   DetailsContainer,
   Title,
-} from '@src/components/molecules/card-components/style';
+} from '@src/components/molecules/card-components/styles';
 import React from 'react';
-import {Image, Text} from 'react-native';
 import {PeopleDonations} from '@src/types/people-donations-api-types';
+import {
+  DonationTotal,
+  PeopleProfileCardContainer,
+  ProfileImage,
+} from './styles';
+
 export const PeopleProfileCard = ({item}: {item: PeopleDonations}) => {
   return (
     <PeopleProfileCardContainer height="xs">
-      <Image
-        source={{uri: item.picture.large}}
-        style={{width: 100, height: '100%'}}
-      />
+      <ProfileImage source={{uri: item.picture.large}} />
       <DetailsContainer>
         <Title>{item.name.first}</Title>
-        <Text style={{color: 'white'}}>
-          Donation: {Math.floor(Math.random() * 10) + 1}
-        </Text>
+        <DonationTotal>
+          Donation Total: £{Math.floor(Math.random() * 10) + 1}
+        </DonationTotal>
       </DetailsContainer>
     </PeopleProfileCardContainer>
   );
