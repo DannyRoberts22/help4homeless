@@ -53,7 +53,7 @@ export const mapScreenIcons = {
   'dashboard.screen': {iconName: 'tasks', title: 'Dashboard'},
   'manage.screen': {iconName: 'globe', title: 'Manage'},
   'profile.screen': {iconName: 'user-plus', title: 'Profile'},
-  'about.screen': {iconName: 'info-circle', title: 'Info'},
+  'about.screen': {iconName: 'info-circle', title: 'About'},
   'qr-scan.screen': {iconName: 'qrcode', title: 'QR Code'},
   'my-donation.screen': {iconName: 'thermometer', title: 'Donation'},
   'notification.screen': {iconName: 'bell-o', title: 'Notifications'},

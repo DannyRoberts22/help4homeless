@@ -22,15 +22,12 @@ export const getHomelessShelterList = async (
     const latitude = location.lat;
     const longitude = location.lng;
 
-    console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
-
     // Step 2: Fetch homeless shelters near the location using Places API
     const radius = 5000; // Radius in meters
     const placesUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=${radius}&keyword=homeless+shelter&key=${apiKey}`;
 
     const placesResponse = await fetch(placesUrl);
     const placesData = await placesResponse.json();
-    console.log('🚀 ~ placesData:', placesData);
 
     return placesData.results; // Return the results for further processing
   } catch (error) {

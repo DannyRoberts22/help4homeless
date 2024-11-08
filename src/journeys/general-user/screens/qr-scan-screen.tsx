@@ -1,11 +1,13 @@
 import {InnerContainer} from '@src/components/layout/InnerContainer';
 import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
 import React, {useState} from 'react';
-import {Text} from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import {BarCodeReadEvent, RNCamera} from 'react-native-camera';
 
-import {qrScanScreenStyles} from '../styles/qr-scan-screen.styles';
+import {
+  CenterText,
+  QRCodeScannerContainer,
+} from '../styles/qr-scan-screen.styles';
 
 export const QRScanScreen = () => {
   const [scannedData, setScannedData] = useState('');
@@ -15,20 +17,26 @@ export const QRScanScreen = () => {
   };
   return (
     <SafeAreaViewStatus>
-      <InnerContainer>
+      {/* <InnerContainer> */}
+      <QRCodeScannerContainer>
         <QRCodeScanner
           onRead={onSuccess}
           flashMode={RNCamera.Constants.FlashMode.auto}
-          topContent={
-            <Text style={qrScanScreenStyles.centerText}>Scan the QR code.</Text>
-          }
+          topContent={<CenterText>Scan the QR code.</CenterText>}
+          cameraStyle={{
+            width: '80%',
+            alignSelf: 'center',
+          }}
           bottomContent={
-            <Text style={qrScanScreenStyles.centerText}>
-              Scanned data: {scannedData}
-            </Text>
+            scannedData ? (
+              <CenterText>Scanned data: {scannedData}</CenterText>
+            ) : (
+              ''
+            )
           }
         />
-      </InnerContainer>
+      </QRCodeScannerContainer>
+      {/* </InnerContainer> */}
     </SafeAreaViewStatus>
   );
 };

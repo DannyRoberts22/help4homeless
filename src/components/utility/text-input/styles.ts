@@ -8,7 +8,7 @@ type StyledTextInputProps = {
 export const StyledTextInput = styled(TextInput)<StyledTextInputProps>`
   height: 45px;
   margin-bottom: 12px;
-  padding-horizontal: 8px;
+  padding-horizontal: ${({theme}) => theme.space.md};
   color: ${({theme}) => theme.colors.black};
   background-color: ${({theme}) => theme.colors.white};
   border-radius: 5px;

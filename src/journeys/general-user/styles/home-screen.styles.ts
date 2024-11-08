@@ -9,3 +9,7 @@ export const LinkContainer = styled.View`
   padding-bottom: ${theme.space.sm};
   align-items: center;
 `;
+
+export const ShelterSearchContainer = styled.View`
+  padding-horizontal: ${({theme}) => theme.space.md};
+`;

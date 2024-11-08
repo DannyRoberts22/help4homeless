@@ -3,7 +3,10 @@ import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
 import {InnerContainer} from '@src/components/layout/InnerContainer';
 import mockNewsData from '../../../../mocks/newsData.json';
 import {ActivityIndicator, Button, Dimensions, View} from 'react-native';
-import {HorizontalFlatListContainer} from '../styles/home-screen.styles';
+import {
+  HorizontalFlatListContainer,
+  ShelterSearchContainer,
+} from '../styles/home-screen.styles';
 import {FlatList} from 'react-native-gesture-handler';
 import {getNews} from '@src/api/getNews';
 import {theme} from '@src/theme';
@@ -63,7 +66,7 @@ export const HomeScreen = () => {
   }, []);
 
   const renderNewsItem = ({item}: {item: MappedItem}) => (
-    <ImageBackgroundCard item={item} cardWidth={CARD_WIDTH} />
+    <ImageBackgroundCard item={item} cardWidth={CARD_WIDTH} height="md" />
   );
 
   const renderShelterItem = ({item}: {item: ShelterItem}) => {
@@ -74,7 +77,7 @@ export const HomeScreen = () => {
 
     return (
       <>
-        <DetailsCardItem item={item} url={url} />
+        <DetailsCardItem item={item} url={url} height="sm" />
         <Spacer size={theme.space.sm} />
       </>
     );
@@ -82,7 +85,6 @@ export const HomeScreen = () => {
 
   return (
     <SafeAreaViewStatus>
-      {/* <ScrollView showsVerticalScrollIndicator={false}> */}
       <InnerContainer>
         <HorizontalFlatListContainer>
           {newsData.length > 0 ? (
@@ -104,7 +106,7 @@ export const HomeScreen = () => {
           <ActivityIndicator size="large" color={theme.colors.white} />
         ) : (
           <>
-            <View>
+            <ShelterSearchContainer>
               <TextInput
                 placeholder="Enter your postcode"
                 value={postcode}
@@ -119,19 +121,18 @@ export const HomeScreen = () => {
                 title="Find your nearest shelters"
                 color={theme.colors.white}
               />
-            </View>
+            </ShelterSearchContainer>
             <FlatList
               data={shelters}
               renderItem={renderShelterItem}
               keyExtractor={(item: any) => item.id}
               // eslint-disable-next-line react-native/no-inline-styles
               contentContainerStyle={{paddingVertical: 20}}
-              showsVerticalScrollIndicator={false}
+              showsVerticalScrollIndicator={true}
             />
           </>
         )}
       </InnerContainer>
-      {/* </ScrollView> */}
     </SafeAreaViewStatus>
   );
 };

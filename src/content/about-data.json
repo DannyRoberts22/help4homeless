@@ -1,0 +1,34 @@
+{
+  "aboutScreen": {
+    "title": "Our Mission",
+    "intro": "Welcome to Help! We’re dedicated to bridging the gap between communities and those experiencing homelessness by creating an easy, secure, and impactful way to make a difference.",
+    "sections": [
+      {
+        "sectionTitle": "What We Do",
+        "content": "Help partners with homeless shelters and outreach organizations to provide individuals experiencing homelessness with unique, scannable QR codes. These codes allow anyone with the app to scan and securely donate funds that directly support the individual. All donations are managed through local shelters, ensuring that the funds are used to provide essential resources such as meals, clothing, medical care, and temporary housing."
+      },
+      {
+        "sectionTitle": "Who It Benefits",
+        "content": "Your donations directly support individuals on the street, helping them meet immediate needs while reducing financial barriers to long-term assistance. By working through trusted local shelters, we ensure that each donation is used to offer meaningful aid and personalized support to those in need."
+      }
+    ],
+    "closing": "Thank you for joining us in creating a network of support and compassion for those experiencing homelessness. Together, we're making it easier for everyone to give back and help build a brighter future for all."
+  },
+  "HowToUse": {
+    "title": "How to Use the App",
+    "steps": [
+      {
+        "step": "Scan a QR Code",
+        "description": "If you come across someone’s unique Help QR code, simply open the app and scan it to view their profile and story."
+      },
+      {
+        "step": "Choose a Donation",
+        "description": "Select a donation amount, and it will be securely transferred to the local shelter or outreach organization supporting them. Each donation is tracked to ensure it provides the highest benefit."
+      },
+      {
+        "step": "Learn More",
+        "description": "Our app also allows you to read more about each shelter partner, so you know exactly where your contribution is going and the impact it creates."
+      }
+    ]
+  }
+}

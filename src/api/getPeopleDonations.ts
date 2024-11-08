@@ -16,7 +16,6 @@ export const getPeopleDonations = async (): Promise<PeopleDonations[]> => {
     }
 
     const data: PeopleDonationsData = await response.json();
-    console.log('🚀 ~ getPeopleDonations ~ data:', data.results.length);
     return data.results;
   } catch (error) {
     console.error('Error fetching people donations:', error);

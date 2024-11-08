@@ -1,26 +1,34 @@
 import {theme} from '@src/theme';
 import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {ArrowFlowContainer, ArrowFlowLabel} from './styles';
+import {
+  ArrowFlowContainer,
+  ArrowFlowDescription,
+  ArrowFlowTitle,
+} from './styles';
 
-const ArrowFlow = () => {
-  return (
-    <ArrowFlowContainer>
-      <ArrowFlowLabel>Scan</ArrowFlowLabel>
-      <Icon
-        name="arrow-down"
-        size={theme.imageSizing.md}
-        color={theme.colors.white}
-      />
-      <ArrowFlowLabel>Donate</ArrowFlowLabel>
-      <Icon
-        name="arrow-down"
-        size={theme.imageSizing.md}
-        color={theme.colors.white}
-      />
-      <ArrowFlowLabel>Help</ArrowFlowLabel>
-    </ArrowFlowContainer>
-  );
+type Item = {
+  title: string;
+  description: string;
+};
+
+const ArrowFlow = ({content}: {content: Item[]}) => {
+  return content.map((item, index) => {
+    const isLastItem = index === content.length - 1;
+    return (
+      <ArrowFlowContainer>
+        <ArrowFlowTitle>{item.title}</ArrowFlowTitle>
+        <ArrowFlowDescription>{item.description}</ArrowFlowDescription>
+        {!isLastItem && (
+          <Icon
+            name="arrow-down"
+            size={theme.imageSizing.md}
+            color={theme.colors.white}
+          />
+        )}
+      </ArrowFlowContainer>
+    );
+  });
 };
 
 export default ArrowFlow;
