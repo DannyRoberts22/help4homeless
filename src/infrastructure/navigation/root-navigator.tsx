@@ -4,11 +4,15 @@ import MainNavigator from './main-navigator';
 import AuthNavigator from './auth-navigator';
 import {createStackNavigator} from '@react-navigation/stack';
 import screenNames from '@src/constants/screen-names';
+// import {useAppwriteContext} from '@src/providers/AppwriteContext';
 
 const Stack = createStackNavigator();
 
 export const Navigation = () => {
-  const isUserSignedIn = true;
+  // const context = useAppwriteContext();
+  // const isUserSignedIn = context?.loggedInUser !== null;
+  // console.log('🚀 ~ Navigation ~ isUserSignedIn:', isUserSignedIn);
+  const isUserSignedIn = false;
   return (
     <NavigationContainer>
       <Stack.Navigator

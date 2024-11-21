@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Logo} from '@src/components/utility/logo/logo';
 import {ScreenHeaderView} from './styles';
-import {Button, Text, TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity} from 'react-native';
 import {theme} from '@src/theme';
 
 const ScreenHeader = ({

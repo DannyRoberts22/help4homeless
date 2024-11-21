@@ -8,10 +8,10 @@ import {HomeScreen} from '@src/journeys/general-user/screens/home-screen';
 import {QRScanScreen} from '@src/journeys/general-user/screens/qr-scan-screen';
 import {MyDonationsScreen} from '@src/journeys/general-user/screens/my-donation-screen';
 import {AboutScreen} from '@src/journeys/general-user/screens/about-screen';
-import {NotificationScreen} from '@src/journeys/general-user/screens/notification-screen';
 import screenNames from '@src/constants/screen-names';
 import {getMappedIcons} from '@src/utils/getMappedIcons';
 import {theme} from '@src/theme';
+import {ProfileScreen} from '@src/journeys/shelter/screens/profile-screen';
 
 const Tab = createBottomTabNavigator();
 
@@ -40,10 +40,7 @@ const GeneralUserNavigator = () => {
         name={screenNames.MY_DONATION_SCREEN}
         component={MyDonationsScreen}
       />
-      <Tab.Screen
-        name={screenNames.NOTIFICATION_SCREEN}
-        component={NotificationScreen}
-      />
+      <Tab.Screen name={screenNames.PROFILE_SCREEN} component={ProfileScreen} />
       <Tab.Screen name={screenNames.ABOUT_SCREEN} component={AboutScreen} />
     </Tab.Navigator>
   );

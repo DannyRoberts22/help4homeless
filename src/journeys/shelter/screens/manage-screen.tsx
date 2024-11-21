@@ -8,6 +8,11 @@ export const ManageScreen = () => {
     <SafeAreaViewStatus>
       <InnerContainer>
         <Text>ManageScreen</Text>
+        <Text>Add user</Text>
+        <Text>Remove user</Text>
+        <Text>Edit user</Text>
+        <Text>ManageScreen</Text>
+        <Text>ManageScreen</Text>
       </InnerContainer>
     </SafeAreaViewStatus>
   );

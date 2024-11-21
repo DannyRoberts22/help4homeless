@@ -16,7 +16,7 @@ export const CardImageBackground = styled(ImageBackground)<ImageProps>`
 export const CardBackground = styled.View`
   padding: ${({theme}) => theme.space.md};
   border-radius: ${({theme}) => theme.borderRadiusSizing.md}px;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.7);
 `;
 
 export const CardText = styled(Text)`
@@ -27,19 +27,19 @@ export const CardText = styled(Text)`
 `;
 
 export const TitleContainer = styled.View`
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.85);
   padding: 10px;
   max-height: 100px;
 `;
 export const DetailsContainer = styled.View`
   background-color: rgba(0, 0, 0, 0.5);
-  padding: 10px;
   height: 100%;
   flex: 2;
+  padding: 8px;
 `;
 
 export const Title = styled.Text`
   color: white;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: 600;
 `;

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "668406264664",
+    "project_id": "help4homeless-13cfc",
+    "storage_bucket": "help4homeless-13cfc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:668406264664:android:cf31fe067709c8f0f12b2d",
+        "android_client_info": {
+          "package_name": "com.helpforhomeless"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIC_GQhixTuHyKechQYYuLyt0iKuYA_MM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

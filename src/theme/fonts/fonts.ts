@@ -8,6 +8,7 @@ export const fontSizes = {
   sectionTitle: '18px',
   sectionText: '14px',
   buttonText: '20px',
-  addressTitle: '18px',
-  addressContent: '14px',
+  ProfileTitle: '18px',
+  ProfileContent: '14px',
+  homelessUserDetails: '16px',
 };

@@ -6,7 +6,7 @@ export const PeopleProfileCardContainer = styled(CardContainer)`
   flex-direction: row;
   align-items: center;
   flex: 1;
-  margin-vertical: 10px;
+  margin-vertical: 4px;
 `;
 
 export const ProfileImage = styled(Image)`

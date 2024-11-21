@@ -1,14 +1,16 @@
 import styled from 'styled-components/native';
 
-export const AddressContainer = styled.View`
+export const ProfileContainer = styled.View`
   flex: 1;
 `;
 
-export const AddressTitle = styled.Text`
+export const ProfileTitle = styled.Text`
   color: ${({theme}) => theme.colors.white};
-  font-size: ${({theme}) => theme.fontSizes.addressTitle};
+  font-size: ${({theme}) => theme.fontSizes.ProfileTitle};
+  font-weight: bold;
 `;
-export const AddressContent = styled.Text`
+export const ProfileContent = styled.Text`
   color: ${({theme}) => theme.colors.white};
-  font-size: ${({theme}) => theme.fontSizes.addressTitle};
+  font-size: ${({theme}) => theme.fontSizes.ProfileContent};
+  font-weight: bold;
 `;

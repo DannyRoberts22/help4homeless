@@ -33,6 +33,10 @@ export const MyDonationsScreen = () => {
             <PeopleProfileCard item={item} />
           )}
           keyExtractor={item => item.id.toString()}
+          contentContainerStyle={{
+            justifyContent: 'center',
+            paddingHorizontal: 8,
+          }}
         />
       </InnerContainer>
     </SafeAreaViewStatus>

@@ -17,6 +17,7 @@ import {Spacer} from '@src/components/layout/Spacer';
 import {ShelterItem} from '@src/types/shelter-api-types';
 import {DetailsCardItem} from '@src/components/organisms/details-card-item/DetailsCardItem';
 import {ImageBackgroundCard} from '@src/components/organisms/image-background-card/ImageBackgroundCard';
+
 export const HomeScreen = () => {
   const [newsData, setNewsData] = useState<MappedItem[]>([]);
   const [postcode, setPostcode] = useState<string>('');
@@ -71,14 +72,12 @@ export const HomeScreen = () => {
 
   const renderShelterItem = ({item}: {item: ShelterItem}) => {
     const input = item.photos?.[0].html_attributions[0];
-    console.log('🚀 ~ renderShelterItem ~ input:', input);
     const match = input?.match(/href="([^"]*)/);
     const url = match ? match[1] : null;
 
     return (
       <>
         <DetailsCardItem item={item} url={url} height="sm" />
-        <Spacer size={theme.space.sm} />
       </>
     );
   };
