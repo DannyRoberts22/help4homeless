@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
 import {Alert, Button} from 'react-native';
+import {useDispatch} from 'react-redux';
 import TextInput from '@src/components/utility/text-input/TextInput';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '@src/types/navigation-types';
@@ -10,6 +11,7 @@ import InputTextLabel from '@src/components/utility/input-text-label/InputTextLa
 import {theme} from '@src/theme';
 import {Spacer} from '@src/components/layout/Spacer';
 import {signUp, testFunction} from '@src/services/authServices';
+import {login} from '@src/store/redux/slices/userSlice';
 // import {useAppwriteContext} from '@src/providers/AppwriteContext';
 
 type SignupScreenNavigationProp = StackNavigationProp<RootStackParamList>;
@@ -19,6 +21,7 @@ export const SignupScreen = ({}: // navigation,
   navigation: SignupScreenNavigationProp;
 }) => {
   // const context = useAppwriteContext();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [secondPassword, setSecondPassword] = useState('');
@@ -28,24 +31,25 @@ export const SignupScreen = ({}: // navigation,
     secondPassword.length > 0 &&
     email.length > 0;
   console.log('🚀 ~ testFunction:', testFunction());
-  // const [name, setName] = useState('');
-  // const [phoneNumber, setPhoneNumber] = useState('');
+
+  const [name, setName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   return (
     <SafeAreaViewStatus>
       <InnerContainer>
-        {/* <InputTextLabel text="Name:" />
+        <InputTextLabel text="Name:" />
         <TextInput
           placeholder="Name"
           value={name}
           onChangeText={text => setName(text)}
-        /> */}
-        {/* <InputTextLabel text="Phone Number:" />
+        />
+        <InputTextLabel text="Phone Number:" />
         <TextInput
           placeholder="Phone number"
           keyboardType="numeric"
           value={phoneNumber}
           onChangeText={text => setPhoneNumber(text)}
-        /> */}
+        />
         <InputTextLabel text="Email:" />
         <TextInput
           placeholder="Email"
@@ -90,7 +94,9 @@ export const SignupScreen = ({}: // navigation,
             if (email && password) {
               signUp(email, password)
                 .then(() => {
-                  Alert.alert('User created');
+                  dispatch(
+                    login({name: name, email: email, phoneNumber: phoneNumber}),
+                  );
                 })
                 .catch(error => {
                   Alert.alert('Error', error.message);
