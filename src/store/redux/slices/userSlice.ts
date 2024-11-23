@@ -18,7 +18,18 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    login: (
+    loginUser: state => {
+      state.loggedIn = true;
+    },
+    logoutUser: state => {
+      state.name = '';
+      state.email = '';
+      state.loggedIn = false;
+    },
+    updateEmailUser: (state, action: PayloadAction<string>) => {
+      state.email = action.payload;
+    },
+    signUpUser: (
       state,
       action: PayloadAction<{name: string; email: string; phoneNumber: string}>,
     ) => {
@@ -27,16 +38,8 @@ const userSlice = createSlice({
       state.phoneNumber = action.payload.phoneNumber;
       state.loggedIn = true;
     },
-    logout: state => {
-      state.name = '';
-      state.email = '';
-      state.loggedIn = false;
-    },
-    updateEmail: (state, action: PayloadAction<string>) => {
-      state.email = action.payload;
-    },
   },
 });
 
-export const {login, logout, updateEmail} = userSlice.actions;
+export const {loginUser, logoutUser, updateEmailUser} = userSlice.actions;
 export default userSlice.reducer;

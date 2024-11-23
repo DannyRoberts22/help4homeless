@@ -6,7 +6,7 @@ import {
 } from '@react-navigation/bottom-tabs';
 import {DashboardScreen} from '@src/journeys/shelter/screens/dashboard-screen';
 import {ManageScreen} from '@src/journeys/shelter/screens/manage-screen';
-import {ProfileScreen} from '@src/journeys/shelter/screens/profile-screen';
+import {ProfileScreen} from '@src/journeys/shared/screens/profile-screen';
 import {theme} from '@src/theme';
 import screenNames from '@src/constants/screen-names';
 import {getMappedIcons} from '@src/utils/getMappedIcons';

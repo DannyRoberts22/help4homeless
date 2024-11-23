@@ -1,5 +1,4 @@
-import {Text, View} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {Text, View, TouchableOpacity} from 'react-native';
 import {styled} from 'styled-components/native';
 
 export const ScreenHeaderView = styled(View)`
@@ -18,8 +17,20 @@ export const ScreenTitle = styled(Text)`
   text-align: center;
 `;
 
-export const TouchableCloseContainer = styled(TouchableOpacity)`
+export const TouchableCloseButton = styled(TouchableOpacity)`
   position: absolute;
-  right: 16;
-  padding: 10;
+  right: 16px;
+  padding: 10px;
+`;
+
+export const CloseIcon = styled(Text)`
+  color: ${({theme}) => theme.colors.white};
+  font-size: ${({theme}) => theme.fontSizes.closeIcon};
+  font-weight: bold;
+`;
+
+export const AccountContainer = styled(View)`
+  position: absolute;
+  left: 16px;
+  padding-horizontal: 10px;
 `;

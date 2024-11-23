@@ -36,6 +36,10 @@ const screens = {
   AUTH_NAVIGATOR: {name: 'auth.navigator', key: 'auth.navigator'},
   ROOT_NAVIGATOR: {name: 'root.navigator', key: 'root.navigator'},
   MAIN_NAVIGATOR: {name: 'main.navigator', key: 'main.navigator'},
+  ACCOUNT_DRAWER_NAVIGATOR: {
+    name: 'account-drawer.navigator',
+    key: 'account-drawer.navigator',
+  },
 } as const;
 
 export type ScreenNames = {

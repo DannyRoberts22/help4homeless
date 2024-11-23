@@ -8,7 +8,7 @@ import ShelterUserNavigator from './shelter-user-navigator';
 const Stack = createStackNavigator<RootStackParamList>();
 
 const MainNavigator = () => {
-  const isGeneralUser = false;
+  const isGeneralUser = true;
   return (
     <Stack.Navigator
       screenOptions={{headerShown: false}}

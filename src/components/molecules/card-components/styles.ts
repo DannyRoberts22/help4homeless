@@ -3,7 +3,7 @@ import {ImageBackground, ImageProps, Text} from 'react-native';
 import {CardProps} from './types';
 
 export const CardContainer = styled.View<CardProps>`
-  width: ${({cardWidth}) => (cardWidth ? cardWidth : '90%')};
+  width: ${({cardWidth}) => (cardWidth ? `${cardWidth}px` : '90%')};
   margin-horizontal: 10px;
   border-radius: ${({theme}) => theme.borderRadiusSizing.md}px;
   overflow: hidden;

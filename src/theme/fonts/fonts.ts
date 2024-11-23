@@ -1,5 +1,6 @@
 export const fontSizes = {
   screenHeader: '24px',
+  closeIcon: '24px',
   subheading: '22px',
   arrowFlowTitle: '24px',
   arrowFlowDescription: '16px',

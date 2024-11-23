@@ -12,7 +12,11 @@ const AuthNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name={screenNames.LOGIN_SCREEN} component={LoginScreen} />
-      <Stack.Screen name={screenNames.SIGNUP_SCREEN} component={SignupScreen} />
+      <Stack.Screen
+        name={screenNames.SIGNUP_SCREEN}
+        component={SignupScreen}
+        options={{headerShown: true}}
+      />
       <Stack.Screen
         name={screenNames.FORGOTTON_PASSWORD_SCREEN}
         component={ForgottenPasswordScreen}

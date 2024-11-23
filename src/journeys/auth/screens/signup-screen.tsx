@@ -1,27 +1,29 @@
 import React, {useState} from 'react';
 import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
 import {Alert, Button} from 'react-native';
-import {useDispatch} from 'react-redux';
 import TextInput from '@src/components/utility/text-input/TextInput';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '@src/types/navigation-types';
-// import screenNames from '@src/constants/screen-names';
+import screenNames from '@src/constants/screen-names';
 import {InnerContainer} from '@src/components/layout/InnerContainer';
 import InputTextLabel from '@src/components/utility/input-text-label/InputTextLabel';
 import {theme} from '@src/theme';
 import {Spacer} from '@src/components/layout/Spacer';
-import {signUp, testFunction} from '@src/services/authServices';
-import {login} from '@src/store/redux/slices/userSlice';
+import {firebaseSignUp} from '@src/services/authServices';
+import {loginUser} from '@src/store/redux/slices/userSlice';
+import {AppDispatch} from '@src/store/store';
+import {useAppDispatch} from '@src/hooks/redux/reduxHooks';
 // import {useAppwriteContext} from '@src/providers/AppwriteContext';
 
 type SignupScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 
-export const SignupScreen = ({}: // navigation,
-{
+export const SignupScreen = ({
+  navigation,
+}: {
   navigation: SignupScreenNavigationProp;
 }) => {
   // const context = useAppwriteContext();
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useAppDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [secondPassword, setSecondPassword] = useState('');
@@ -30,7 +32,6 @@ export const SignupScreen = ({}: // navigation,
     password.length > 0 &&
     secondPassword.length > 0 &&
     email.length > 0;
-  console.log('🚀 ~ testFunction:', testFunction());
 
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -74,32 +75,19 @@ export const SignupScreen = ({}: // navigation,
           color={theme.colors.white}
           title="Sign Up"
           disabled={!isButtonDisabled}
-          // onPress={() => {
-          //   // context?.register(email, password, name).then(
-          //   // () => {
-          //   // Adjust the function call as necessary
-          //   if (email && password) {
-          //     signUp(email, password).then(() => {
-          //       // Adjust the function call as necessary
-          //       // navigation.replace(screenNames.MAIN_NAVIGATOR, {
-          //       //   screen: screenNames.HOME_SCREEN,
-          //       // });
-          //       Alert.alert('user created');
-          //       // }, // Adjust the function call as necessary
-          //       // )
-          //     });
-          //   }
-          // }}
           onPress={() => {
             if (email && password) {
-              signUp(email, password)
+              firebaseSignUp(email, password)
                 .then(() => {
-                  dispatch(
-                    login({name: name, email: email, phoneNumber: phoneNumber}),
-                  );
+                  dispatch(loginUser());
+                })
+                .then(() => {
+                  navigation.replace(screenNames.MAIN_NAVIGATOR, {
+                    screen: screenNames.HOME_SCREEN,
+                  });
                 })
                 .catch(error => {
-                  Alert.alert('Error', error.message);
+                  Alert.alert('Error', error.message); //TODO - replace with error component
                 });
             }
           }}

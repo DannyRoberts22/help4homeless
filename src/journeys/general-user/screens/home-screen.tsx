@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
 import {InnerContainer} from '@src/components/layout/InnerContainer';
 import mockNewsData from '../../../../mocks/newsData.json';
-import {ActivityIndicator, Button, Dimensions, View} from 'react-native';
+import {ActivityIndicator, Button, Dimensions} from 'react-native';
 import {
   HorizontalFlatListContainer,
   ShelterSearchContainer,
@@ -17,8 +17,12 @@ import {Spacer} from '@src/components/layout/Spacer';
 import {ShelterItem} from '@src/types/shelter-api-types';
 import {DetailsCardItem} from '@src/components/organisms/details-card-item/DetailsCardItem';
 import {ImageBackgroundCard} from '@src/components/organisms/image-background-card/ImageBackgroundCard';
+// import {useAppSelector} from '@src/hooks/redux/reduxHooks';
 
 export const HomeScreen = () => {
+  // const {loggedIn, name} = useAppSelector(state => state.user);
+  // console.log('🚀 ~ HomeScreen ~ name:', name);
+  // console.log('🚀 ~ HomeScreen ~ loggedIn:', loggedIn);
   const [newsData, setNewsData] = useState<MappedItem[]>([]);
   const [postcode, setPostcode] = useState<string>('');
 

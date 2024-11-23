@@ -10,7 +10,7 @@ export const PeopleProfileCardContainer = styled(CardContainer)`
 `;
 
 export const ProfileImage = styled(Image)`
-  width: 100;
+  width: 100px;
   height: 100%;
 `;
 

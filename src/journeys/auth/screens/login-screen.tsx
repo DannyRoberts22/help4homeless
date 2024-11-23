@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
-import {Alert, Button} from 'react-native';
+import {Button} from 'react-native';
 import TextInput from '@src/components/utility/text-input/TextInput';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '@src/types/navigation-types';
@@ -9,6 +9,9 @@ import {InnerContainer} from '@src/components/layout/InnerContainer';
 import {Spacer} from '@src/components/layout/Spacer';
 import {theme} from '@src/theme';
 import InputTextLabel from '@src/components/utility/input-text-label/InputTextLabel';
+import {firebaseLogin} from '@src/services/authServices';
+import {useAppDispatch, useAppSelector} from '@src/hooks/redux/reduxHooks';
+import {loginUser} from '@src/store/redux/slices/userSlice';
 // import {useAppwriteContext} from '@src/providers/AppwriteContext';
 
 type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList>;
@@ -20,8 +23,14 @@ export const LoginScreen = ({
 }) => {
   // const context = useAppwriteContext();
   const [email, setEmail] = useState('');
+  console.log('🚀 ~ email:', email);
   const [password, setPassword] = useState('');
+  console.log('🚀 ~ password:', password);
 
+  const {loggedIn} = useAppSelector(state => state.user);
+  console.log('🚀 ~ HomeScreen ~ loggedIn:', loggedIn);
+
+  const dispatch = useAppDispatch();
   return (
     <SafeAreaViewStatus>
       <InnerContainer>
@@ -42,12 +51,14 @@ export const LoginScreen = ({
           color={theme.colors.white}
           title="Login"
           onPress={() =>
-            // context?.login(email, password).then(() =>
-            //   navigation.replace(screenNames.MAIN_NAVIGATOR, {
-            //     screen: screenNames.HOME_SCREEN,
-            //   }),
-            // )
-            Alert.alert('Login', 'Login button pressed')
+            firebaseLogin(email, password)
+              .then(() => {
+                dispatch(loginUser());
+              })
+              .then(() =>
+                navigation.navigate(screenNames.ACCOUNT_DRAWER_NAVIGATOR),
+              )
+              .catch(error => console.error(error))
           }
         />
         <Spacer size={theme.space.md} />
