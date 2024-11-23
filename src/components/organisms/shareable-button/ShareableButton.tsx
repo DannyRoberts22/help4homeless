@@ -1,17 +1,19 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import {ButtonText} from './styles';
 
 export const ShareableButton = ({
   handler,
   text,
+  color,
 }: {
   handler: () => void;
-  text: String;
+  text: string;
+  color?: string;
 }) => {
   return (
     <TouchableOpacity onPress={handler}>
-      <ButtonText>{text}</ButtonText>
+      <ButtonText color={color}>{text}</ButtonText>
     </TouchableOpacity>
   );
 };

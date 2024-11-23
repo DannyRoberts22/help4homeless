@@ -7,7 +7,7 @@ import {Subheading} from '@src/components/molecules/subheading/Subheading';
 import {SectionTitle, Content} from '../styles/about-screen.styles';
 import {ScrollView} from 'react-native-gesture-handler';
 import {HowToUse} from '../modals/how-to-use-modal';
-import {ShareableButton} from '@src/components/organisms/button/Button';
+import {ShareableButton} from '@src/components/organisms/shareable-button/ShareableButton';
 
 export const AboutScreen = () => {
   const [showModal, setShowModal] = useState(false);

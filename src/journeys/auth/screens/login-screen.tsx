@@ -10,9 +10,8 @@ import {Spacer} from '@src/components/layout/Spacer';
 import {theme} from '@src/theme';
 import InputTextLabel from '@src/components/utility/input-text-label/InputTextLabel';
 import {firebaseLogin} from '@src/services/authServices';
-import {useAppDispatch, useAppSelector} from '@src/hooks/redux/reduxHooks';
+import {useAppDispatch} from '@src/hooks/redux/reduxHooks';
 import {loginUser} from '@src/store/redux/slices/userSlice';
-// import {useAppwriteContext} from '@src/providers/AppwriteContext';
 
 type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 
@@ -21,14 +20,8 @@ export const LoginScreen = ({
 }: {
   navigation: LoginScreenNavigationProp;
 }) => {
-  // const context = useAppwriteContext();
   const [email, setEmail] = useState('');
-  console.log('🚀 ~ email:', email);
   const [password, setPassword] = useState('');
-  console.log('🚀 ~ password:', password);
-
-  const {loggedIn} = useAppSelector(state => state.user);
-  console.log('🚀 ~ HomeScreen ~ loggedIn:', loggedIn);
 
   const dispatch = useAppDispatch();
   return (

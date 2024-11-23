@@ -10,10 +10,9 @@ import InputTextLabel from '@src/components/utility/input-text-label/InputTextLa
 import {theme} from '@src/theme';
 import {Spacer} from '@src/components/layout/Spacer';
 import {firebaseSignUp} from '@src/services/authServices';
-import {loginUser} from '@src/store/redux/slices/userSlice';
+import {signUpUser} from '@src/store/redux/slices/userSlice';
 import {AppDispatch} from '@src/store/store';
 import {useAppDispatch} from '@src/hooks/redux/reduxHooks';
-// import {useAppwriteContext} from '@src/providers/AppwriteContext';
 
 type SignupScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 
@@ -22,7 +21,6 @@ export const SignupScreen = ({
 }: {
   navigation: SignupScreenNavigationProp;
 }) => {
-  // const context = useAppwriteContext();
   const dispatch: AppDispatch = useAppDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -79,7 +77,7 @@ export const SignupScreen = ({
             if (email && password) {
               firebaseSignUp(email, password)
                 .then(() => {
-                  dispatch(loginUser());
+                  dispatch(signUpUser({email, name, phoneNumber}));
                 })
                 .then(() => {
                   navigation.replace(screenNames.MAIN_NAVIGATOR, {
@@ -90,6 +88,13 @@ export const SignupScreen = ({
                   Alert.alert('Error', error.message); //TODO - replace with error component
                 });
             }
+          }}
+        />
+        <Button
+          color={theme.colors.white}
+          title="Back to Login"
+          onPress={() => {
+            navigation.goBack();
           }}
         />
       </InnerContainer>

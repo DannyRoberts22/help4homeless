@@ -2,53 +2,45 @@ import React from 'react';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
-  DrawerItem,
+  DrawerItemList,
 } from '@react-navigation/drawer';
 import screenNames from '@src/constants/screen-names';
 import MainNavigator from './main-navigator';
-import {View, Button} from 'react-native';
+
+import {ProfileScreen} from '@src/journeys/shared/screens/profile-screen';
+import {AccountDrawerContent} from '@src/components/organisms/account-drawer-content/AccountDrawerContent';
+import {theme} from '@src/theme';
+import {useAppDispatch} from '@src/hooks/redux/reduxHooks';
 import {firebaseSignOut} from '@src/services/authServices';
 import {logoutUser} from '@src/store/redux/slices/userSlice';
-import {useAppDispatch} from '@src/hooks/redux/reduxHooks';
+import {Alert} from 'react-native';
+
 const Drawer = createDrawerNavigator();
 
-// Custom Drawer Content
 import {DrawerContentComponentProps} from '@react-navigation/drawer';
-import {ProfileScreen} from '@src/journeys/shared/screens/profile-screen';
 
-interface CustomDrawerContentProps extends DrawerContentComponentProps {}
-
-function CustomDrawerContent(props: CustomDrawerContentProps) {
+function CustomDrawerContent(props: DrawerContentComponentProps) {
   const dispatch = useAppDispatch();
+
   const handleSignOut = () => {
-    // Firebase sign out
     dispatch(logoutUser());
     firebaseSignOut()
       .then(() => {
         props.navigation.reset({
           index: 0,
-          routes: [{name: screenNames.AUTH_NAVIGATOR}],
+          routes: [{name: screenNames.AUTH_NAVIGATOR}], // Replace with your auth navigator screen
         });
       })
       .catch(error => {
         console.log('Error signing out:', error);
+        Alert.alert('Error', 'Failed to sign out. Please try again.');
       });
   };
 
   return (
     <DrawerContentScrollView {...props}>
-      {/* Default Drawer Items */}
-      <DrawerItem
-        label="Home"
-        onPress={() => props.navigation.navigate(screenNames.MAIN_NAVIGATOR)}
-      />
-      <DrawerItem
-        label="Profile"
-        onPress={() => props.navigation.navigate(screenNames.PROFILE_SCREEN)} // Account Screen
-      />
-      <View style={{marginTop: 20, marginHorizontal: 10}}>
-        <Button title="Sign Out" color="red" onPress={handleSignOut} />
-      </View>
+      <DrawerItemList {...props} />
+      <AccountDrawerContent handleSignOut={handleSignOut} />
     </DrawerContentScrollView>
   );
 }
@@ -57,18 +49,30 @@ export const AccountDrawerNavigator = () => {
   return (
     <Drawer.Navigator
       initialRouteName={screenNames.MAIN_NAVIGATOR}
-      // drawerContent={props => <DrawerContent {...props} />}
       drawerContent={props => <CustomDrawerContent {...props} />}
       screenOptions={{
         headerShown: false,
+        drawerStyle: {
+          backgroundColor: theme.colors.primary,
+          width: 240,
+        },
+        drawerItemStyle: {
+          backgroundColor: '#9dd3c8',
+          borderColor: 'black',
+          opacity: 0.8,
+        },
+        drawerActiveTintColor: 'white',
+        drawerInactiveTintColor: 'white',
       }}>
       <Drawer.Screen
         name={screenNames.MAIN_NAVIGATOR}
         component={MainNavigator}
+        options={{title: 'Home'}}
       />
       <Drawer.Screen
         name={screenNames.PROFILE_SCREEN}
         component={ProfileScreen}
+        options={{title: 'Profile'}}
       />
     </Drawer.Navigator>
   );

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {InnerContainer} from '@src/components/layout/InnerContainer';
 import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
-import {ShareableButton} from '@src/components/organisms/button/Button';
+import {ShareableButton} from '@src/components/organisms/shareable-button/ShareableButton';
 import TextInput from '@src/components/utility/text-input/TextInput';
 import mockHomelessUsers from '../../../../mocks/homelessUsers.json';
 import {Alert} from 'react-native';

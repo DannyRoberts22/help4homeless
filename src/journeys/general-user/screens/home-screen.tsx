@@ -17,12 +17,8 @@ import {Spacer} from '@src/components/layout/Spacer';
 import {ShelterItem} from '@src/types/shelter-api-types';
 import {DetailsCardItem} from '@src/components/organisms/details-card-item/DetailsCardItem';
 import {ImageBackgroundCard} from '@src/components/organisms/image-background-card/ImageBackgroundCard';
-// import {useAppSelector} from '@src/hooks/redux/reduxHooks';
 
 export const HomeScreen = () => {
-  // const {loggedIn, name} = useAppSelector(state => state.user);
-  // console.log('🚀 ~ HomeScreen ~ name:', name);
-  // console.log('🚀 ~ HomeScreen ~ loggedIn:', loggedIn);
   const [newsData, setNewsData] = useState<MappedItem[]>([]);
   const [postcode, setPostcode] = useState<string>('');
 
@@ -60,6 +56,8 @@ export const HomeScreen = () => {
 
   useEffect(() => {
     getNews()
+      // TODO: FIND A BETTER WAY TO HANDLE THIS
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       .then((response: NewsData) => {
         // handleSetNewsData(response);
         handleSetNewsData(mockNewsData);

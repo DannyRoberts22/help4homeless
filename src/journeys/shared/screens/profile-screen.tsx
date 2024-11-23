@@ -7,7 +7,7 @@ import {
   ProfileContent,
   ProfileTitle,
 } from '../styles/profile-screen.styles';
-import {ShareableButton} from '@src/components/organisms/button/Button';
+import {ShareableButton} from '@src/components/organisms/shareable-button/ShareableButton';
 import {Subheading} from '@src/components/molecules/subheading/Subheading';
 import {Spacer} from '@src/components/layout/Spacer';
 import {theme} from '@src/theme';
@@ -43,15 +43,6 @@ export const ProfileScreen = () => {
               Alert.alert('Update');
             }}
             text="Update"
-          />
-          <Spacer size={theme.space.lg} />
-          <Spacer size={theme.space.lg} />
-
-          <ShareableButton
-            handler={function (): void {
-              Alert.alert('Sign Out');
-            }}
-            text="Sign Out"
           />
           <Spacer size={theme.space.lg} />
           <Spacer size={theme.space.lg} />
