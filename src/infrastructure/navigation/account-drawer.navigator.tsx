@@ -13,7 +13,7 @@ import {theme} from '@src/theme';
 import {useAppDispatch} from '@src/hooks/redux/reduxHooks';
 import {firebaseSignOut} from '@src/services/authServices';
 import {logoutUser} from '@src/store/redux/slices/userSlice';
-import {Alert} from 'react-native';
+import {Alert, Dimensions} from 'react-native';
 
 const Drawer = createDrawerNavigator();
 
@@ -54,7 +54,7 @@ export const AccountDrawerNavigator = () => {
         headerShown: false,
         drawerStyle: {
           backgroundColor: theme.colors.primary,
-          width: 240,
+          width: Dimensions.get('window').width * 0.8,
         },
         drawerItemStyle: {
           backgroundColor: '#9dd3c8',
