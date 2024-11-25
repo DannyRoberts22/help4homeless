@@ -67,12 +67,10 @@ export const AccountDrawerNavigator = () => {
       <Drawer.Screen
         name={screenNames.MAIN_NAVIGATOR}
         component={MainNavigator}
-        options={{title: 'Home'}}
       />
       <Drawer.Screen
         name={screenNames.PROFILE_SCREEN}
         component={ProfileScreen}
-        options={{title: 'Profile'}}
       />
     </Drawer.Navigator>
   );

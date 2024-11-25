@@ -1,9 +1,9 @@
 import {styled} from 'styled-components/native';
 
 export const DonationAmount = styled.Text`
-  fontsize: ${({theme}) => theme.fontSizes.subheading};
-  padding-top: 16;
-  padding-bottom: 16;
+  font-size: ${({theme}) => theme.fontSizes.subheading};
+  padding-top: 16px;
+  padding-bottom: 16px;
   color: ${({theme}) => theme.colors.white};
   font-weight: bold;
   text-align: center;

@@ -1,5 +1,5 @@
 export type PeopleDonations = {
-  id: number;
+  login: {uuid: string};
   name: {
     first: string;
   };

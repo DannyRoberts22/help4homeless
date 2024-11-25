@@ -32,7 +32,9 @@ const ShelterUserNavigator = () => {
   };
 
   return (
-    <Tab.Navigator screenOptions={getTabBarScreenOptions}>
+    <Tab.Navigator
+      screenOptions={getTabBarScreenOptions}
+      initialRouteName={screenNames.DASHBOARD_SCREEN}>
       <Tab.Screen
         name={screenNames.DASHBOARD_SCREEN}
         component={DashboardScreen}

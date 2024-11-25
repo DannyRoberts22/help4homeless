@@ -32,7 +32,7 @@ export const MyDonationsScreen = () => {
           renderItem={({item}: {item: PeopleDonations}) => (
             <PeopleProfileCard item={item} />
           )}
-          keyExtractor={item => item.id.toString()}
+          keyExtractor={item => item.login.uuid.toString()}
           contentContainerStyle={{
             justifyContent: 'center',
             paddingHorizontal: 8,

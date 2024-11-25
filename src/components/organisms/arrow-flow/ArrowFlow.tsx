@@ -16,7 +16,7 @@ const ArrowFlow = ({content}: {content: Item[]}) => {
   return content.map((item, index) => {
     const isLastItem = index === content.length - 1;
     return (
-      <ArrowFlowContainer>
+      <ArrowFlowContainer key={`arrow-flow-section-${index}`}>
         <ArrowFlowTitle>{item.title}</ArrowFlowTitle>
         <ArrowFlowDescription>{item.description}</ArrowFlowDescription>
         {!isLastItem && (

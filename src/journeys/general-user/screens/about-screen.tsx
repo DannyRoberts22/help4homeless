@@ -19,10 +19,12 @@ export const AboutScreen = () => {
         <ScrollView>
           <Subheading text={aboutData.aboutScreen.title} />
           <Content>{aboutData.aboutScreen.intro}</Content>
-          {aboutData.aboutScreen.sections.map(item => (
+          {aboutData.aboutScreen.sections.map((item, index) => (
             <>
-              <SectionTitle>{item.sectionTitle}</SectionTitle>
-              <Content>{item.content}</Content>
+              <SectionTitle key={`section-title-${index}`}>
+                {item.sectionTitle}
+              </SectionTitle>
+              <Content key="section-content">{item.content}</Content>
             </>
           ))}
           <ShareableButton

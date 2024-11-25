@@ -12,7 +12,7 @@ export type RootStackParamList = {
   [screenNames.QR_SCAN_SCREEN]: undefined;
   [screenNames.MY_DONATION_SCREEN]: undefined;
   [screenNames.NOTIFICATION_SCREEN]: undefined;
-  [screenNames.MAIN_NAVIGATOR]: {screen: string};
+  [screenNames.MAIN_NAVIGATOR]: undefined;
   [screenNames.AUTH_NAVIGATOR]: undefined;
   [screenNames.ACCOUNT_DRAWER_NAVIGATOR]: undefined;
   [screenNames.GENERAL_USER_NAVIGATOR]: undefined;

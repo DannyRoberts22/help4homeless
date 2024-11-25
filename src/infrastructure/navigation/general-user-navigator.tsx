@@ -32,7 +32,9 @@ const GeneralUserNavigator = () => {
     };
   };
   return (
-    <Tab.Navigator screenOptions={getTabBarScreenOptions}>
+    <Tab.Navigator
+      screenOptions={getTabBarScreenOptions}
+      initialRouteName={screenNames.HOME_SCREEN}>
       <Tab.Screen name={screenNames.HOME_SCREEN} component={HomeScreen} />
       <Tab.Screen name={screenNames.QR_SCAN_SCREEN} component={QRScanScreen} />
       <Tab.Screen

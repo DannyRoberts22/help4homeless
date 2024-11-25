@@ -5,6 +5,7 @@ interface UserState {
   email: string;
   phoneNumber: string;
   loggedIn: boolean;
+  isShelterUser: boolean;
 }
 
 const initialState: UserState = {
@@ -12,6 +13,7 @@ const initialState: UserState = {
   email: '',
   phoneNumber: '',
   loggedIn: false,
+  isShelterUser: false,
 };
 
 const userSlice = createSlice({
@@ -31,12 +33,18 @@ const userSlice = createSlice({
     },
     signUpUser: (
       state,
-      action: PayloadAction<{name: string; email: string; phoneNumber: string}>,
+      action: PayloadAction<{
+        name: string;
+        email: string;
+        phoneNumber: string;
+        isShelterUser: boolean;
+      }>,
     ) => {
       state.name = action.payload.name;
       state.email = action.payload.email;
       state.phoneNumber = action.payload.phoneNumber;
       state.loggedIn = true;
+      state.isShelterUser = action.payload.isShelterUser;
     },
   },
 });

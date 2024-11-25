@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
 import {Alert, Button} from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
 import TextInput from '@src/components/utility/text-input/TextInput';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '@src/types/navigation-types';
@@ -33,6 +34,8 @@ export const SignupScreen = ({
 
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [isShelterUserSelected, setIsShelterUserSelected] = useState(false);
+
   return (
     <SafeAreaViewStatus>
       <InnerContainer>
@@ -68,6 +71,13 @@ export const SignupScreen = ({
           secureTextEntry
           onChangeText={text => setSecondPassword(text)}
         />
+        <InputTextLabel text="Are you a shelter or Hostel?" />
+        <CheckBox
+          value={isShelterUserSelected}
+          onValueChange={setIsShelterUserSelected}
+          style={{backgroundColor: 'white'}}
+          boxType="square"
+        />
         <Spacer size={theme.space.lg} />
         <Button
           color={theme.colors.white}
@@ -77,12 +87,17 @@ export const SignupScreen = ({
             if (email && password) {
               firebaseSignUp(email, password)
                 .then(() => {
-                  dispatch(signUpUser({email, name, phoneNumber}));
+                  dispatch(
+                    signUpUser({
+                      email,
+                      name,
+                      phoneNumber,
+                      isShelterUser: isShelterUserSelected,
+                    }),
+                  );
                 })
                 .then(() => {
-                  navigation.replace(screenNames.MAIN_NAVIGATOR, {
-                    screen: screenNames.HOME_SCREEN,
-                  });
+                  navigation.navigate(screenNames.ACCOUNT_DRAWER_NAVIGATOR);
                 })
                 .catch(error => {
                   Alert.alert('Error', error.message); //TODO - replace with error component
