@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
 import {InnerContainer} from '@src/components/layout/InnerContainer';
 import mockNewsData from '../../../../mocks/newsData.json';
-import {ActivityIndicator, Button, Dimensions} from 'react-native';
+import {ActivityIndicator, Dimensions} from 'react-native';
 import {
   HorizontalFlatListContainer,
   ShelterSearchContainer,
@@ -17,6 +17,7 @@ import {Spacer} from '@src/components/layout/Spacer';
 import {ShelterItem} from '@src/types/shelter-api-types';
 import {DetailsCardItem} from '@src/components/organisms/details-card-item/DetailsCardItem';
 import {ImageBackgroundCard} from '@src/components/organisms/image-background-card/ImageBackgroundCard';
+import {ShareableButton} from '@src/components/organisms/shareable-button/ShareableButton';
 
 export const HomeScreen = () => {
   const [newsData, setNewsData] = useState<MappedItem[]>([]);
@@ -117,10 +118,11 @@ export const HomeScreen = () => {
                 showError={shelterError}
                 errorText="Please enter a valid postcode"
               />
-              <Button
-                onPress={getHomelessShelters}
-                title="Find your nearest shelters"
-                color={theme.colors.white}
+              <Spacer size={theme.space.lg} />
+              <ShareableButton
+                handler={getHomelessShelters}
+                text="Find your nearest shelters"
+                color="white"
               />
             </ShelterSearchContainer>
             <FlatList

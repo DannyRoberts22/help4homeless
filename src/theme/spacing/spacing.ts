@@ -10,4 +10,5 @@ export const space = {
   lg: '32px',
   xl: '40px',
   xxl: '64px',
+  xxxl: '128px',
 } as const;

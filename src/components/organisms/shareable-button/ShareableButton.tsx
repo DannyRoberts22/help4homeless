@@ -6,13 +6,15 @@ export const ShareableButton = ({
   handler,
   text,
   color,
+  disabled,
 }: {
   handler: () => void;
   text: string;
   color?: string;
+  disabled?: boolean;
 }) => {
   return (
-    <TouchableOpacity onPress={handler}>
+    <TouchableOpacity onPress={handler} disabled={disabled}>
       <ButtonText color={color}>{text}</ButtonText>
     </TouchableOpacity>
   );

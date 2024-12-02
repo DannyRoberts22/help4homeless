@@ -2293,7 +2293,9 @@ PODS:
     - React-Core
   - react-native-camera/RN (4.2.1):
     - React-Core
-  - react-native-cameraroll (4.1.2):
+  - react-native-cameraroll (7.9.0):
+    - glog
+    - RCT-Folly (= 2022.05.16.00)
     - React-Core
   - react-native-config (1.5.3):
     - react-native-config/App (= 1.5.3)
@@ -2569,7 +2571,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
   - react-native-camera (from `../node_modules/react-native-camera`)
-  - "react-native-cameraroll (from `../node_modules/@react-native-community/cameraroll`)"
+  - "react-native-cameraroll (from `../node_modules/@react-native-camera-roll/camera-roll`)"
   - react-native-config (from `../node_modules/react-native-config`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
@@ -2698,7 +2700,7 @@ EXTERNAL SOURCES:
   react-native-camera:
     :path: "../node_modules/react-native-camera"
   react-native-cameraroll:
-    :path: "../node_modules/@react-native-community/cameraroll"
+    :path: "../node_modules/@react-native-camera-roll/camera-roll"
   react-native-config:
     :path: "../node_modules/react-native-config"
   react-native-safe-area-context:
@@ -2825,7 +2827,7 @@ SPEC CHECKSUMS:
   React-logger: 3eb80a977f0d9669468ef641a5e1fabbc50a09ec
   React-Mapbuffer: d81d930c1b7f4db284e1d721fe7fdc99230ca108
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
-  react-native-cameraroll: 2957f2bce63ae896a848fbe0d5352c1bd4d20866
+  react-native-cameraroll: 6c4361d6c46a95de1bbea1b044e408cefe5ce2e3
   react-native-config: 8f7283449bbb048902f4e764affbbf24504454af
   react-native-safe-area-context: 851c62c48dce80ccaa5637b6aa5991a1bc36eca9
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457

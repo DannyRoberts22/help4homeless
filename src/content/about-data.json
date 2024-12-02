@@ -5,11 +5,13 @@
     "sections": [
       {
         "sectionTitle": "What We Do",
-        "content": "Help partners with homeless shelters and outreach organizations to provide individuals experiencing homelessness with unique, scannable QR codes. These codes allow anyone with the app to scan and securely donate funds that directly support the individual. All donations are managed through local shelters, ensuring that the funds are used to provide essential resources such as meals, clothing, medical care, and temporary housing."
+        "content": "Help partners with homeless shelters and outreach organizations to provide individuals experiencing homelessness with unique, scannable QR codes. These codes allow anyone with the app to scan and securely donate funds that directly support the individual. All donations are managed through local shelters, ensuring that the funds are used to provide essential resources such as meals, clothing, medical care, and temporary housing.",
+        "id": 1
       },
       {
         "sectionTitle": "Who It Benefits",
-        "content": "Your donations directly support individuals on the street, helping them meet immediate needs while reducing financial barriers to long-term assistance. By working through trusted local shelters, we ensure that each donation is used to offer meaningful aid and personalized support to those in need."
+        "content": "Your donations directly support individuals on the street, helping them meet immediate needs while reducing financial barriers to long-term assistance. By working through trusted local shelters, we ensure that each donation is used to offer meaningful aid and personalized support to those in need.",
+        "id": 2
       }
     ],
     "closing": "Thank you for joining us in creating a network of support and compassion for those experiencing homelessness. Together, we're making it easier for everyone to give back and help build a brighter future for all."

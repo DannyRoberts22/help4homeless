@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
-import {Button} from 'react-native';
 import TextInput from '@src/components/utility/text-input/TextInput';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '@src/types/navigation-types';
@@ -12,6 +11,7 @@ import InputTextLabel from '@src/components/utility/input-text-label/InputTextLa
 import {firebaseLogin} from '@src/services/authServices';
 import {useAppDispatch} from '@src/hooks/redux/reduxHooks';
 import {loginUser} from '@src/store/redux/slices/userSlice';
+import {ShareableButton} from '@src/components/organisms/shareable-button/ShareableButton';
 
 type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 
@@ -40,10 +40,11 @@ export const LoginScreen = ({
           value={password}
           onChangeText={text => setPassword(text)}
         />
-        <Button
-          color={theme.colors.white}
-          title="Login"
-          onPress={() =>
+        <Spacer size={theme.space.xxl} />
+        <ShareableButton
+          color="white"
+          text="Login"
+          handler={() =>
             firebaseLogin(email, password)
               .then(() => {
                 dispatch(loginUser());
@@ -54,20 +55,19 @@ export const LoginScreen = ({
               .catch(error => console.error(error))
           }
         />
-        <Spacer size={theme.space.md} />
-        <Button
-          color={theme.colors.white}
-          title="Forgot Password?"
-          onPress={() =>
+        <Spacer size={theme.space.lg} />
+        <ShareableButton
+          color="white"
+          text="Forgot Password?"
+          handler={() =>
             navigation.navigate(screenNames.FORGOTTON_PASSWORD_SCREEN)
           }
         />
-        <Spacer size={theme.space.lg} />
-        <Spacer size={theme.space.lg} />
-        <Button
-          color={theme.colors.white}
-          title="Sign Up"
-          onPress={() => navigation.navigate(screenNames.SIGNUP_SCREEN)}
+        <Spacer size={theme.space.xxl} />
+        <ShareableButton
+          color="white"
+          text="Sign Up"
+          handler={() => navigation.navigate(screenNames.SIGNUP_SCREEN)}
         />
       </InnerContainer>
     </SafeAreaViewStatus>

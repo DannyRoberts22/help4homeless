@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^2.1.0",
-    "@react-native-community/cameraroll": "^4.1.2",
+    "@react-native-camera-roll/camera-roll": "^7.9.0",
     "@react-native-community/checkbox": "^0.5.17",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-firebase/app": "21.5.0",

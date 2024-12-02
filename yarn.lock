@@ -2014,10 +2014,10 @@
   dependencies:
     merge-options "^3.0.4"
 
-"@react-native-community/cameraroll@^4.1.2":
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/@react-native-community/cameraroll/-/cameraroll-4.1.2.tgz#489c6bb6137571540d93c543d5fcf8c652b548ec"
-  integrity sha512-jkdhMByMKD2CZ/5MPeBieYn8vkCfC4MOTouPpBpps3I8N6HUYJk+1JnDdktVYl2WINnqXpQptDA2YptVyifYAg==
+"@react-native-camera-roll/camera-roll@^7.9.0":
+  version "7.9.0"
+  resolved "https://registry.yarnpkg.com/@react-native-camera-roll/camera-roll/-/camera-roll-7.9.0.tgz#7b3d199b073e9f63d49852c44456c4fa0aa27e90"
+  integrity sha512-Ra0lB1G2H11MzL5aIH3bwlxU1zaHGSZeRs4lBXLBO64Ai1gUgZPR7TYgKDeeRPzNPtSbZKmzs+fuZ/7XoCf1SA==
 
 "@react-native-community/checkbox@^0.5.17":
   version "0.5.17"
