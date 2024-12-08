@@ -11,7 +11,7 @@ import {ProfileScreen} from '@src/journeys/shared/screens/profile-screen';
 import {AccountDrawerContent} from '@src/components/organisms/account-drawer-content/AccountDrawerContent';
 import {theme} from '@src/theme';
 import {useAppDispatch} from '@src/hooks/redux/reduxHooks';
-import {firebaseSignOut} from '@src/services/authServices';
+import {firebaseSignOut} from '@src/api/auth-services';
 import {logoutUser} from '@src/store/redux/slices/userSlice';
 import {Alert, Dimensions, Text} from 'react-native';
 

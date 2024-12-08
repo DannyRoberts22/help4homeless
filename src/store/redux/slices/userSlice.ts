@@ -1,22 +1,22 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {UserType} from '@src/services/types';
+import {UserType} from '@src/types/auth-services-types';
 
 interface UserState {
-  firstname: string;
+  firstName: string;
   surname: string;
   email: string;
   phoneNumber: string;
   loggedIn: boolean;
-  isShelterUser: UserType | undefined;
+  userType: UserType | undefined;
 }
 
 const initialState: UserState = {
-  firstname: '',
+  firstName: '',
   surname: '',
   email: '',
   phoneNumber: '',
   loggedIn: false,
-  isShelterUser: undefined,
+  userType: undefined,
 };
 
 const userSlice = createSlice({
@@ -26,14 +26,14 @@ const userSlice = createSlice({
     loginUser: (
       state,
       action: PayloadAction<{
-        isShelterUser: UserType | undefined;
+        userType: UserType | undefined;
       }>,
     ) => {
       state.loggedIn = true;
-      state.isShelterUser = action.payload.isShelterUser;
+      state.userType = action.payload.userType;
     },
     logoutUser: state => {
-      state.firstname = '';
+      state.firstName = '';
       state.surname = '';
       state.email = '';
       state.loggedIn = false;
@@ -44,23 +44,31 @@ const userSlice = createSlice({
     signUpUser: (
       state,
       action: PayloadAction<{
-        firstname: string;
+        firstName: string;
         surname: string;
         email: string;
         phoneNumber: string;
-        isShelterUser: UserType | undefined;
+        userType: UserType | undefined;
       }>,
     ) => {
-      state.firstname = action.payload.firstname;
+      state.firstName = action.payload.firstName;
       state.surname = action.payload.surname;
       state.email = action.payload.email;
       state.phoneNumber = action.payload.phoneNumber;
       state.loggedIn = true;
-      state.isShelterUser = action.payload.isShelterUser;
+      state.userType = action.payload.userType;
+    },
+    deleteUser: state => {
+      state.firstName = '';
+      state.surname = '';
+      state.email = '';
+      state.phoneNumber = '';
+      state.loggedIn = false;
+      state.userType = undefined;
     },
   },
 });
 
-export const {loginUser, logoutUser, updateEmailUser, signUpUser} =
+export const {loginUser, logoutUser, updateEmailUser, signUpUser, deleteUser} =
   userSlice.actions;
 export default userSlice.reducer;

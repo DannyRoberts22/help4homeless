@@ -2,7 +2,7 @@ import {InnerContainer} from '@src/components/layout/InnerContainer';
 import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
 import React, {useEffect, useState} from 'react';
 import {Subheading} from '@src/components/molecules/subheading/Subheading';
-import {getPeopleDonations} from '@src/api/getPeopleDonations';
+import {getPeopleDonations} from '@src/api/get-people-donations';
 import {FlatList} from 'react-native-gesture-handler';
 import {PeopleDonations} from '@src/types/people-donations-api-types';
 import {PeopleProfileCard} from '@src/components/organisms/people-profile-card/PeopleProfileCard';

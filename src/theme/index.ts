@@ -1,6 +1,6 @@
 import {colors} from './colors/colors';
 import {space} from './spacing/spacing';
-import {fontSizes} from './fonts/fonts';
+import {fontSizes, fontStyles} from './fonts/fonts';
 import {
   imageSizing,
   cardContainerSizing,
@@ -14,4 +14,5 @@ export const theme = {
   imageSizing,
   cardContainerSizing,
   borderRadiusSizing,
+  fontStyles,
 };

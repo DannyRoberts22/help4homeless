@@ -8,7 +8,7 @@ import {theme} from '@src/theme';
 import {RootStackParamList} from '@src/types/navigation-types';
 import React from 'react';
 import {ShareableButton} from '@src/components/organisms/shareable-button/ShareableButton';
-import {firebaseResetPassword} from '@src/services/authServices';
+import {firebaseResetPassword} from '@src/api/auth-services';
 import {Spacer} from '@src/components/layout/Spacer';
 import {Alert} from 'react-native';
 

@@ -8,10 +8,11 @@ import {InnerContainer} from '@src/components/layout/InnerContainer';
 import {Spacer} from '@src/components/layout/Spacer';
 import {theme} from '@src/theme';
 import InputTextLabel from '@src/components/utility/input-text-label/InputTextLabel';
-import {firebaseLogin} from '@src/services/authServices';
-import {useAppDispatch, useAppSelector} from '@src/hooks/redux/reduxHooks';
+import {firebaseLogin} from '@src/api/auth-services';
+import {useAppDispatch} from '@src/hooks/redux/reduxHooks';
 import {loginUser} from '@src/store/redux/slices/userSlice';
 import {ShareableButton} from '@src/components/organisms/shareable-button/ShareableButton';
+import {Text} from 'react-native';
 
 type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 
@@ -22,11 +23,18 @@ export const LoginScreen = ({
 }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [errors, setErrors] = useState<{[key: string]: string}>({});
   const dispatch = useAppDispatch();
 
-  const {loggedIn} = useAppSelector(state => state.user);
-  console.log('loggenInLogin', loggedIn);
+  const validate = () => {
+    const newErrors: {[key: string]: string} = {};
+    if (!email) newErrors.email = 'Email is required';
+    if (!password) newErrors.password = 'Password is required';
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const errorText = theme.fontStyles.errorText;
   return (
     <SafeAreaViewStatus>
       <InnerContainer>
@@ -38,6 +46,7 @@ export const LoginScreen = ({
           autoFocus={true}
           keyboardType="email-address"
         />
+        {errors.email && <Text style={errorText}>{errors.email}</Text>}
         <InputTextLabel text="Password:" />
         <TextInput
           placeholder="Password"
@@ -45,20 +54,25 @@ export const LoginScreen = ({
           value={password}
           onChangeText={text => setPassword(text)}
         />
+        {errors.password && <Text style={errorText}>{errors.password}</Text>}
         <Spacer size={theme.space.xxl} />
         <ShareableButton
           color="white"
           text="Login"
-          handler={() =>
-            firebaseLogin(email, password)
-              .then(userData => {
-                dispatch(loginUser({isShelterUser: userData?.userType}));
-              })
-              .then(() =>
-                navigation.navigate(screenNames.ACCOUNT_DRAWER_NAVIGATOR),
-              )
-              .catch(error => console.error(error))
-          }
+          handler={() => {
+            if (validate()) {
+              firebaseLogin(email, password)
+                .then(userData => {
+                  dispatch(loginUser({userType: userData?.userType}));
+                  setEmail('');
+                  setPassword('');
+                })
+                .then(() =>
+                  navigation.navigate(screenNames.ACCOUNT_DRAWER_NAVIGATOR),
+                )
+                .catch(error => console.error(error));
+            }
+          }}
         />
         <Spacer size={theme.space.lg} />
         <ShareableButton

@@ -14,3 +14,11 @@ export const fontSizes = {
   ProfileContent: '14px',
   homelessUserDetails: '16px',
 };
+
+export const fontStyles = {
+  errorText: {
+    color: 'red',
+    fontSize: 14,
+    marginTop: 5,
+  },
+};

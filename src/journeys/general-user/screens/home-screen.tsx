@@ -8,9 +8,9 @@ import {
   ShelterSearchContainer,
 } from '../styles/home-screen.styles';
 import {FlatList} from 'react-native-gesture-handler';
-import {getNews} from '@src/api/getNews';
+import {getNews} from '@src/api/get-news';
 import {theme} from '@src/theme';
-import {getHomelessShelterList} from '@src/api/getHomelessShelterList';
+import {getHomelessShelterList} from '@src/api/get-homeless-shelter-list';
 import {MappedItem, NewsData} from '@src/types/news-api-types';
 import TextInput from '@src/components/utility/text-input/TextInput';
 import {Spacer} from '@src/components/layout/Spacer';

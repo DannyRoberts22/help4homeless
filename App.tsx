@@ -7,7 +7,7 @@ import React, {useEffect} from 'react';
 import {PersistGate} from 'redux-persist/integration/react';
 import {Provider} from 'react-redux';
 import {store, persistor} from './src/store/store';
-import {Navigation} from './src/infrastructure/navigation/root-navigator';
+import {Navigation} from './src/navigation/root-navigator';
 import {ThemeProvider} from 'styled-components';
 import {theme} from './src/theme';
 import CustomStatusBar from './src/components/layout/CustomStatusBar';
