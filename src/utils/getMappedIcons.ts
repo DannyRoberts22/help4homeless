@@ -14,7 +14,7 @@ const getScreenTitle = (key: ScreenNameKey): string => {
 export const getMappedIcons = (route: {route: {name: string}}) => {
   return {
     iconName: getIconName(route?.route?.name as keyof typeof mapScreenIcons),
-    size: 25,
+    size: 22,
     color: theme.colors.white,
     title: getScreenTitle(route?.route?.name as keyof typeof mapScreenIcons),
   };

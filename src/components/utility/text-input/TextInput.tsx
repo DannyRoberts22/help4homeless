@@ -13,6 +13,7 @@ type TextInputProps = {
   autoCorrect?: boolean;
   errorText?: string;
   showError?: boolean;
+  autoFocus?: boolean;
 };
 const TextInput = ({
   placeholder,
@@ -23,6 +24,7 @@ const TextInput = ({
   onChangeText,
   errorText,
   showError,
+  autoFocus,
 }: TextInputProps) => {
   return (
     <>
@@ -34,6 +36,7 @@ const TextInput = ({
         autoCorrect={autoCorrect}
         onChangeText={onChangeText}
         showError={showError}
+        autoFocus={autoFocus}
       />
       {showError && errorText && <InputTextLabel text={errorText} />}
     </>

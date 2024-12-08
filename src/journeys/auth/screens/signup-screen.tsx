@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
-import {Alert, Button} from 'react-native';
+import {Alert} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import TextInput from '@src/components/utility/text-input/TextInput';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -14,6 +14,8 @@ import {firebaseSignUp} from '@src/services/authServices';
 import {signUpUser} from '@src/store/redux/slices/userSlice';
 import {AppDispatch} from '@src/store/store';
 import {useAppDispatch} from '@src/hooks/redux/reduxHooks';
+import {ShareableButton} from '@src/components/organisms/shareable-button/ShareableButton';
+import {UserOptionType} from '@src/services/types';
 
 type SignupScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 
@@ -32,18 +34,27 @@ export const SignupScreen = ({
     secondPassword.length > 0 &&
     email.length > 0;
 
-  const [name, setName] = useState('');
+  const [firstname, setFirstname] = useState('');
+  const [surname, setSurname] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [isShelterUserSelected, setIsShelterUserSelected] = useState(false);
 
   return (
     <SafeAreaViewStatus>
       <InnerContainer>
-        <InputTextLabel text="Name:" />
+        <InputTextLabel text="First Name:" />
         <TextInput
-          placeholder="Name"
-          value={name}
-          onChangeText={text => setName(text)}
+          placeholder="First Name"
+          value={firstname}
+          onChangeText={text => setFirstname(text)}
+          autoFocus={true}
+        />
+        <InputTextLabel text="Surname:" />
+        <TextInput
+          placeholder="Surname"
+          value={surname}
+          onChangeText={text => setSurname(text)}
+          autoFocus={true}
         />
         <InputTextLabel text="Phone Number:" />
         <TextInput
@@ -59,7 +70,7 @@ export const SignupScreen = ({
           onChangeText={text => setEmail(text)}
         />
         <InputTextLabel text="Password:" />
-        <TextInput
+        <TextInput //TODO - Add rules for password
           placeholder="Password"
           secureTextEntry
           value={password}
@@ -78,21 +89,29 @@ export const SignupScreen = ({
           style={{backgroundColor: 'white'}}
           boxType="square"
         />
-        <Spacer size={theme.space.lg} />
-        <Button
-          color={theme.colors.white}
-          title="Sign Up"
+        <ShareableButton
+          color="white"
+          text="Sign Up"
           disabled={!isButtonDisabled}
-          onPress={() => {
+          handler={() => {
             if (email && password) {
-              firebaseSignUp(email, password)
+              firebaseSignUp({
+                email,
+                password,
+                userType: isShelterUserSelected
+                  ? UserOptionType.SHELTER_USER
+                  : UserOptionType.NORMAL_USER,
+              })
                 .then(() => {
                   dispatch(
                     signUpUser({
                       email,
-                      name,
+                      firstname,
+                      surname,
                       phoneNumber,
-                      isShelterUser: isShelterUserSelected,
+                      isShelterUser: isShelterUserSelected
+                        ? UserOptionType.SHELTER_USER
+                        : UserOptionType.NORMAL_USER,
                     }),
                   );
                 })
@@ -105,10 +124,11 @@ export const SignupScreen = ({
             }
           }}
         />
-        <Button
-          color={theme.colors.white}
-          title="Back to Login"
-          onPress={() => {
+        <Spacer size={theme.space.lg} />
+        <ShareableButton
+          color="white"
+          text="Back to Login"
+          handler={() => {
             navigation.goBack();
           }}
         />

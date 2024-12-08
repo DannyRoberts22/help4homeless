@@ -2,6 +2,7 @@ export const fontSizes = {
   screenHeader: '24px',
   closeIcon: '24px',
   subheading: '22px',
+  donationTitle: '18px',
   arrowFlowTitle: '24px',
   arrowFlowDescription: '16px',
   inputTextLabel: '16px',

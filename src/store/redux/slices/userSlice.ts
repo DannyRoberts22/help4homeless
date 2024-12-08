@@ -1,30 +1,40 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {UserType} from '@src/services/types';
 
 interface UserState {
-  name: string;
+  firstname: string;
+  surname: string;
   email: string;
   phoneNumber: string;
   loggedIn: boolean;
-  isShelterUser: boolean;
+  isShelterUser: UserType | undefined;
 }
 
 const initialState: UserState = {
-  name: '',
+  firstname: '',
+  surname: '',
   email: '',
   phoneNumber: '',
   loggedIn: false,
-  isShelterUser: false,
+  isShelterUser: undefined,
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    loginUser: state => {
+    loginUser: (
+      state,
+      action: PayloadAction<{
+        isShelterUser: UserType | undefined;
+      }>,
+    ) => {
       state.loggedIn = true;
+      state.isShelterUser = action.payload.isShelterUser;
     },
     logoutUser: state => {
-      state.name = '';
+      state.firstname = '';
+      state.surname = '';
       state.email = '';
       state.loggedIn = false;
     },
@@ -34,13 +44,15 @@ const userSlice = createSlice({
     signUpUser: (
       state,
       action: PayloadAction<{
-        name: string;
+        firstname: string;
+        surname: string;
         email: string;
         phoneNumber: string;
-        isShelterUser: boolean;
+        isShelterUser: UserType | undefined;
       }>,
     ) => {
-      state.name = action.payload.name;
+      state.firstname = action.payload.firstname;
+      state.surname = action.payload.surname;
       state.email = action.payload.email;
       state.phoneNumber = action.payload.phoneNumber;
       state.loggedIn = true;

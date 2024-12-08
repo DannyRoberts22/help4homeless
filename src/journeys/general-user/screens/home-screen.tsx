@@ -18,6 +18,7 @@ import {ShelterItem} from '@src/types/shelter-api-types';
 import {DetailsCardItem} from '@src/components/organisms/details-card-item/DetailsCardItem';
 import {ImageBackgroundCard} from '@src/components/organisms/image-background-card/ImageBackgroundCard';
 import {ShareableButton} from '@src/components/organisms/shareable-button/ShareableButton';
+import {useAppSelector} from '@src/hooks/redux/reduxHooks';
 
 export const HomeScreen = () => {
   const [newsData, setNewsData] = useState<MappedItem[]>([]);
@@ -43,6 +44,11 @@ export const HomeScreen = () => {
     setLoading(true);
     getHomelessShelterList(postcode)
       .then((response: any) => {
+        console.log(
+          '🚀 ~ .then ~ response:',
+          JSON.stringify(response, null, 2),
+        );
+
         setShelterError(false);
         setShelters(response);
       })
@@ -84,7 +90,8 @@ export const HomeScreen = () => {
       </>
     );
   };
-
+  const {loggedIn} = useAppSelector(state => state.user);
+  console.log('loggenInHome', loggedIn);
   return (
     <SafeAreaViewStatus>
       <InnerContainer>
@@ -124,11 +131,12 @@ export const HomeScreen = () => {
                 text="Find your nearest shelters"
                 color="white"
               />
+              <Spacer size={theme.space.sm} />
             </ShelterSearchContainer>
             <FlatList
               data={shelters}
               renderItem={renderShelterItem}
-              keyExtractor={(item: any) => item.id}
+              keyExtractor={(item: any) => item.place_id}
               // eslint-disable-next-line react-native/no-inline-styles
               contentContainerStyle={{paddingVertical: 20}}
               showsVerticalScrollIndicator={true}

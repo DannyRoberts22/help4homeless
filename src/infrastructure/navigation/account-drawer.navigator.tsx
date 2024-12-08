@@ -13,11 +13,20 @@ import {theme} from '@src/theme';
 import {useAppDispatch} from '@src/hooks/redux/reduxHooks';
 import {firebaseSignOut} from '@src/services/authServices';
 import {logoutUser} from '@src/store/redux/slices/userSlice';
-import {Alert, Dimensions} from 'react-native';
+import {Alert, Dimensions, Text} from 'react-native';
 
 const Drawer = createDrawerNavigator();
 
 import {DrawerContentComponentProps} from '@react-navigation/drawer';
+
+const CustomLabel = ({label}: {label: string}) => {
+  return (
+    <Text
+      style={{color: theme.colors.primary, fontSize: 16, fontWeight: 'bold'}}>
+      {label}
+    </Text>
+  );
+};
 
 function CustomDrawerContent(props: DrawerContentComponentProps) {
   const dispatch = useAppDispatch();
@@ -57,20 +66,24 @@ export const AccountDrawerNavigator = () => {
           width: Dimensions.get('window').width * 0.8,
         },
         drawerItemStyle: {
-          backgroundColor: '#9dd3c8',
+          backgroundColor: 'white',
           borderColor: 'black',
           opacity: 0.8,
         },
-        drawerActiveTintColor: 'white',
-        drawerInactiveTintColor: 'white',
       }}>
       <Drawer.Screen
         name={screenNames.MAIN_NAVIGATOR}
         component={MainNavigator}
+        options={{
+          drawerLabel: () => <CustomLabel label="Home" />,
+        }}
       />
       <Drawer.Screen
         name={screenNames.PROFILE_SCREEN}
         component={ProfileScreen}
+        options={{
+          drawerLabel: () => <CustomLabel label="Profile" />,
+        }}
       />
     </Drawer.Navigator>
   );

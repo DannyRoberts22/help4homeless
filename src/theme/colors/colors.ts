@@ -5,6 +5,7 @@ type Colors = {
   white: string;
   softWhite: string;
   error: string;
+  offPrimary: string;
 };
 
 export const colors: Colors = {
@@ -18,4 +19,5 @@ export const colors: Colors = {
   white: '#FFFFFF',
   softWhite: '#DDDDDD',
   error: '#FF0000',
+  offPrimary: '#376A9F',
 };

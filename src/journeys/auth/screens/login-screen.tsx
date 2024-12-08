@@ -9,7 +9,7 @@ import {Spacer} from '@src/components/layout/Spacer';
 import {theme} from '@src/theme';
 import InputTextLabel from '@src/components/utility/input-text-label/InputTextLabel';
 import {firebaseLogin} from '@src/services/authServices';
-import {useAppDispatch} from '@src/hooks/redux/reduxHooks';
+import {useAppDispatch, useAppSelector} from '@src/hooks/redux/reduxHooks';
 import {loginUser} from '@src/store/redux/slices/userSlice';
 import {ShareableButton} from '@src/components/organisms/shareable-button/ShareableButton';
 
@@ -24,6 +24,9 @@ export const LoginScreen = ({
   const [password, setPassword] = useState('');
 
   const dispatch = useAppDispatch();
+
+  const {loggedIn} = useAppSelector(state => state.user);
+  console.log('loggenInLogin', loggedIn);
   return (
     <SafeAreaViewStatus>
       <InnerContainer>
@@ -32,6 +35,8 @@ export const LoginScreen = ({
           placeholder="Email"
           value={email}
           onChangeText={text => setEmail(text)}
+          autoFocus={true}
+          keyboardType="email-address"
         />
         <InputTextLabel text="Password:" />
         <TextInput
@@ -46,8 +51,8 @@ export const LoginScreen = ({
           text="Login"
           handler={() =>
             firebaseLogin(email, password)
-              .then(() => {
-                dispatch(loginUser());
+              .then(userData => {
+                dispatch(loginUser({isShelterUser: userData?.userType}));
               })
               .then(() =>
                 navigation.navigate(screenNames.ACCOUNT_DRAWER_NAVIGATOR),
@@ -58,7 +63,7 @@ export const LoginScreen = ({
         <Spacer size={theme.space.lg} />
         <ShareableButton
           color="white"
-          text="Forgot Password?"
+          text="Forgot Password"
           handler={() =>
             navigation.navigate(screenNames.FORGOTTON_PASSWORD_SCREEN)
           }
