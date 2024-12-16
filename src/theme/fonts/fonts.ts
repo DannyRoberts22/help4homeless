@@ -12,7 +12,7 @@ export const fontSizes = {
   buttonText: '18px',
   ProfileTitle: '18px',
   ProfileContent: '14px',
-  homelessUserDetails: '16px',
+  homelessUserDetails: '14px',
 };
 
 export const fontStyles = {

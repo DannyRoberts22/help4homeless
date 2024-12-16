@@ -1,62 +1,104 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {InnerContainer} from '@src/components/layout/InnerContainer';
 import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
 import {ShareableButton} from '@src/components/organisms/shareable-button/ShareableButton';
 import TextInput from '@src/components/utility/text-input/TextInput';
-import mockHomelessUsers from '../../../../mocks/homelessUsers.json';
-import {Alert} from 'react-native';
+import {Alert, TouchableOpacity} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {
   DashboardContainer,
   HomelessUserDetails,
   HomelessUserItem,
 } from '../styles/dashboard-screen.styles';
+import AddUserModal from '../modals/AddUserModal';
+import {Spacer} from '@src/components/layout/Spacer';
+import {theme} from '@src/theme';
+import {firebaseGetHomelessPersons} from '@src/api/homeless-persons';
+import screenNames from '@src/constants/screen-names';
+interface HomelessPerson {
+  id: string;
+  firstName: string;
+  surname: string;
+}
 
-export const DashboardScreen = () => {
-  const fullList = mockHomelessUsers.homelessUsers;
+import {NavigationProp} from '@react-navigation/native';
+import {RootStackParamList} from '@src/types/navigation-types';
+
+type DashboardScreenProp = NavigationProp<RootStackParamList>;
+
+export const DashboardScreen = ({
+  navigation,
+}: {
+  navigation: DashboardScreenProp;
+}) => {
+  const [showAddUserModal, setShowAddUserModal] = useState(false);
+  const [homelessPersons, setHomelessPersons] = useState<HomelessPerson[]>([]);
+  const [filteredHomelessPersons, setfilteredHomelessPersons] =
+    useState(homelessPersons);
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [filteredData, setFilteredData] = useState(fullList);
+
+  useEffect(() => {
+    firebaseGetHomelessPersons().then(data => {
+      console.log('🚀 ~ firebaseGetHomelessPersons ~ data:', data);
+      setHomelessPersons(data);
+    });
+  }, [showAddUserModal]);
+
+  useEffect(() => {
+    setfilteredHomelessPersons(homelessPersons);
+  }, [homelessPersons]);
 
   const handleSearch = (input: string) => {
     setSearchQuery(input);
 
     if (input) {
       // Filter by both `name` and `id`
-      const filtered = fullList.filter(
+      const filtered = homelessPersons.filter(
         item =>
-          item.name.toLowerCase().includes(input.toLowerCase()) ||
+          item.firstName.toLowerCase().includes(input.toLowerCase()) ||
+          item.surname.toLowerCase().includes(input.toLowerCase()) ||
           item.id.includes(input),
       );
-      setFilteredData(filtered);
+      // console.log('🚀 ~ handleSearch ~ filtered:', filtered);
+      setfilteredHomelessPersons(filtered);
     } else {
       // If the search is cleared, show the full list
-      setFilteredData(fullList);
+      console.log('🚀 ~ DashboardScreen ~ homelessPersons:', homelessPersons);
+      setfilteredHomelessPersons(homelessPersons);
     }
   };
 
   const renderItem = ({item}: any) => {
     return (
-      <HomelessUserItem style={{flexDirection: 'row'}}>
-        <HomelessUserDetails>{item.name}</HomelessUserDetails>
-        <HomelessUserDetails>{item.id}</HomelessUserDetails>
-      </HomelessUserItem>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate(screenNames.HOMELESS_PERSON_PROFILE_MODAL, {
+            id: item.id,
+          })
+        }>
+        <HomelessUserItem style={{flexDirection: 'row'}}>
+          <HomelessUserDetails>{`${item.person.firstName} ${item.person.surname}`}</HomelessUserDetails>
+          <HomelessUserDetails>{item.id}</HomelessUserDetails>
+        </HomelessUserItem>
+      </TouchableOpacity>
     );
   };
   return (
     <SafeAreaViewStatus>
       <InnerContainer>
         <DashboardContainer>
+          <ShareableButton
+            handler={() => setShowAddUserModal(true)}
+            text="Add Person"
+          />
+          <Spacer size={theme.space.lg} />
           <TextInput
             placeholder="Search For User"
             value={searchQuery}
             onChangeText={handleSearch}
           />
-          {/* <ShareableButton
-            handler={() => Alert.alert('hey')}
-            text="Search For User"
-          /> */}
           <FlatList
-            data={filteredData}
+            data={filteredHomelessPersons}
             renderItem={renderItem}
             keyExtractor={item => item.id}
           />
@@ -64,6 +106,10 @@ export const DashboardScreen = () => {
         <ShareableButton
           handler={() => Alert.alert('Generate QR codes for all')}
           text="Generate QR codes for all"
+        />
+        <AddUserModal
+          modalVisible={showAddUserModal}
+          closeModal={() => setShowAddUserModal(false)}
         />
       </InnerContainer>
     </SafeAreaViewStatus>

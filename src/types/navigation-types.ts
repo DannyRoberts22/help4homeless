@@ -12,6 +12,7 @@ export type RootStackParamList = {
   [screenNames.QR_SCAN_SCREEN]: undefined;
   [screenNames.MY_DONATION_SCREEN]: undefined;
   [screenNames.NOTIFICATION_SCREEN]: undefined;
+  [screenNames.HOMELESS_PERSON_PROFILE_MODAL]: {id: string};
   [screenNames.MAIN_NAVIGATOR]: undefined;
   [screenNames.AUTH_NAVIGATOR]: undefined;
   [screenNames.ACCOUNT_DRAWER_NAVIGATOR]: undefined;

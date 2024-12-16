@@ -24,6 +24,12 @@ const screens = {
     key: 'notification.screen',
   },
 
+  //MODALS
+  HOMELESS_PERSON_PROFILE_MODAL: {
+    name: 'homeless-person-profile.modal',
+    key: 'homeless-person-profile.modal',
+  },
+
   //NAVIGATORS
   GENERAL_USER_NAVIGATOR: {
     name: 'general-user.navigator',
