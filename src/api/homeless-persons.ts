@@ -1,5 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 
+import { HomelessPerson } from './types';
+
 // Add person to HomelessPersons Firestore collection
 export const firebaseAddHomelessPerson = async (person: any): Promise<void> => {
   // create a firebase id to add to firebaseAddHomelessPerson function
@@ -27,6 +29,33 @@ export const firebaseGetHomelessPersons = async (): Promise<any[]> => {
     return persons;
   } catch (error) {
     console.error('Error retrieving persons:', error);
+    throw error;
+  }
+};
+
+// Get homeless person from HomelessPersons Firestore collection by id
+export const firebaseGetHomelessPersonById = async (
+  id: string,
+): Promise<HomelessPerson> => {
+  try {
+    const homelessPerson = await firestore()
+      .collection('HomelessPersons')
+      .doc(id)
+      .get();
+    console.log('Person retrieved successfully:', homelessPerson.data());
+    const data = homelessPerson.data();
+    if (!data) {
+      throw new Error('Homeless person not found');
+    }
+    return {
+      firstName: data.firstName,
+      surname: data.surname,
+      phoneNumber: data.phoneNumber,
+      email: data.email,
+      id: homelessPerson.id,
+    };
+  } catch (error) {
+    console.error('Error retrieving person:', error);
     throw error;
   }
 };

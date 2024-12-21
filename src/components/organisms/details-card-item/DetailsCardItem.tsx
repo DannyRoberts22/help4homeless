@@ -1,13 +1,15 @@
 import React from 'react';
-import Link from '@src/components/utility/link/Link';
+
 import {
-  CardContainer,
   CardBackground,
+  CardContainer,
   CardText,
 } from '@src/components/molecules/card-components/styles';
-import {LinkContainer} from '@src/journeys/general-user/styles/home-screen.styles';
-import {ShelterItem} from '@src/types/shelter-api-types';
-import {cardContainerSizing} from '@src/theme/sizing/sizing';
+import Link from '@src/components/utility/link/Link';
+import { cardContainerSizing } from '@src/theme/sizing/sizing';
+import { ShelterItem } from '@src/types/shelter-api-types';
+
+import { LinkContainer } from '@src/journeys/general-user/styles/home-screen.styles';
 
 export const DetailsCardItem = ({
   item,

@@ -1,4 +1,4 @@
-import screens, {ScreenNames} from './screens';
+import screens, { ScreenNames } from './screens';
 
 const screenNameConstants: ScreenNames = Object.keys(
   screens,

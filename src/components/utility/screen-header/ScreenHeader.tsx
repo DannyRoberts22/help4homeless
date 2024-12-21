@@ -1,15 +1,16 @@
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import {Logo} from '@src/components/utility/logo/logo';
+import { Logo } from '@src/components/utility/logo/logo';
+import { theme } from '@src/theme';
+
 import {
   AccountContainer,
   CloseIcon,
   ScreenHeaderView,
   TouchableCloseButton,
 } from './styles';
-import {TouchableOpacity} from 'react-native';
-import {theme} from '@src/theme';
 
 const ScreenHeader = ({
   openDrawer,

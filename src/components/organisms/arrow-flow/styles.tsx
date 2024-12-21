@@ -1,15 +1,15 @@
-import {styled} from 'styled-components/native';
+import { styled } from 'styled-components/native';
 
 export const ArrowFlowTitle = styled.Text`
-  color: ${({theme}) => theme.colors.white};
-  font-size: ${({theme}) => theme.fontSizes.arrowFlowTitle};
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.fontSizes.arrowFlowTitle};
   font-weight: bold;
   margin-vertical: 20px;
   text-align: center;
 `;
 
 export const ArrowFlowDescription = styled(ArrowFlowTitle)`
-  font-size: ${({theme}) => theme.fontSizes.arrowFlowDescription};
+  font-size: ${({ theme }) => theme.fontSizes.arrowFlowDescription};
   margin-top: 0px;
   text-align: center;
 `;

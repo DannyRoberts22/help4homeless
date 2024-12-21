@@ -1,7 +1,8 @@
 // src/services/authService.js
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import {UserDocument} from '../types/auth-services-types';
+
+import { UserDocument } from '../types/auth-services-types';
 
 export const firebaseSignUp = async ({
   email,

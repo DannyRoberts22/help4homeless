@@ -1,17 +1,20 @@
 /**
  * @format
  */
+import React, {useEffect} from 'react';
+import {StatusBar} from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
+import {ThemeProvider} from 'styled-components';
+
+import CustomStatusBar from './src/components/layout/CustomStatusBar';
+import {Navigation} from './src/navigation/root-navigator';
+import {persistor, store} from './src/store/store';
+import {theme} from './src/theme';
+
 import './ignoreWarnings';
 import 'react-native-gesture-handler';
-import React, {useEffect} from 'react';
-import {PersistGate} from 'redux-persist/integration/react';
-import {Provider} from 'react-redux';
-import {store, persistor} from './src/store/store';
-import {Navigation} from './src/navigation/root-navigator';
-import {ThemeProvider} from 'styled-components';
-import {theme} from './src/theme';
-import CustomStatusBar from './src/components/layout/CustomStatusBar';
-import SplashScreen from 'react-native-splash-screen';
 
 function App(): JSX.Element {
   useEffect(() => {
@@ -23,6 +26,7 @@ function App(): JSX.Element {
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
             <CustomStatusBar />
+            <StatusBar hidden={true} />
             <Navigation />
           </PersistGate>
         </Provider>

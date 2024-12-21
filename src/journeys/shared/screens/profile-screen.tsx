@@ -1,17 +1,19 @@
-import {InnerContainer} from '@src/components/layout/InnerContainer';
-import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
 import React from 'react';
-import {Alert} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
-import {ShareableButton} from '@src/components/organisms/shareable-button/ShareableButton';
-import {Subheading} from '@src/components/molecules/subheading/Subheading';
-import {Spacer} from '@src/components/layout/Spacer';
-import {theme} from '@src/theme';
+import { Alert } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth';
-import {deleteUser} from '@src/store/redux/slices/userSlice';
-import {firebaseDeleteUser} from '@src/api/auth-services';
+
+import { firebaseDeleteUser } from '@src/api/auth-services';
+import { InnerContainer } from '@src/components/layout/InnerContainer';
+import { SafeAreaViewStatus } from '@src/components/layout/SafeAreaViewStatus';
+import { Spacer } from '@src/components/layout/Spacer';
+import { Subheading } from '@src/components/molecules/subheading/Subheading';
+import { ShareableButton } from '@src/components/organisms/shareable-button/ShareableButton';
 import screenNames from '@src/constants/screen-names';
-import {useAppDispatch} from '@src/hooks/redux/reduxHooks';
+import { useAppDispatch } from '@src/hooks/redux/reduxHooks';
+import { deleteUser } from '@src/store/redux/slices/userSlice';
+import { theme } from '@src/theme';
+
 import {
   ProfileContainer,
   ProfileContent,
@@ -32,8 +34,9 @@ const handleDeleteCurrentUser = async () => {
   }
 };
 
-import {StackNavigationProp} from '@react-navigation/stack';
-import {RootStackParamList} from '@src/types/navigation-types';
+import { StackNavigationProp } from '@react-navigation/stack';
+
+import { RootStackParamList } from '@src/types/navigation-types';
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 
@@ -42,7 +45,7 @@ export const ProfileScreen = ({
 }: {
   navigation: ProfileScreenNavigationProp;
 }) => {
-  const {currentUser} = auth();
+  const { currentUser } = auth();
   const dispatch = useAppDispatch();
   console.log('🚀 ~ ProfileScreen ~ currentUser:', currentUser);
   return (

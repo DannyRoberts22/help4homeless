@@ -1,24 +1,27 @@
-import React, {useEffect, useState} from 'react';
-import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
-import {InnerContainer} from '@src/components/layout/InnerContainer';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Dimensions } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
+
+import { getHomelessShelterList } from '@src/api/get-homeless-shelter-list';
+import { getNews } from '@src/api/get-news';
+import { InnerContainer } from '@src/components/layout/InnerContainer';
+import { SafeAreaViewStatus } from '@src/components/layout/SafeAreaViewStatus';
+import { Spacer } from '@src/components/layout/Spacer';
+import { DetailsCardItem } from '@src/components/organisms/details-card-item/DetailsCardItem';
+import { ImageBackgroundCard } from '@src/components/organisms/image-background-card/ImageBackgroundCard';
+import { ShareableButton } from '@src/components/organisms/shareable-button/ShareableButton';
+import TextInput from '@src/components/utility/text-input/TextInput';
+import { useAppSelector } from '@src/hooks/redux/reduxHooks';
+import { theme } from '@src/theme';
+import { MappedItem, NewsData } from '@src/types/news-api-types';
+import { ShelterItem } from '@src/types/shelter-api-types';
+
 import mockNewsData from '../../../../mocks/newsData.json';
-import {ActivityIndicator, Dimensions} from 'react-native';
+
 import {
   HorizontalFlatListContainer,
   ShelterSearchContainer,
 } from '../styles/home-screen.styles';
-import {FlatList} from 'react-native-gesture-handler';
-import {getNews} from '@src/api/get-news';
-import {theme} from '@src/theme';
-import {getHomelessShelterList} from '@src/api/get-homeless-shelter-list';
-import {MappedItem, NewsData} from '@src/types/news-api-types';
-import TextInput from '@src/components/utility/text-input/TextInput';
-import {Spacer} from '@src/components/layout/Spacer';
-import {ShelterItem} from '@src/types/shelter-api-types';
-import {DetailsCardItem} from '@src/components/organisms/details-card-item/DetailsCardItem';
-import {ImageBackgroundCard} from '@src/components/organisms/image-background-card/ImageBackgroundCard';
-import {ShareableButton} from '@src/components/organisms/shareable-button/ShareableButton';
-import {useAppSelector} from '@src/hooks/redux/reduxHooks';
 
 export const HomeScreen = () => {
   const [newsData, setNewsData] = useState<MappedItem[]>([]);
@@ -75,11 +78,11 @@ export const HomeScreen = () => {
       });
   }, []);
 
-  const renderNewsItem = ({item}: {item: MappedItem}) => (
+  const renderNewsItem = ({ item }: { item: MappedItem }) => (
     <ImageBackgroundCard item={item} cardWidth={CARD_WIDTH} height="md" />
   );
 
-  const renderShelterItem = ({item}: {item: ShelterItem}) => {
+  const renderShelterItem = ({ item }: { item: ShelterItem }) => {
     const input = item.photos?.[0].html_attributions[0];
     const match = input?.match(/href="([^"]*)/);
     const url = match ? match[1] : null;
@@ -90,7 +93,7 @@ export const HomeScreen = () => {
       </>
     );
   };
-  const {loggedIn} = useAppSelector(state => state.user);
+  const { loggedIn } = useAppSelector(state => state.user);
   console.log('loggenInHome', loggedIn);
   return (
     <SafeAreaViewStatus>
@@ -104,7 +107,7 @@ export const HomeScreen = () => {
               horizontal
               showsHorizontalScrollIndicator={false}
               // eslint-disable-next-line react-native/no-inline-styles
-              contentContainerStyle={{paddingHorizontal: 10}}
+              contentContainerStyle={{ paddingHorizontal: 10 }}
             />
           ) : (
             <ActivityIndicator size="large" color={theme.colors.white} />
@@ -138,7 +141,7 @@ export const HomeScreen = () => {
               renderItem={renderShelterItem}
               keyExtractor={(item: any) => item.place_id}
               // eslint-disable-next-line react-native/no-inline-styles
-              contentContainerStyle={{paddingVertical: 20}}
+              contentContainerStyle={{ paddingVertical: 20 }}
               showsVerticalScrollIndicator={true}
             />
           </>

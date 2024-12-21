@@ -1,12 +1,13 @@
 import React from 'react';
+
 import {
   CardContainer,
   CardImageBackground,
-  TitleContainer,
   Title,
+  TitleContainer,
 } from '@src/components/molecules/card-components/styles';
-import {MappedItem} from '@src/types/news-api-types';
-import {cardContainerSizing} from '@src/theme/sizing/sizing';
+import { cardContainerSizing } from '@src/theme/sizing/sizing';
+import { MappedItem } from '@src/types/news-api-types';
 
 export const ImageBackgroundCard = ({
   cardWidth,
@@ -19,7 +20,7 @@ export const ImageBackgroundCard = ({
 }) => {
   return (
     <CardContainer cardWidth={cardWidth} height={height}>
-      <CardImageBackground source={{uri: item.urlToImage}}>
+      <CardImageBackground source={{ uri: item.urlToImage }}>
         <TitleContainer>
           <Title>{item.title}</Title>
         </TitleContainer>

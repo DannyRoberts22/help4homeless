@@ -1,28 +1,32 @@
-import React, {useEffect, useState} from 'react';
-import {InnerContainer} from '@src/components/layout/InnerContainer';
-import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
-import {ShareableButton} from '@src/components/organisms/shareable-button/ShareableButton';
+import React, { useEffect, useState } from 'react';
+import { Alert, TouchableOpacity } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
+
+import { firebaseGetHomelessPersons } from '@src/api/homeless-persons';
+import { InnerContainer } from '@src/components/layout/InnerContainer';
+import { SafeAreaViewStatus } from '@src/components/layout/SafeAreaViewStatus';
+import { Spacer } from '@src/components/layout/Spacer';
+import { ShareableButton } from '@src/components/organisms/shareable-button/ShareableButton';
 import TextInput from '@src/components/utility/text-input/TextInput';
-import {Alert, TouchableOpacity} from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
+import screenNames from '@src/constants/screen-names';
+import { theme } from '@src/theme';
+
+import AddUserModal from '../modals/AddUserModal';
+
 import {
   DashboardContainer,
   HomelessUserDetails,
   HomelessUserItem,
 } from '../styles/dashboard-screen.styles';
-import AddUserModal from '../modals/AddUserModal';
-import {Spacer} from '@src/components/layout/Spacer';
-import {theme} from '@src/theme';
-import {firebaseGetHomelessPersons} from '@src/api/homeless-persons';
-import screenNames from '@src/constants/screen-names';
 interface HomelessPerson {
   id: string;
   firstName: string;
   surname: string;
 }
 
-import {NavigationProp} from '@react-navigation/native';
-import {RootStackParamList} from '@src/types/navigation-types';
+import { NavigationProp } from '@react-navigation/native';
+
+import { RootStackParamList } from '@src/types/navigation-types';
 
 type DashboardScreenProp = NavigationProp<RootStackParamList>;
 
@@ -68,17 +72,18 @@ export const DashboardScreen = ({
     }
   };
 
-  const renderItem = ({item}: any) => {
+  const renderItem = ({ item }: any) => {
     return (
       <TouchableOpacity
         onPress={() =>
           navigation.navigate(screenNames.HOMELESS_PERSON_PROFILE_MODAL, {
             id: item.id,
           })
-        }>
-        <HomelessUserItem style={{flexDirection: 'row'}}>
+        }
+      >
+        <HomelessUserItem style={{ flexDirection: 'row' }}>
           <HomelessUserDetails>{`${item.person.firstName} ${item.person.surname}`}</HomelessUserDetails>
-          <HomelessUserDetails>{item.id}</HomelessUserDetails>
+          <HomelessUserDetails>{item.id.slice(0, 6)}</HomelessUserDetails>
         </HomelessUserItem>
       </TouchableOpacity>
     );

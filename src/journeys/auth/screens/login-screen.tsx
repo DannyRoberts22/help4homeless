@@ -1,18 +1,19 @@
-import React, {useState} from 'react';
-import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
-import TextInput from '@src/components/utility/text-input/TextInput';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {RootStackParamList} from '@src/types/navigation-types';
-import screenNames from '@src/constants/screen-names';
-import {InnerContainer} from '@src/components/layout/InnerContainer';
-import {Spacer} from '@src/components/layout/Spacer';
-import {theme} from '@src/theme';
+import React, { useState } from 'react';
+import { Text } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
+
+import { firebaseLogin } from '@src/api/auth-services';
+import { InnerContainer } from '@src/components/layout/InnerContainer';
+import { SafeAreaViewStatus } from '@src/components/layout/SafeAreaViewStatus';
+import { Spacer } from '@src/components/layout/Spacer';
+import { ShareableButton } from '@src/components/organisms/shareable-button/ShareableButton';
 import InputTextLabel from '@src/components/utility/input-text-label/InputTextLabel';
-import {firebaseLogin} from '@src/api/auth-services';
-import {useAppDispatch} from '@src/hooks/redux/reduxHooks';
-import {loginUser} from '@src/store/redux/slices/userSlice';
-import {ShareableButton} from '@src/components/organisms/shareable-button/ShareableButton';
-import {Text} from 'react-native';
+import TextInput from '@src/components/utility/text-input/TextInput';
+import screenNames from '@src/constants/screen-names';
+import { useAppDispatch } from '@src/hooks/redux/reduxHooks';
+import { loginUser } from '@src/store/redux/slices/userSlice';
+import { theme } from '@src/theme';
+import { RootStackParamList } from '@src/types/navigation-types';
 
 type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 
@@ -23,11 +24,11 @@ export const LoginScreen = ({
 }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState<{[key: string]: string}>({});
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const dispatch = useAppDispatch();
 
   const validate = () => {
-    const newErrors: {[key: string]: string} = {};
+    const newErrors: { [key: string]: string } = {};
     if (!email) newErrors.email = 'Email is required';
     if (!password) newErrors.password = 'Password is required';
     setErrors(newErrors);
@@ -63,7 +64,7 @@ export const LoginScreen = ({
             if (validate()) {
               firebaseLogin(email, password)
                 .then(userData => {
-                  dispatch(loginUser({userType: userData?.userType}));
+                  dispatch(loginUser({ userType: userData?.userType }));
                   setEmail('');
                   setPassword('');
                 })

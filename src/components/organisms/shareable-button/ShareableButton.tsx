@@ -1,6 +1,7 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
-import {ButtonText} from './styles';
+import { TouchableOpacity } from 'react-native';
+
+import { ButtonText } from './styles';
 
 export const ShareableButton = ({
   handler,

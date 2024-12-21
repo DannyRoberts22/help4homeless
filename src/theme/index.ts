@@ -1,11 +1,11 @@
-import {colors} from './colors/colors';
-import {space} from './spacing/spacing';
-import {fontSizes, fontStyles} from './fonts/fonts';
+import { colors } from './colors/colors';
+import { fontSizes, fontStyles } from './fonts/fonts';
 import {
-  imageSizing,
-  cardContainerSizing,
   borderRadiusSizing,
+  cardContainerSizing,
+  imageSizing,
 } from './sizing/sizing';
+import { space } from './spacing/spacing';
 
 export const theme = {
   colors,

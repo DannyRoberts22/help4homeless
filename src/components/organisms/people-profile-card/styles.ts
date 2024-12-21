@@ -1,6 +1,7 @@
-import {styled} from 'styled-components/native';
-import {CardContainer} from '@src/components/molecules/card-components/styles';
-import {Image} from 'react-native';
+import { Image } from 'react-native';
+import { styled } from 'styled-components/native';
+
+import { CardContainer } from '@src/components/molecules/card-components/styles';
 
 export const PeopleProfileCardContainer = styled(CardContainer)`
   flex-direction: row;

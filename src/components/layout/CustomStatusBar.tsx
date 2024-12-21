@@ -1,8 +1,9 @@
-import {theme} from '@src/theme';
-import React, {Fragment} from 'react';
-import {SafeAreaView, StatusBar} from 'react-native';
+import React, { Fragment } from 'react';
+import { SafeAreaView, StatusBar } from 'react-native';
 
-export default function CustomStatusBar({children}: any) {
+import { theme } from '@src/theme';
+
+export default function CustomStatusBar({ children }: any) {
   return (
     <Fragment>
       <StatusBar
@@ -13,7 +14,8 @@ export default function CustomStatusBar({children}: any) {
         style={{
           flex: 0,
           backgroundColor: theme.colors.primary,
-        }}>
+        }}
+      >
         {children}
       </SafeAreaView>
     </Fragment>

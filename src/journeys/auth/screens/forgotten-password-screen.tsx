@@ -1,16 +1,17 @@
-import {StackNavigationProp} from '@react-navigation/stack';
-import {InnerContainer} from '@src/components/layout/InnerContainer';
-import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
-import TextInput from '@src/components/utility/text-input/TextInput';
-import InputTextLabel from '@src/components/utility/input-text-label/InputTextLabel';
-import screenNames from '@src/constants/screen-names';
-import {theme} from '@src/theme';
-import {RootStackParamList} from '@src/types/navigation-types';
 import React from 'react';
-import {ShareableButton} from '@src/components/organisms/shareable-button/ShareableButton';
-import {firebaseResetPassword} from '@src/api/auth-services';
-import {Spacer} from '@src/components/layout/Spacer';
-import {Alert} from 'react-native';
+import { Alert } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
+
+import { firebaseResetPassword } from '@src/api/auth-services';
+import { InnerContainer } from '@src/components/layout/InnerContainer';
+import { SafeAreaViewStatus } from '@src/components/layout/SafeAreaViewStatus';
+import { Spacer } from '@src/components/layout/Spacer';
+import { ShareableButton } from '@src/components/organisms/shareable-button/ShareableButton';
+import InputTextLabel from '@src/components/utility/input-text-label/InputTextLabel';
+import TextInput from '@src/components/utility/text-input/TextInput';
+import screenNames from '@src/constants/screen-names';
+import { theme } from '@src/theme';
+import { RootStackParamList } from '@src/types/navigation-types';
 
 type ForgottenPasswordScreenNavigationProp =
   StackNavigationProp<RootStackParamList>;

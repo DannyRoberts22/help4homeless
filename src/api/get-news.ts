@@ -1,5 +1,6 @@
 import env from 'react-native-config';
-import {NewsData} from '@src/types/news-api-types';
+
+import { NewsData } from '@src/types/news-api-types';
 export const getNews = async (): Promise<NewsData> => {
   const formattedTodayDate = () => new Date().toISOString().split('T')[0];
   const formattedThreeMonthsAgoDate = () =>

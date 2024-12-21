@@ -1,13 +1,14 @@
-import React, {useState} from 'react';
-import {Modal, ScrollView, Text} from 'react-native';
+import React, { useState } from 'react';
+import { Modal, ScrollView, Text } from 'react-native';
+
+import { firebaseAddHomelessPerson } from '@src/api/homeless-persons';
+import { InnerContainer } from '@src/components/layout/InnerContainer';
+import { SafeAreaViewStatus } from '@src/components/layout/SafeAreaViewStatus';
+import { ShareableButton } from '@src/components/organisms/shareable-button/ShareableButton';
 import InputTextLabel from '@src/components/utility/input-text-label/InputTextLabel';
-import {InnerContainer} from '@src/components/layout/InnerContainer';
-import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
 import ScreenHeader from '@src/components/utility/screen-header/ScreenHeader';
 import TextInput from '@src/components/utility/text-input/TextInput';
-import {theme} from '@src/theme';
-import {ShareableButton} from '@src/components/organisms/shareable-button/ShareableButton';
-import {firebaseAddHomelessPerson} from '@src/api/homeless-persons';
+import { theme } from '@src/theme';
 
 const AddUserModal = ({
   modalVisible,
@@ -20,9 +21,9 @@ const AddUserModal = ({
   const [surname, setSurname] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
-  const [errors, setErrors] = useState<{[key: string]: string}>({});
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const validate = () => {
-    const newErrors: {[key: string]: string} = {};
+    const newErrors: { [key: string]: string } = {};
     if (!firstName) newErrors.firstName = 'First name is required';
     if (!surname) newErrors.surname = 'Surname is required';
     setErrors(newErrors);
@@ -32,8 +33,6 @@ const AddUserModal = ({
   const errorText = theme.fontStyles.errorText;
 
   const handleAddHomlessPerson = () => {
-    // Create a firebase id to add to firebaseAddHomelessPerson function
-
     firebaseAddHomelessPerson({
       firstName,
       surname,

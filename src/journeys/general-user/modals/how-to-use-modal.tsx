@@ -1,12 +1,12 @@
 import React from 'react';
-import {ScrollView} from 'react-native-gesture-handler';
-import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
-import {InnerContainer} from '@src/components/layout/InnerContainer';
-import aboutData from '@src/content/about-data.json';
+import { Modal } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
-import {Modal} from 'react-native';
+import { InnerContainer } from '@src/components/layout/InnerContainer';
+import { SafeAreaViewStatus } from '@src/components/layout/SafeAreaViewStatus';
 import ArrowFlow from '@src/components/organisms/arrow-flow/ArrowFlow';
 import ScreenHeader from '@src/components/utility/screen-header/ScreenHeader';
+import aboutData from '@src/content/about-data.json';
 
 export const HowToUse = ({
   modalVisible,

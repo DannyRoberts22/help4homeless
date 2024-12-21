@@ -1,5 +1,6 @@
 import env from 'react-native-config';
-import {ShelterItem} from '@src/types/shelter-api-types';
+
+import { ShelterItem } from '@src/types/shelter-api-types';
 
 export const getHomelessShelterList = async (
   postcode: string,

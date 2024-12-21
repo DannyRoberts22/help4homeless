@@ -1,28 +1,30 @@
 import React from 'react';
+import { Alert, Dimensions, Text } from 'react-native';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import screenNames from '@src/constants/screen-names';
-import MainNavigator from './main-navigator';
 
-import {ProfileScreen} from '@src/journeys/shared/screens/profile-screen';
-import {AccountDrawerContent} from '@src/components/organisms/account-drawer-content/AccountDrawerContent';
-import {theme} from '@src/theme';
-import {useAppDispatch} from '@src/hooks/redux/reduxHooks';
-import {firebaseSignOut} from '@src/api/auth-services';
-import {logoutUser} from '@src/store/redux/slices/userSlice';
-import {Alert, Dimensions, Text} from 'react-native';
+import { firebaseSignOut } from '@src/api/auth-services';
+import { AccountDrawerContent } from '@src/components/organisms/account-drawer-content/AccountDrawerContent';
+import screenNames from '@src/constants/screen-names';
+import { useAppDispatch } from '@src/hooks/redux/reduxHooks';
+import { ProfileScreen } from '@src/journeys/shared/screens/profile-screen';
+import { logoutUser } from '@src/store/redux/slices/userSlice';
+import { theme } from '@src/theme';
+
+import MainNavigator from './main-navigator';
 
 const Drawer = createDrawerNavigator();
 
-import {DrawerContentComponentProps} from '@react-navigation/drawer';
+import { DrawerContentComponentProps } from '@react-navigation/drawer';
 
-const CustomLabel = ({label}: {label: string}) => {
+const CustomLabel = ({ label }: { label: string }) => {
   return (
     <Text
-      style={{color: theme.colors.primary, fontSize: 16, fontWeight: 'bold'}}>
+      style={{ color: theme.colors.primary, fontSize: 16, fontWeight: 'bold' }}
+    >
       {label}
     </Text>
   );
@@ -37,7 +39,7 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
       .then(() => {
         props.navigation.reset({
           index: 0,
-          routes: [{name: screenNames.AUTH_NAVIGATOR}], // Replace with your auth navigator screen
+          routes: [{ name: screenNames.AUTH_NAVIGATOR }], // Replace with your auth navigator screen
         });
       })
       .catch(error => {
@@ -70,7 +72,8 @@ export const AccountDrawerNavigator = () => {
           borderColor: 'black',
           opacity: 0.8,
         },
-      }}>
+      }}
+    >
       <Drawer.Screen
         name={screenNames.MAIN_NAVIGATOR}
         component={MainNavigator}

@@ -1,8 +1,9 @@
-import {InnerContainer} from '@src/components/layout/InnerContainer';
-import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
-import ScreenHeader from '@src/components/utility/screen-header/ScreenHeader';
 import React from 'react';
-import {Modal, ScrollView, Text, View} from 'react-native';
+import { Modal, ScrollView, Text, View } from 'react-native';
+
+import { InnerContainer } from '@src/components/layout/InnerContainer';
+import { SafeAreaViewStatus } from '@src/components/layout/SafeAreaViewStatus';
+import ScreenHeader from '@src/components/utility/screen-header/ScreenHeader';
 
 const AddUserModal = ({
   modalVisible,
@@ -11,6 +12,7 @@ const AddUserModal = ({
   modalVisible: boolean;
   closeModal: () => void;
 }) => {
+  //TODO is this component needed?
   return (
     <Modal
       animationType="slide" // or "fade" for fade-in and fade-out animation

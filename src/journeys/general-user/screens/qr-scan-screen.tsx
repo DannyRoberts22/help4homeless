@@ -1,8 +1,9 @@
-import {InnerContainer} from '@src/components/layout/InnerContainer';
-import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import { BarCodeReadEvent, RNCamera } from 'react-native-camera';
 import QRCodeScanner from 'react-native-qrcode-scanner';
-import {BarCodeReadEvent, RNCamera} from 'react-native-camera';
+
+// import {InnerContainer} from '@src/components/layout/InnerContainer';
+import { SafeAreaViewStatus } from '@src/components/layout/SafeAreaViewStatus';
 
 import {
   CenterText,

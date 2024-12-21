@@ -1,7 +1,8 @@
 import React from 'react';
-import {StyledTextInput} from './styles.ts';
-import {KeyboardTypeOptions} from 'react-native';
+import { KeyboardTypeOptions } from 'react-native';
+
 import InputTextLabel from '../input-text-label/InputTextLabel.tsx';
+import { StyledTextInput } from './styles.ts';
 
 type TextInputProps = {
   placeholder: string;

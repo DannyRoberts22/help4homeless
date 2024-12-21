@@ -1,6 +1,8 @@
-import {theme} from '@src/theme';
 import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
+import { theme } from '@src/theme';
+
 import {
   ArrowFlowContainer,
   ArrowFlowDescription,
@@ -12,7 +14,7 @@ type Item = {
   description: string;
 };
 
-const ArrowFlow = ({content}: {content: Item[]}) => {
+const ArrowFlow = ({ content }: { content: Item[] }) => {
   return content.map((item, index) => {
     const isLastItem = index === content.length - 1;
     return (

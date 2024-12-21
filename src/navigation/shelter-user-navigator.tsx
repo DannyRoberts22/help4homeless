@@ -4,20 +4,21 @@ import {
   BottomTabNavigationOptions,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import {DashboardScreen} from '@src/journeys/shelter/screens/dashboard-screen';
-import {ManageScreen} from '@src/journeys/shelter/screens/manage-screen';
-import {ProfileScreen} from '@src/journeys/shared/screens/profile-screen';
-import {theme} from '@src/theme';
+
 import screenNames from '@src/constants/screen-names';
-import {getMappedIcons} from '@src/utils/getMappedIcons';
+import { ProfileScreen } from '@src/journeys/shared/screens/profile-screen';
+import { DashboardScreen } from '@src/journeys/shelter/screens/dashboard-screen';
+import { ManageScreen } from '@src/journeys/shelter/screens/manage-screen';
+import { theme } from '@src/theme';
+import { getMappedIcons } from '@src/utils/getMappedIcons';
 
 const Tab = createBottomTabNavigator();
 
 const ShelterUserNavigator = () => {
   const getTabBarScreenOptions = (route: {
-    route: {name: string};
+    route: { name: string };
   }): BottomTabNavigationOptions => {
-    const {iconName, size, color, title} = getMappedIcons(route);
+    const { iconName, size, color, title } = getMappedIcons(route);
     return {
       headerShown: false,
       title: title,
@@ -27,14 +28,15 @@ const ShelterUserNavigator = () => {
       },
       tabBarActiveTintColor: theme.colors.white,
       tabBarInactiveTintColor: theme.colors.softWhite,
-      tabBarLabelStyle: {fontSize: 11, fontWeight: 'bold'},
+      tabBarLabelStyle: { fontSize: 11, fontWeight: 'bold' },
     };
   };
 
   return (
     <Tab.Navigator
       screenOptions={getTabBarScreenOptions}
-      initialRouteName={screenNames.DASHBOARD_SCREEN}>
+      initialRouteName={screenNames.DASHBOARD_SCREEN}
+    >
       <Tab.Screen
         name={screenNames.DASHBOARD_SCREEN}
         component={DashboardScreen}

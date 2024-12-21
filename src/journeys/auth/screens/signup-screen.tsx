@@ -1,22 +1,23 @@
-import React, {useState} from 'react';
-import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
-import {Alert, Text} from 'react-native';
+import React, { useState } from 'react';
+import { Alert, Text } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import CheckBox from '@react-native-community/checkbox';
-import TextInput from '@src/components/utility/text-input/TextInput';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {RootStackParamList} from '@src/types/navigation-types';
-import screenNames from '@src/constants/screen-names';
-import {InnerContainer} from '@src/components/layout/InnerContainer';
+import { StackNavigationProp } from '@react-navigation/stack';
+
+import { firebaseSignUp } from '@src/api/auth-services';
+import { InnerContainer } from '@src/components/layout/InnerContainer';
+import { SafeAreaViewStatus } from '@src/components/layout/SafeAreaViewStatus';
+import { Spacer } from '@src/components/layout/Spacer';
+import { ShareableButton } from '@src/components/organisms/shareable-button/ShareableButton';
 import InputTextLabel from '@src/components/utility/input-text-label/InputTextLabel';
-import {theme} from '@src/theme';
-import {Spacer} from '@src/components/layout/Spacer';
-import {firebaseSignUp} from '@src/api/auth-services';
-import {signUpUser} from '@src/store/redux/slices/userSlice';
-import {AppDispatch} from '@src/store/store';
-import {useAppDispatch} from '@src/hooks/redux/reduxHooks';
-import {ShareableButton} from '@src/components/organisms/shareable-button/ShareableButton';
-import {UserOptionType} from '@src/types/auth-services-types';
-import {ScrollView} from 'react-native-gesture-handler';
+import TextInput from '@src/components/utility/text-input/TextInput';
+import screenNames from '@src/constants/screen-names';
+import { useAppDispatch } from '@src/hooks/redux/reduxHooks';
+import { signUpUser } from '@src/store/redux/slices/userSlice';
+import { AppDispatch } from '@src/store/store';
+import { theme } from '@src/theme';
+import { UserOptionType } from '@src/types/auth-services-types';
+import { RootStackParamList } from '@src/types/navigation-types';
 
 type SignupScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 
@@ -33,7 +34,7 @@ export const SignupScreen = ({
   const [surname, setSurname] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [isShelterUserSelected, setIsShelterUserSelected] = useState(false);
-  const [errors, setErrors] = useState<{[key: string]: string}>({});
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
   // const isButtonDisabled =
   //   password === secondPassword &&
   //   password.length > 0 &&
@@ -41,7 +42,7 @@ export const SignupScreen = ({
   //   email.length > 0;
 
   const validate = () => {
-    const newErrors: {[key: string]: string} = {};
+    const newErrors: { [key: string]: string } = {};
     if (!firstName) newErrors.firstName = 'First name is required';
     if (!surname) newErrors.surname = 'Surname is required';
     if (!phoneNumber) newErrors.phoneNumber = 'Phone number is required';
@@ -115,7 +116,7 @@ export const SignupScreen = ({
           <CheckBox
             value={isShelterUserSelected}
             onValueChange={setIsShelterUserSelected}
-            style={{backgroundColor: 'white'}}
+            style={{ backgroundColor: 'white' }}
             boxType="square"
           />
           <ShareableButton

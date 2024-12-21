@@ -1,13 +1,15 @@
-import {InnerContainer} from '@src/components/layout/InnerContainer';
-import {SafeAreaViewStatus} from '@src/components/layout/SafeAreaViewStatus';
-import React, {Fragment, useState} from 'react';
+import React, { Fragment, useState } from 'react';
+import { ScrollView } from 'react-native-gesture-handler';
 
+import { InnerContainer } from '@src/components/layout/InnerContainer';
+import { SafeAreaViewStatus } from '@src/components/layout/SafeAreaViewStatus';
+import { Subheading } from '@src/components/molecules/subheading/Subheading';
+import { ShareableButton } from '@src/components/organisms/shareable-button/ShareableButton';
 import aboutData from '@src/content/about-data.json';
-import {Subheading} from '@src/components/molecules/subheading/Subheading';
-import {SectionTitle, Content} from '../styles/about-screen.styles';
-import {ScrollView} from 'react-native-gesture-handler';
-import {HowToUse} from '../modals/how-to-use-modal';
-import {ShareableButton} from '@src/components/organisms/shareable-button/ShareableButton';
+
+import { HowToUse } from '../modals/how-to-use-modal';
+
+import { Content, SectionTitle } from '../styles/about-screen.styles';
 
 export const AboutScreen = () => {
   const [showModal, setShowModal] = useState(false);

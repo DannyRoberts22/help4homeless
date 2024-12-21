@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+
 import {UserType} from '@src/types/auth-services-types';
 
 interface UserState {
