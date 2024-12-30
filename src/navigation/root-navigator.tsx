@@ -9,10 +9,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import AuthNavigator from './auth-navigator';
 
-type RootStackParamList = ParamListBase & {
-  'homeless-person-profile.modal': { id: string };
-};
-
 const Stack = createStackNavigator<RootStackParamList>();
 import { createNavigationContainerRef } from '@react-navigation/native';
 
@@ -22,7 +18,7 @@ import { useAppSelector } from '@src/hooks/redux/reduxHooks';
 import { HomelessPersonProfileModal } from '@src/journeys/shelter/modals/HomelessPersonProfileModal';
 
 import { AccountDrawerNavigator } from './account-drawer.navigator';
-// const Stack = createStackNavigator();
+import { RootStackParamList } from '@src/types/navigation-types';
 
 export const navigationRef = createNavigationContainerRef();
 

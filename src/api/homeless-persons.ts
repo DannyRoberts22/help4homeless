@@ -59,3 +59,16 @@ export const firebaseGetHomelessPersonById = async (
     throw error;
   }
 };
+
+// Delete homeless person from HomelessPersons Firestore collection by id
+export const firebaseDeleteHomelessPerson = async (
+  id: string,
+): Promise<void> => {
+  try {
+    await firestore().collection('HomelessPersons').doc(id).delete();
+    console.log('Person deleted successfully:', id);
+  } catch (error) {
+    console.error('Error deleting person:', error);
+    throw error;
+  }
+};

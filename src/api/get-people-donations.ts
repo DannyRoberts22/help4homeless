@@ -29,3 +29,19 @@ export const getPeopleDonations = async (): Promise<PeopleDonations[]> => {
     }
   }
 };
+
+// TODO can get rid of this when we have a real data
+// get random user profile image
+export const getRandomUserProfileImage = async (): Promise<string> => {
+  try {
+    const response = await fetch('https://randomuser.me/api/');
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data.results[0].picture.large;
+  } catch (error) {
+    console.error('Error fetching random user profile image:', error);
+    throw new Error('Failed to fetch random user profile image');
+  }
+};

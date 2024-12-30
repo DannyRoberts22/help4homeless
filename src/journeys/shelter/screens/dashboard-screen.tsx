@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Alert, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 
@@ -11,7 +11,7 @@ import TextInput from '@src/components/utility/text-input/TextInput';
 import screenNames from '@src/constants/screen-names';
 import { theme } from '@src/theme';
 
-import AddUserModal from '../modals/AddUserModal';
+import AddUserModal from '../modals/AddHomelessPersonModal';
 
 import {
   DashboardContainer,
@@ -24,7 +24,7 @@ interface HomelessPerson {
   surname: string;
 }
 
-import { NavigationProp } from '@react-navigation/native';
+import { NavigationProp, useFocusEffect } from '@react-navigation/native';
 
 import { RootStackParamList } from '@src/types/navigation-types';
 
@@ -41,16 +41,25 @@ export const DashboardScreen = ({
     useState(homelessPersons);
   const [searchQuery, setSearchQuery] = useState<string>('');
 
-  useEffect(() => {
-    firebaseGetHomelessPersons().then(data => {
+  const fetchHomelessPersons = useCallback(async () => {
+    try {
+      const data = await firebaseGetHomelessPersons();
       console.log('🚀 ~ firebaseGetHomelessPersons ~ data:', data);
       setHomelessPersons(data);
-    });
+    } catch (error) {
+      console.error('Error fetching homeless persons:', error);
+    }
   }, [showAddUserModal]);
 
-  useEffect(() => {
-    setfilteredHomelessPersons(homelessPersons);
-  }, [homelessPersons]);
+  useFocusEffect(
+    useCallback(() => {
+      fetchHomelessPersons();
+
+      return () => {
+        console.log('Screen unfocused, cleanup if needed');
+      };
+    }, [fetchHomelessPersons]),
+  );
 
   const handleSearch = (input: string) => {
     setSearchQuery(input);
@@ -63,11 +72,9 @@ export const DashboardScreen = ({
           item.surname.toLowerCase().includes(input.toLowerCase()) ||
           item.id.includes(input),
       );
-      // console.log('🚀 ~ handleSearch ~ filtered:', filtered);
       setfilteredHomelessPersons(filtered);
     } else {
       // If the search is cleared, show the full list
-      console.log('🚀 ~ DashboardScreen ~ homelessPersons:', homelessPersons);
       setfilteredHomelessPersons(homelessPersons);
     }
   };
@@ -103,7 +110,11 @@ export const DashboardScreen = ({
             onChangeText={handleSearch}
           />
           <FlatList
-            data={filteredHomelessPersons}
+            data={
+              filteredHomelessPersons.length > 0
+                ? filteredHomelessPersons
+                : homelessPersons
+            }
             renderItem={renderItem}
             keyExtractor={item => item.id}
           />

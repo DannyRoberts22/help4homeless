@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, ScrollView, Text } from 'react-native';
+import RNPickerSelect from 'react-native-picker-select';
 
 import { firebaseAddHomelessPerson } from '@src/api/homeless-persons';
 import { InnerContainer } from '@src/components/layout/InnerContainer';
@@ -9,6 +10,7 @@ import InputTextLabel from '@src/components/utility/input-text-label/InputTextLa
 import ScreenHeader from '@src/components/utility/screen-header/ScreenHeader';
 import TextInput from '@src/components/utility/text-input/TextInput';
 import { theme } from '@src/theme';
+import { Spacer } from '@src/components/layout/Spacer';
 
 const AddUserModal = ({
   modalVisible,
@@ -21,40 +23,56 @@ const AddUserModal = ({
   const [surname, setSurname] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
+  const [gender, setGender] = useState(null);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const validate = () => {
     const newErrors: { [key: string]: string } = {};
     if (!firstName) newErrors.firstName = 'First name is required';
     if (!surname) newErrors.surname = 'Surname is required';
+    if (!gender) newErrors.gender = 'Please select a gender';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const errorText = theme.fontStyles.errorText;
 
-  const handleAddHomlessPerson = () => {
-    firebaseAddHomelessPerson({
-      firstName,
-      surname,
-      phoneNumber,
-      email,
-    })
-      .then(() => {
-        closeModal();
-      })
-      .catch(error => {
-        console.error('Error adding homeless person:', error);
-      });
+  const clearStateAndCloseModal = () => {
+    setFirstname('');
+    setSurname('');
+    setPhoneNumber('');
+    setEmail('');
+    setGender(null);
+    setErrors({});
+    closeModal();
   };
+
+  const handleAddHomlessPerson = () => {
+    if (validate()) {
+      firebaseAddHomelessPerson({
+        firstName,
+        surname,
+        phoneNumber,
+        gender,
+        email,
+      })
+        .then(() => {
+          clearStateAndCloseModal();
+        })
+        .catch(error => {
+          console.error('Error adding homeless person:', error);
+        });
+    }
+  };
+
   return (
     <Modal
       animationType="slide" // or "fade" for fade-in and fade-out animation
       transparent={true}
       visible={modalVisible}
-      onRequestClose={closeModal} // Android back button handling
+      onRequestClose={clearStateAndCloseModal} // Android back button handling
     >
       <SafeAreaViewStatus>
-        <ScreenHeader isModal={true} handleClose={closeModal} />
+        <ScreenHeader isModal={true} handleClose={clearStateAndCloseModal} />
         <InnerContainer>
           <ScrollView>
             <InputTextLabel text="First Name:" />
@@ -81,17 +99,34 @@ const AddUserModal = ({
               value={phoneNumber}
               onChangeText={text => setPhoneNumber(text)}
             />
-            {errors.phoneNumber && (
-              <Text style={errorText}>{errors.phoneNumber}</Text>
-            )}
+            <InputTextLabel text="Gender:" />
+            <RNPickerSelect
+              onValueChange={itemValue => setGender(itemValue)}
+              items={[
+                {
+                  label: 'Male',
+                  value: 'male',
+                },
+                {
+                  label: 'Female',
+                  value: 'female',
+                },
+              ]}
+              style={{
+                inputIOS: { color: theme.colors.white },
+                inputAndroid: { color: theme.colors.white },
+              }}
+            />
+            {errors.gender && <Text style={errorText}>{errors.gender}</Text>}
             <InputTextLabel text="Email:" />
             <TextInput
               placeholder="Email"
               value={email}
               onChangeText={text => setEmail(text)}
             />
+            <Spacer size={theme.space.lg} />
             <ShareableButton
-              handler={() => (validate() ? handleAddHomlessPerson() : null)}
+              handler={() => handleAddHomlessPerson()}
               text="Add User"
             />
           </ScrollView>

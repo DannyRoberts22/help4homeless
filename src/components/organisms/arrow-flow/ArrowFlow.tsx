@@ -3,11 +3,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { theme } from '@src/theme';
 
-import {
-  ArrowFlowContainer,
-  ArrowFlowDescription,
-  ArrowFlowTitle,
-} from './styles';
+import { ArrowFlowContainer } from './styles';
+import SectionDescription from '@src/components/molecules/section-description/SectionDescription';
+import SectionTitle from '@src/components/molecules/section-title/SectionTitle';
 
 type Item = {
   title: string;
@@ -19,8 +17,8 @@ const ArrowFlow = ({ content }: { content: Item[] }) => {
     const isLastItem = index === content.length - 1;
     return (
       <ArrowFlowContainer key={`arrow-flow-section-${index}`}>
-        <ArrowFlowTitle>{item.title}</ArrowFlowTitle>
-        <ArrowFlowDescription>{item.description}</ArrowFlowDescription>
+        <SectionTitle>{item.title}</SectionTitle>
+        <SectionDescription>{item.description}</SectionDescription>
         {!isLastItem && (
           <Icon
             name="arrow-down"
