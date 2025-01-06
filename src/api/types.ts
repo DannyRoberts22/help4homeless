@@ -4,4 +4,7 @@ export type HomelessPerson = {
   phoneNumber: string;
   email: string;
   id?: string;
+  lastQrCodeExpiryDate: number;
+  dateOfBirth: string;
+  gender: string;
 };

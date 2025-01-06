@@ -1,3 +1,5 @@
+import ChooseUserTypeScreen from '@src/journeys/auth/screens/choose-user-type-screen';
+
 export interface BaseScreenConfig {
   name: string;
   key: string;
@@ -5,23 +7,31 @@ export interface BaseScreenConfig {
 
 const screens = {
   //SCREENS
-  HOME_SCREEN: {name: 'home.screen', key: 'home.screen'},
-  ACCOUNT_SCREEN: {name: 'account.screen', key: 'account.screen'},
-  LOGIN_SCREEN: {name: 'login.screen', key: 'login.screen'},
-  SIGNUP_SCREEN: {name: 'signup.screen', key: 'signup.screen'},
+  HOME_SCREEN: { name: 'home.screen', key: 'home.screen' },
+  ACCOUNT_SCREEN: { name: 'account.screen', key: 'account.screen' },
+  LOGIN_SCREEN: { name: 'login.screen', key: 'login.screen' },
+  SIGNUP_SCREEN: { name: 'signup.screen', key: 'signup.screen' },
+  HOMELESS_SHELTER_SIGNUP_SCREEN: {
+    name: 'homeless-shelter-signup.screen',
+    key: 'homeless-shelter-signup.screen',
+  },
   FORGOTTON_PASSWORD_SCREEN: {
     name: 'fogotten-password.screen',
     key: 'fogotten-password.screen',
   },
-  DASHBOARD_SCREEN: {name: 'dashboard.screen', key: 'dashboard.screen'},
-  MANAGE_SCREEN: {name: 'manage.screen', key: 'manage.screen'},
-  PROFILE_SCREEN: {name: 'profile.screen', key: 'profile.screen'},
-  ABOUT_SCREEN: {name: 'about.screen', key: 'about.screen'},
-  QR_SCAN_SCREEN: {name: 'qr-scan.screen', key: 'qr-scan.screen'},
-  MY_DONATION_SCREEN: {name: 'my-donation.screen', key: 'my-donation.screen'},
+  DASHBOARD_SCREEN: { name: 'dashboard.screen', key: 'dashboard.screen' },
+  MANAGE_SCREEN: { name: 'manage.screen', key: 'manage.screen' },
+  PROFILE_SCREEN: { name: 'profile.screen', key: 'profile.screen' },
+  ABOUT_SCREEN: { name: 'about.screen', key: 'about.screen' },
+  QR_SCAN_SCREEN: { name: 'qr-scan.screen', key: 'qr-scan.screen' },
+  MY_DONATION_SCREEN: { name: 'my-donation.screen', key: 'my-donation.screen' },
   NOTIFICATION_SCREEN: {
     name: 'notification.screen',
     key: 'notification.screen',
+  },
+  CHOOSE_USER_TYPE_SCREEN: {
+    name: 'choose-user-type.screen',
+    key: 'choose-user-type.screen',
   },
 
   //MODALS
@@ -39,9 +49,9 @@ const screens = {
     name: 'shelter-user.navigator',
     key: 'shelter-user.navigator',
   },
-  AUTH_NAVIGATOR: {name: 'auth.navigator', key: 'auth.navigator'},
-  ROOT_NAVIGATOR: {name: 'root.navigator', key: 'root.navigator'},
-  MAIN_NAVIGATOR: {name: 'main.navigator', key: 'main.navigator'},
+  AUTH_NAVIGATOR: { name: 'auth.navigator', key: 'auth.navigator' },
+  ROOT_NAVIGATOR: { name: 'root.navigator', key: 'root.navigator' },
+  MAIN_NAVIGATOR: { name: 'main.navigator', key: 'main.navigator' },
   ACCOUNT_DRAWER_NAVIGATOR: {
     name: 'account-drawer.navigator',
     key: 'account-drawer.navigator',
@@ -55,18 +65,18 @@ export type ScreenNames = {
 const screenCopy: Record<keyof typeof screens, BaseScreenConfig> = screens;
 
 export const mapScreenIcons = {
-  'home.screen': {iconName: 'home', title: 'Home'},
-  'account.screen': {iconName: 'account', title: 'Account'},
-  'login.screen': {iconName: 'login', title: 'Login'},
-  'signup.screen': {iconName: 'signup', title: 'Signup'},
-  'fogotten-password.screen': {iconName: 'forgot', title: 'Forgot'},
-  'dashboard.screen': {iconName: 'tasks', title: 'Dashboard'},
-  'manage.screen': {iconName: 'globe', title: 'Manage'},
-  'profile.screen': {iconName: 'user-plus', title: 'Profile'},
-  'about.screen': {iconName: 'info-circle', title: 'About'},
-  'qr-scan.screen': {iconName: 'qrcode', title: 'QR Code'},
-  'my-donation.screen': {iconName: 'thermometer', title: 'Donation'},
-  'notification.screen': {iconName: 'bell-o', title: 'Notifications'},
+  'home.screen': { iconName: 'home', title: 'Home' },
+  'account.screen': { iconName: 'account', title: 'Account' },
+  'login.screen': { iconName: 'login', title: 'Login' },
+  'signup.screen': { iconName: 'signup', title: 'Signup' },
+  'fogotten-password.screen': { iconName: 'forgot', title: 'Forgot' },
+  'dashboard.screen': { iconName: 'tasks', title: 'Dashboard' },
+  'manage.screen': { iconName: 'globe', title: 'Manage' },
+  'profile.screen': { iconName: 'user-plus', title: 'Profile' },
+  'about.screen': { iconName: 'info-circle', title: 'About' },
+  'qr-scan.screen': { iconName: 'qrcode', title: 'QR Code' },
+  'my-donation.screen': { iconName: 'thermometer', title: 'Donation' },
+  'notification.screen': { iconName: 'bell-o', title: 'Notifications' },
 } as const;
 
 export default screenCopy;

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Alert, Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import CheckBox from '@react-native-community/checkbox';
+// import CheckBox from '@react-native-community/checkbox';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { firebaseSignUp } from '@src/api/auth-services';
+import { firebaseSignUpHomelessShelterUser } from '@src/api/auth-services';
 import { InnerContainer } from '@src/components/layout/InnerContainer';
 import { SafeAreaViewStatus } from '@src/components/layout/SafeAreaViewStatus';
 import { Spacer } from '@src/components/layout/Spacer';
@@ -13,27 +13,27 @@ import InputTextLabel from '@src/components/utility/input-text-label/InputTextLa
 import TextInput from '@src/components/utility/text-input/TextInput';
 import screenNames from '@src/constants/screen-names';
 import { useAppDispatch } from '@src/hooks/redux/reduxHooks';
-import { signUpUser } from '@src/store/redux/slices/userSlice';
+import { signUpHomelessShelterUser } from '@src/store/redux/slices/userSlice';
 import { AppDispatch } from '@src/store/store';
 import { theme } from '@src/theme';
 import { UserOptionType } from '@src/types/auth-services-types';
 import { RootStackParamList } from '@src/types/navigation-types';
 
-type SignupScreenNavigationProp = StackNavigationProp<RootStackParamList>;
+type HomelessShelterSignupScreenNavigationProp =
+  StackNavigationProp<RootStackParamList>;
 
-export const SignupScreen = ({
+export const HomelessShelterSignupScreen = ({
   navigation,
 }: {
-  navigation: SignupScreenNavigationProp;
+  navigation: HomelessShelterSignupScreenNavigationProp;
 }) => {
   const dispatch: AppDispatch = useAppDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [secondPassword, setSecondPassword] = useState('');
-  const [firstName, setFirstname] = useState('');
-  const [surname, setSurname] = useState('');
+  const [businessName, setBusinessName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [isShelterUserSelected, setIsShelterUserSelected] = useState(false);
+  const [address, setAddress] = useState('');
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   // const isButtonDisabled =
   //   password === secondPassword &&
@@ -43,8 +43,7 @@ export const SignupScreen = ({
 
   const validate = () => {
     const newErrors: { [key: string]: string } = {};
-    if (!firstName) newErrors.firstName = 'First name is required';
-    if (!surname) newErrors.surname = 'Surname is required';
+    if (!businessName) newErrors.firstName = 'Business name is required';
     if (!phoneNumber) newErrors.phoneNumber = 'Phone number is required';
     if (!email) newErrors.email = 'Email is required';
     if (!password) newErrors.password = 'Password is required';
@@ -61,22 +60,16 @@ export const SignupScreen = ({
     <SafeAreaViewStatus>
       <ScrollView>
         <InnerContainer>
-          <InputTextLabel text="First Name:" />
+          <InputTextLabel text="Business Name:" />
           <TextInput
-            placeholder="First Name"
-            value={firstName}
-            onChangeText={text => setFirstname(text)}
+            placeholder="Business Name"
+            value={businessName}
+            onChangeText={text => setBusinessName(text)}
             autoFocus={true}
           />
-          {errors.firstName && (
+          {errors.businessName && (
             <Text style={errorText}>{errors.firstName}</Text>
           )}
-          <InputTextLabel text="Surname:" />
-          <TextInput
-            placeholder="Surname"
-            value={surname}
-            onChangeText={text => setSurname(text)}
-          />
           {errors.surname && <Text style={errorText}>{errors.surname}</Text>}
           <InputTextLabel text="Phone Number:" />
           <TextInput
@@ -93,6 +86,13 @@ export const SignupScreen = ({
             placeholder="Email"
             value={email}
             onChangeText={text => setEmail(text)}
+          />
+          {errors.email && <Text style={errorText}>{errors.email}</Text>}
+          <InputTextLabel text="Address:" />
+          <TextInput
+            placeholder="Address"
+            value={address}
+            onChangeText={text => setAddress(text)}
           />
           {errors.email && <Text style={errorText}>{errors.email}</Text>}
           <InputTextLabel text="Password:" />
@@ -112,39 +112,36 @@ export const SignupScreen = ({
           {errors.secondPassword && (
             <Text style={errorText}>{errors.secondPassword}</Text>
           )}
-          <InputTextLabel text="Are you a shelter or Hostel?" />
+          {/* //TODO - Keeping checkbox feature example for future use */}
+          {/* <InputTextLabel text="Are you a shelter or Hostel?" />
           <CheckBox
             value={isShelterUserSelected}
             onValueChange={setIsShelterUserSelected}
             style={{ backgroundColor: 'white' }}
             boxType="square"
-          />
+          /> */}
           <ShareableButton
             color="white"
             text="Sign Up"
             // disabled={!isButtonDisabled}
             handler={() => {
               if (validate()) {
-                firebaseSignUp({
+                firebaseSignUpHomelessShelterUser({
+                  businessName,
                   email,
                   password,
-                  userType: isShelterUserSelected
-                    ? UserOptionType.SHELTER_USER
-                    : UserOptionType.NORMAL_USER,
-                  firstName,
-                  surname,
+                  address: '', //TODO - Add address field
+                  userType: UserOptionType.SHELTER_USER,
                   phoneNumber,
                 })
                   .then(() => {
                     dispatch(
-                      signUpUser({
+                      signUpHomelessShelterUser({
                         email,
-                        firstName,
-                        surname,
+                        businessName,
+                        address,
                         phoneNumber,
-                        userType: isShelterUserSelected
-                          ? UserOptionType.SHELTER_USER
-                          : UserOptionType.NORMAL_USER,
+                        userType: UserOptionType.SHELTER_USER,
                       }),
                     );
                   })

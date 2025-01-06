@@ -3,7 +3,7 @@ import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 export type UserType = (typeof UserOptionType)[keyof typeof UserOptionType];
 
 export const UserOptionType = {
-  NORMAL_USER: 'normalUser',
+  STANDARD_USER: 'standardUser',
   SHELTER_USER: 'shelterUser',
 } as const;
 

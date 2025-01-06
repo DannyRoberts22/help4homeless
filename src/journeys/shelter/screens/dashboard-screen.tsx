@@ -105,7 +105,7 @@ export const DashboardScreen = ({
           />
           <Spacer size={theme.space.lg} />
           <TextInput
-            placeholder="Search For User"
+            placeholder="Search For Homeless person"
             value={searchQuery}
             onChangeText={handleSearch}
           />

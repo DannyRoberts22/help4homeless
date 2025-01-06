@@ -1,10 +1,13 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import {UserType} from '@src/types/auth-services-types';
+import { UserType } from '@src/types/auth-services-types';
 
+// TODO Split this into two slices possibly
 interface UserState {
-  firstName: string;
-  surname: string;
+  firstName?: string;
+  surname?: string;
+  businessName?: string;
+  address?: string;
   email: string;
   phoneNumber: string;
   loggedIn: boolean;
@@ -14,6 +17,8 @@ interface UserState {
 const initialState: UserState = {
   firstName: '',
   surname: '',
+  businessName: '',
+  address: '',
   email: '',
   phoneNumber: '',
   loggedIn: false,
@@ -59,6 +64,23 @@ const userSlice = createSlice({
       state.loggedIn = true;
       state.userType = action.payload.userType;
     },
+    signUpHomelessShelterUser: (
+      state,
+      action: PayloadAction<{
+        businessName: string;
+        address: string;
+        email: string;
+        phoneNumber: string;
+        userType: UserType | undefined;
+      }>,
+    ) => {
+      state.businessName = action.payload.businessName;
+      state.address = action.payload.address;
+      state.email = action.payload.email;
+      state.phoneNumber = action.payload.phoneNumber;
+      state.loggedIn = true;
+      state.userType = action.payload.userType;
+    },
     deleteUser: state => {
       state.firstName = '';
       state.surname = '';
@@ -70,6 +92,12 @@ const userSlice = createSlice({
   },
 });
 
-export const {loginUser, logoutUser, updateEmailUser, signUpUser, deleteUser} =
-  userSlice.actions;
+export const {
+  loginUser,
+  logoutUser,
+  updateEmailUser,
+  signUpUser,
+  signUpHomelessShelterUser,
+  deleteUser,
+} = userSlice.actions;
 export default userSlice.reducer;

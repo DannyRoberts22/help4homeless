@@ -23,17 +23,56 @@ export const firebaseSignUp = async ({
 
     // Save the user type in Firestore
     await firestore().collection('Users').doc(user.uid).set({
+      firstName,
+      surname,
       email,
       userType,
       createdAt: firestore.FieldValue.serverTimestamp(),
-      firstName,
-      surname,
       phoneNumber,
     });
 
     console.log('User registered successfully:', user.uid);
   } catch (error) {
     console.error('Error registering user:', error);
+    throw error;
+  }
+};
+
+// Function to sign up a shelter user
+export const firebaseSignUpHomelessShelterUser = async ({
+  email,
+  password,
+  businessName,
+  address,
+  phoneNumber,
+  userType,
+}: {
+  email: string;
+  password: string;
+  businessName: string;
+  address: string;
+  phoneNumber: string;
+  userType: string;
+}): Promise<void> => {
+  try {
+    const userCredential = await auth().createUserWithEmailAndPassword(
+      email,
+      password,
+    );
+    const user = userCredential.user;
+
+    await firestore().collection('HomelessShelters').doc(user.uid).set({
+      email,
+      businessName,
+      address,
+      phoneNumber,
+      userType,
+      createdAt: firestore.FieldValue.serverTimestamp(),
+    });
+
+    console.log('Shelter user registered successfully:', user.uid);
+  } catch (error) {
+    console.error('Error registering shelter user:', error);
     throw error;
   }
 };

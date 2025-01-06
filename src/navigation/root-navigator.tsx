@@ -4,7 +4,6 @@ import {
   NavigationContainer,
   NavigationState,
 } from '@react-navigation/native';
-import { ParamListBase } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import AuthNavigator from './auth-navigator';

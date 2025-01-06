@@ -4,6 +4,8 @@ export type RootStackParamList = {
   [screenNames.HOME_SCREEN]: undefined;
   [screenNames.LOGIN_SCREEN]: undefined;
   [screenNames.SIGNUP_SCREEN]: undefined;
+  [screenNames.HOMELESS_SHELTER_SIGNUP_SCREEN]: undefined;
+  [screenNames.CHOOSE_USER_TYPE_SCREEN]: undefined;
   [screenNames.FORGOTTON_PASSWORD_SCREEN]: undefined;
   [screenNames.DASHBOARD_SCREEN]: undefined;
   [screenNames.MANAGE_SCREEN]: undefined;

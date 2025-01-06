@@ -87,7 +87,9 @@ export const LoginScreen = ({
         <ShareableButton
           color="white"
           text="Sign Up"
-          handler={() => navigation.navigate(screenNames.SIGNUP_SCREEN)}
+          handler={() =>
+            navigation.navigate(screenNames.CHOOSE_USER_TYPE_SCREEN)
+          }
         />
       </InnerContainer>
     </SafeAreaViewStatus>
