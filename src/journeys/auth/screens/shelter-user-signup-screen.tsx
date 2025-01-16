@@ -33,7 +33,11 @@ export const HomelessShelterSignupScreen = ({
   const [secondPassword, setSecondPassword] = useState('');
   const [businessName, setBusinessName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [address, setAddress] = useState('');
+  const [houseNameOrNumber, setHouseNameOrNumber] = useState('');
+  const [addressLineOne, setAddressLineOne] = useState('');
+  const [addressLineTwo, setAddressLineTwo] = useState('');
+  const [city, setCity] = useState('');
+  const [postcode, setPostcode] = useState('');
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   // const isButtonDisabled =
   //   password === secondPassword &&
@@ -46,6 +50,11 @@ export const HomelessShelterSignupScreen = ({
     if (!businessName) newErrors.firstName = 'Business name is required';
     if (!phoneNumber) newErrors.phoneNumber = 'Phone number is required';
     if (!email) newErrors.email = 'Email is required';
+    if (!houseNameOrNumber)
+      newErrors.houseNameOrNumber = 'House name or number is required';
+    if (!addressLineOne) newErrors.email = 'Address line one is required';
+    if (!city) newErrors.email = 'City is required';
+    if (!postcode) newErrors.email = 'Postcode is required';
     if (!password) newErrors.password = 'Password is required';
     if (password.length < 6)
       newErrors.password = 'Password must be at least 6 characters';
@@ -88,13 +97,44 @@ export const HomelessShelterSignupScreen = ({
             onChangeText={text => setEmail(text)}
           />
           {errors.email && <Text style={errorText}>{errors.email}</Text>}
-          <InputTextLabel text="Address:" />
+          <InputTextLabel text="House name or number:" />
           <TextInput
-            placeholder="Address"
-            value={address}
-            onChangeText={text => setAddress(text)}
+            placeholder="House name or number"
+            value={houseNameOrNumber}
+            onChangeText={text => setHouseNameOrNumber(text)}
           />
-          {errors.email && <Text style={errorText}>{errors.email}</Text>}
+          {errors.houseNameOrNumber && (
+            <Text style={errorText}>{errors.houseNameOrNumber}</Text>
+          )}
+          <InputTextLabel text="Address line one:" />
+          <TextInput
+            placeholder="Address line one"
+            value={addressLineOne}
+            onChangeText={text => setAddressLineOne(text)}
+          />
+          {errors.addressLineOne && (
+            <Text style={errorText}>{errors.addressLineOne}</Text>
+          )}
+          <InputTextLabel text="Address line two:" />
+          <TextInput
+            placeholder="Address line two"
+            value={addressLineTwo}
+            onChangeText={text => setAddressLineTwo(text)}
+          />
+          <InputTextLabel text="City:" />
+          <TextInput
+            placeholder="City"
+            value={city}
+            onChangeText={text => setCity(text)}
+          />
+          {errors.city && <Text style={errorText}>{errors.city}</Text>}
+          <InputTextLabel text="Postcode:" />
+          <TextInput
+            placeholder="Postcode"
+            value={postcode}
+            onChangeText={text => setPostcode(text)}
+          />
+          {errors.postcode && <Text style={errorText}>{errors.postcode}</Text>}
           <InputTextLabel text="Password:" />
           <TextInput //TODO - Add rules for password
             placeholder="Password"
@@ -130,7 +170,11 @@ export const HomelessShelterSignupScreen = ({
                   businessName,
                   email,
                   password,
-                  address: '', //TODO - Add address field
+                  houseNameOrNumber,
+                  addressLineOne,
+                  addressLineTwo,
+                  city,
+                  postcode,
                   userType: UserOptionType.SHELTER_USER,
                   phoneNumber,
                 })
@@ -139,7 +183,11 @@ export const HomelessShelterSignupScreen = ({
                       signUpHomelessShelterUser({
                         email,
                         businessName,
-                        address,
+                        houseNameOrNumber,
+                        addressLineOne,
+                        addressLineTwo,
+                        city,
+                        postcode,
                         phoneNumber,
                         userType: UserOptionType.SHELTER_USER,
                       }),

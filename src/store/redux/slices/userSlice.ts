@@ -7,7 +7,11 @@ interface UserState {
   firstName?: string;
   surname?: string;
   businessName?: string;
-  address?: string;
+  houseNameOrNumber?: string;
+  addressLineOne?: string;
+  addressLineTwo?: string;
+  city?: string;
+  postcode?: string;
   email: string;
   phoneNumber: string;
   loggedIn: boolean;
@@ -18,7 +22,11 @@ const initialState: UserState = {
   firstName: '',
   surname: '',
   businessName: '',
-  address: '',
+  houseNameOrNumber: '',
+  addressLineOne: '',
+  addressLineTwo: '',
+  city: '',
+  postcode: '',
   email: '',
   phoneNumber: '',
   loggedIn: false,
@@ -68,14 +76,22 @@ const userSlice = createSlice({
       state,
       action: PayloadAction<{
         businessName: string;
-        address: string;
+        houseNameOrNumber: string;
+        addressLineOne: string;
+        addressLineTwo: string;
+        city: string;
+        postcode: string;
         email: string;
         phoneNumber: string;
         userType: UserType | undefined;
       }>,
     ) => {
       state.businessName = action.payload.businessName;
-      state.address = action.payload.address;
+      state.houseNameOrNumber = action.payload.houseNameOrNumber;
+      state.addressLineOne = action.payload.addressLineOne;
+      state.addressLineTwo = action.payload.addressLineTwo;
+      state.city = action.payload.city;
+      state.postcode = action.payload.postcode;
       state.email = action.payload.email;
       state.phoneNumber = action.payload.phoneNumber;
       state.loggedIn = true;
