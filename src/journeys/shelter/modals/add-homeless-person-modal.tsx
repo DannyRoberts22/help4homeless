@@ -21,7 +21,7 @@ export const formatDate = (date: Date): string => {
   return `${day}-${month}-${year}`;
 };
 
-const AddUserModal = ({
+const AddHomelessPersonModal = ({
   modalVisible,
   closeModal,
 }: {
@@ -185,4 +185,4 @@ const AddUserModal = ({
   );
 };
 
-export default AddUserModal;
+export default AddHomelessPersonModal;

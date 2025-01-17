@@ -10,7 +10,7 @@ import { Spacer } from '@src/components/layout/Spacer';
 import { Subheading } from '@src/components/molecules/subheading/Subheading';
 import { ShareableButton } from '@src/components/organisms/shareable-button/ShareableButton';
 import screenNames from '@src/constants/screen-names';
-import { useAppDispatch } from '@src/hooks/redux/reduxHooks';
+import { useAppDispatch, useAppSelector } from '@src/hooks/redux/reduxHooks';
 import { deleteUser } from '@src/store/redux/slices/userSlice';
 import { theme } from '@src/theme';
 
@@ -46,8 +46,21 @@ export const ProfileScreen = ({
   navigation: ProfileScreenNavigationProp;
 }) => {
   const { currentUser } = auth();
+  const {
+    userType,
+    firstName,
+    surname,
+    businessName,
+    houseNameOrNumber,
+    addressLineOne,
+    addressLineTwo,
+    city,
+    postcode,
+    email,
+    phoneNumber,
+  } = useAppSelector(state => state.user);
   const dispatch = useAppDispatch();
-  console.log('🚀 ~ ProfileScreen ~ currentUser:', currentUser);
+
   return (
     <SafeAreaViewStatus>
       <ScrollView>
@@ -55,32 +68,42 @@ export const ProfileScreen = ({
           <Subheading text="My Account" />
           <Spacer size={theme.space.lg} />
           <ProfileContainer>
-            <ProfileTitle>The Upper Room</ProfileTitle>
-            <Spacer size={theme.space.lg} />
-            <ProfileTitle>Address</ProfileTitle>
-            <ProfileContent>St Saviour Wendell Park Church</ProfileContent>
-            <ProfileContent>Cobbold Road</ProfileContent>
-            <ProfileContent>London</ProfileContent>
-            <ProfileContent>W12 9LN</ProfileContent>
-            <Spacer size={theme.space.sm} />
+            {userType === 'shelterUser' ? (
+              <ProfileTitle>{businessName}</ProfileTitle>
+            ) : (
+              <ProfileTitle>{`${firstName} ${surname}`}</ProfileTitle>
+            )}
+            {addressLineOne && (
+              <>
+                <Spacer size={theme.space.sm} />
+                <ProfileTitle>Address</ProfileTitle>
+
+                <ProfileContent>{`${houseNameOrNumber} ${addressLineOne}`}</ProfileContent>
+                <ProfileContent>{addressLineTwo}</ProfileContent>
+                <ProfileContent>{city}</ProfileContent>
+                <ProfileContent>{postcode}</ProfileContent>
+                <Spacer size={theme.space.sm} />
+              </>
+            )}
             <ProfileTitle>Email</ProfileTitle>
-            <ProfileContent>uradmin@theupperroom.org.uk</ProfileContent>
+            <ProfileContent>{email}</ProfileContent>
             <Spacer size={theme.space.sm} />
             <ProfileTitle>Phone</ProfileTitle>
-            <ProfileContent>020 8740 5688</ProfileContent>
+            <ProfileContent>{phoneNumber}</ProfileContent>
             <Spacer size={theme.space.md} />
             <ProfileTitle>Card Details</ProfileTitle>
             <ProfileContent>Card number: **** **** 4382</ProfileContent>
             <ProfileContent>Expiry date: 08/2026</ProfileContent>
             <Spacer size={theme.space.lg} />
 
-            <ShareableButton
+            {/* //TODO: Add functionality to update user details */}
+            {/* <ShareableButton
               handler={function (): void {
                 Alert.alert('Update');
               }}
               text="Update"
             />
-            <Spacer size={theme.space.lg} />
+            <Spacer size={theme.space.lg} /> */}
 
             <ShareableButton
               handler={function (): void {

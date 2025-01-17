@@ -11,7 +11,7 @@ import TextInput from '@src/components/utility/text-input/TextInput';
 import screenNames from '@src/constants/screen-names';
 import { theme } from '@src/theme';
 
-import AddUserModal from '../modals/AddHomelessPersonModal';
+import AddHomelessPersonModal from '../modals/add-homeless-person-modal';
 
 import {
   DashboardContainer,
@@ -123,9 +123,9 @@ export const DashboardScreen = ({
           handler={() => Alert.alert('Generate QR codes for all')}
           text="Generate QR codes for all"
         />
-        <AddUserModal
+        <AddHomelessPersonModal
           modalVisible={showAddUserModal}
-          closeModal={() => setShowAddUserModal(false)}
+          closeModal={() => setShowAddUserModal(false)} //TODO: change this to useNavigation instead using state to show as it's a bit ugly
         />
       </InnerContainer>
     </SafeAreaViewStatus>

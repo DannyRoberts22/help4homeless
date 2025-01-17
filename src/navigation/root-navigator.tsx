@@ -14,7 +14,7 @@ import { createNavigationContainerRef } from '@react-navigation/native';
 import ScreenHeader from '@src/components/utility/screen-header/ScreenHeader';
 import screenNames from '@src/constants/screen-names';
 import { useAppSelector } from '@src/hooks/redux/reduxHooks';
-import { HomelessPersonProfileModal } from '@src/journeys/shelter/modals/HomelessPersonProfileModal';
+import { HomelessPersonProfileModal } from '@src/journeys/shelter/modals/homeless-person-profile-modal';
 
 import { AccountDrawerNavigator } from './account-drawer.navigator';
 import { RootStackParamList } from '@src/types/navigation-types';
