@@ -176,7 +176,7 @@ const AddHomelessPersonModal = ({
             <Spacer size={theme.space.lg} />
             <ShareableButton
               handler={() => handleAddHomlessPerson()}
-              text="Add User"
+              text="Submit"
             />
           </ScrollView>
         </InnerContainer>

@@ -1,8 +1,17 @@
 import React from 'react';
-import { Description } from './section-description.styles';
+import {
+  Description,
+  SectionDescriptionProps,
+} from './section-description.styles';
 
-const SectionDescription = ({ children }: { children: string }) => {
-  return <Description>{children}</Description>;
+const SectionDescription = ({
+  children,
+  variant,
+}: {
+  children: string;
+  variant?: SectionDescriptionProps['variant'];
+}) => {
+  return <Description variant={variant}>{children}</Description>;
 };
 
 export default SectionDescription;

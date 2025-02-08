@@ -35,7 +35,8 @@ export const DashboardScreen = ({
 }: {
   navigation: DashboardScreenProp;
 }) => {
-  const [showAddUserModal, setShowAddUserModal] = useState(false);
+  const [showAddHomelessPersonModal, setShowAddHomelessPersonModal] =
+    useState(false);
   const [homelessPersons, setHomelessPersons] = useState<HomelessPerson[]>([]);
   const [filteredHomelessPersons, setfilteredHomelessPersons] =
     useState(homelessPersons);
@@ -49,7 +50,7 @@ export const DashboardScreen = ({
     } catch (error) {
       console.error('Error fetching homeless persons:', error);
     }
-  }, [showAddUserModal]);
+  }, [showAddHomelessPersonModal]);
 
   useFocusEffect(
     useCallback(() => {
@@ -100,12 +101,12 @@ export const DashboardScreen = ({
       <InnerContainer>
         <DashboardContainer>
           <ShareableButton
-            handler={() => setShowAddUserModal(true)}
-            text="Add Person"
+            handler={() => setShowAddHomelessPersonModal(true)}
+            text="Add person"
           />
           <Spacer size={theme.space.lg} />
           <TextInput
-            placeholder="Search For Homeless person"
+            placeholder="Search for homeless person"
             value={searchQuery}
             onChangeText={handleSearch}
           />
@@ -119,13 +120,13 @@ export const DashboardScreen = ({
             keyExtractor={item => item.id}
           />
         </DashboardContainer>
-        <ShareableButton
+        {/* <ShareableButton
           handler={() => Alert.alert('Generate QR codes for all')}
           text="Generate QR codes for all"
-        />
+        /> */}
         <AddHomelessPersonModal
-          modalVisible={showAddUserModal}
-          closeModal={() => setShowAddUserModal(false)} //TODO: change this to useNavigation instead using state to show as it's a bit ugly
+          modalVisible={showAddHomelessPersonModal}
+          closeModal={() => setShowAddHomelessPersonModal(false)}
         />
       </InnerContainer>
     </SafeAreaViewStatus>

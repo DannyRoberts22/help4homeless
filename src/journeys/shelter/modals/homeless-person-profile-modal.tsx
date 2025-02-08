@@ -17,7 +17,7 @@ import SectionDescription from '@src/components/molecules/section-description/Se
 import { ShareableButton } from '@src/components/organisms/shareable-button/ShareableButton';
 import { Spacer } from '@src/components/layout/Spacer';
 import { theme } from '@src/theme';
-import { View } from 'react-native';
+import { Alert, Modal, ScrollView, View } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import { formatDaysRemaining } from '@src/utils/formatDaysRemaining';
 
@@ -83,76 +83,93 @@ export const HomelessPersonProfileModal = ({
     setShowGeneratedQrCodeMessage(true);
   };
 
-  return (
-    <SafeAreaViewStatus>
-      <ScreenHeader isModal={true} handleClose={() => navigation.goBack()} />
-      <InnerContainer>
-        <ProfileContainer>
-          {imageSource && (
-            <HomelessPersonProfileImage source={{ uri: imageSource }} />
-          )}
-          <Spacer size={theme.space.lg} />
-          <SectionDescription>{`Name: ${firstName} ${surname}`}</SectionDescription>
-          <Spacer size={theme.space.sm} />
+  const handleDeleteHomelessPerson = () => {
+    Alert.alert("Are you sure you want to delete this person's profile?", '', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {
+        text: 'Delete',
+        onPress: () => {
+          firebaseDeleteHomelessPerson(homelessPersonId)
+            .then(() => navigation.goBack())
+            .catch(error => {
+              console.error('Error deleting homeless person:', error);
+            });
+        },
+      },
+    ]);
+  };
+  console.log('qrCodeValue', qrCodeValue);
 
-          {email && (
-            <>
-              <SectionDescription>{`Email: ${email}`}</SectionDescription>
+  return (
+    <Modal visible={true} animationType="slide">
+      <SafeAreaViewStatus>
+        <ScreenHeader isModal={true} handleClose={() => navigation.goBack()} />
+        <InnerContainer>
+          <ScrollView>
+            <ProfileContainer>
+              {imageSource && (
+                <HomelessPersonProfileImage source={{ uri: imageSource }} />
+              )}
+              <Spacer size={theme.space.md} />
+              <SectionDescription>{`${firstName} ${surname}`}</SectionDescription>
               <Spacer size={theme.space.sm} />
-            </>
-          )}
-          <SectionDescription>{`DOB: ${dateOfBirth}`}</SectionDescription>
-          <Spacer size={theme.space.sm} />
-          <SectionDescription>{`Gender: ${gender}`}</SectionDescription>
-          <Spacer size={theme.space.sm} />
-          {phoneNumber && (
-            <>
-              <SectionDescription>{`Number: ${phoneNumber}`}</SectionDescription>
+
+              {email && (
+                <>
+                  <SectionDescription>{`${email}`}</SectionDescription>
+                  <Spacer size={theme.space.sm} />
+                </>
+              )}
+              <SectionDescription>{`${dateOfBirth}`}</SectionDescription>
               <Spacer size={theme.space.sm} />
-            </>
-          )}
-          {qrCodeValue && (
-            <View style={{ alignItems: 'center' }}>
-              <QRCode value={qrCodeValue} size={200} />
-            </View>
-          )}
-          <Spacer size={theme.space.lg} />
-          {isQRCodeExpired() ? (
-            <SectionDescription>
-              The current QR code has expired. Please regenerate a new one.
-            </SectionDescription>
-          ) : (
-            <SectionDescription>
-              {` The current QR code ${formatDaysRemaining(
-                lastQrCodeExpiryDate,
-              )}`}
-            </SectionDescription>
-          )}
-          <Spacer size={theme.space.lg} />
-          <ShareableButton
-            handler={() => handleUpdateQRCode()}
-            text="Regenerate QR Code"
-          />
-          <Spacer size={theme.space.lg} />
-          {showGeneratedQrCodeMessage && (
-            <SectionDescription>
-              The QR Code was updated successfully
-            </SectionDescription>
-          )}
-          <Spacer size={theme.space.lg} />
-          <ShareableButton
-            handler={() =>
-              firebaseDeleteHomelessPerson(homelessPersonId)
-                .then(() => navigation.goBack())
-                .catch(error => {
-                  console.error('Error deleting homeless person:', error);
-                })
-            }
-            text="Delete User"
-          />
-        </ProfileContainer>
-      </InnerContainer>
-    </SafeAreaViewStatus>
+              <SectionDescription>{`${gender}`}</SectionDescription>
+              <Spacer size={phoneNumber ? theme.space.sm : theme.space.md} />
+              {phoneNumber && (
+                <>
+                  <SectionDescription>{`${phoneNumber}`}</SectionDescription>
+                  <Spacer size={theme.space.md} />
+                </>
+              )}
+              {qrCodeValue && (
+                <View style={{ alignItems: 'center' }}>
+                  <QRCode value={qrCodeValue} size={150} />
+                </View>
+              )}
+              <Spacer size={theme.space.lg} />
+              {isQRCodeExpired() ? (
+                <SectionDescription variant="warning">
+                  The current QR code has expired. Please regenerate a new one.
+                </SectionDescription>
+              ) : (
+                <SectionDescription>
+                  {` The current QR code ${formatDaysRemaining(
+                    lastQrCodeExpiryDate,
+                  )}`}
+                </SectionDescription>
+              )}
+              <Spacer size={theme.space.lg} />
+              <ShareableButton
+                handler={() => handleUpdateQRCode()}
+                text="Regenerate QR Code"
+              />
+              <Spacer size={theme.space.lg} />
+              {showGeneratedQrCodeMessage && (
+                <SectionDescription>
+                  The QR Code was updated successfully
+                </SectionDescription>
+              )}
+              <ShareableButton
+                handler={() => handleDeleteHomelessPerson()}
+                text="Delete"
+              />
+            </ProfileContainer>
+          </ScrollView>
+        </InnerContainer>
+      </SafeAreaViewStatus>
+    </Modal>
   );
 };
 

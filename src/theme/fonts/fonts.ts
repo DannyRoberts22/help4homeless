@@ -9,8 +9,8 @@ export const fontSizes = {
   cardText: '14px',
   sectionTitle: '18px',
   sectionText: '14px',
-  buttonText: '18px',
-  ProfileTitle: '18px',
+  buttonText: '16px',
+  ProfileTitle: '16px',
   ProfileContent: '14px',
   homelessUserDetails: '14px',
 };

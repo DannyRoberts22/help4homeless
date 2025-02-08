@@ -18,6 +18,6 @@ export const colors: Colors = {
   black: '#000000',
   white: '#FFFFFF',
   softWhite: '#DDDDDD',
-  error: '#FF0000',
+  error: '#f01e2c',
   offPrimary: '#376A9F',
 };

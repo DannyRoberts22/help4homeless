@@ -11,7 +11,6 @@ import { DetailsCardItem } from '@src/components/organisms/details-card-item/Det
 import { ImageBackgroundCard } from '@src/components/organisms/image-background-card/ImageBackgroundCard';
 import { ShareableButton } from '@src/components/organisms/shareable-button/ShareableButton';
 import TextInput from '@src/components/utility/text-input/TextInput';
-import { useAppSelector } from '@src/hooks/redux/reduxHooks';
 import { theme } from '@src/theme';
 import { MappedItem, NewsData } from '@src/types/news-api-types';
 import { ShelterItem } from '@src/types/shelter-api-types';
@@ -22,6 +21,7 @@ import {
   HorizontalFlatListContainer,
   ShelterSearchContainer,
 } from '../styles/home-screen.styles';
+import SectionDescription from '@src/components/molecules/section-description/SectionDescription';
 
 export const HomeScreen = () => {
   const [newsData, setNewsData] = useState<MappedItem[]>([]);
@@ -30,7 +30,7 @@ export const HomeScreen = () => {
   const [shelters, setShelters] = useState<any>([]);
   const [shelterError, setShelterError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-
+  const [userHasSearched, setUserHasSearched] = useState<boolean>(false);
   const CARD_WIDTH = Dimensions.get('window').width * 0.7;
 
   const handleSetNewsData = (data: NewsData) => {
@@ -47,13 +47,9 @@ export const HomeScreen = () => {
     setLoading(true);
     getHomelessShelterList(postcode)
       .then((response: any) => {
-        console.log(
-          '🚀 ~ .then ~ response:',
-          JSON.stringify(response, null, 2),
-        );
-
         setShelterError(false);
         setShelters(response);
+        setUserHasSearched(true);
       })
       .catch((error: Error) => {
         console.error('There was no shelters found:', error);
@@ -93,8 +89,6 @@ export const HomeScreen = () => {
       </>
     );
   };
-  const { loggedIn } = useAppSelector(state => state.user);
-  console.log('loggenInHome', loggedIn);
   return (
     <SafeAreaViewStatus>
       <InnerContainer>
@@ -106,7 +100,6 @@ export const HomeScreen = () => {
               keyExtractor={(item: MappedItem) => item.id}
               horizontal
               showsHorizontalScrollIndicator={false}
-              // eslint-disable-next-line react-native/no-inline-styles
               contentContainerStyle={{ paddingHorizontal: 10 }}
             />
           ) : (
@@ -114,36 +107,44 @@ export const HomeScreen = () => {
           )}
         </HorizontalFlatListContainer>
         <Spacer size={theme.space.lg} />
+        <ShelterSearchContainer>
+          <TextInput
+            placeholder="Enter your postcode"
+            value={postcode}
+            onChangeText={setPostcode}
+            autoCapitalize="characters"
+            autoCorrect={false}
+            showError={shelterError}
+            errorText="Please enter a valid postcode"
+          />
+          <Spacer size={theme.space.lg} />
+          <ShareableButton
+            handler={getHomelessShelters}
+            text="Find your nearest shelters"
+            color="white"
+          />
+          <Spacer size={theme.space.sm} />
+        </ShelterSearchContainer>
         {loading ? (
           <ActivityIndicator size="large" color={theme.colors.white} />
         ) : (
           <>
-            <ShelterSearchContainer>
-              <TextInput
-                placeholder="Enter your postcode"
-                value={postcode}
-                onChangeText={setPostcode}
-                autoCapitalize="characters"
-                autoCorrect={false}
-                showError={shelterError}
-                errorText="Please enter a valid postcode"
+            {shelters.length > 0 || !userHasSearched ? (
+              <FlatList
+                data={shelters}
+                renderItem={renderShelterItem}
+                keyExtractor={(item: any) => item.place_id}
+                contentContainerStyle={{ paddingVertical: 20 }}
+                showsVerticalScrollIndicator={true}
               />
-              <Spacer size={theme.space.lg} />
-              <ShareableButton
-                handler={getHomelessShelters}
-                text="Find your nearest shelters"
-                color="white"
-              />
-              <Spacer size={theme.space.sm} />
-            </ShelterSearchContainer>
-            <FlatList
-              data={shelters}
-              renderItem={renderShelterItem}
-              keyExtractor={(item: any) => item.place_id}
-              // eslint-disable-next-line react-native/no-inline-styles
-              contentContainerStyle={{ paddingVertical: 20 }}
-              showsVerticalScrollIndicator={true}
-            />
+            ) : (
+              <>
+                <Spacer size={theme.space.lg} />
+                <SectionDescription>
+                  There are no shelters in your area
+                </SectionDescription>
+              </>
+            )}
           </>
         )}
       </InnerContainer>

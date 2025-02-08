@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert } from 'react-native';
+import { Alert, Linking, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth';
 
@@ -37,6 +37,7 @@ const handleDeleteCurrentUser = async () => {
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { RootStackParamList } from '@src/types/navigation-types';
+import SectionDescription from '@src/components/molecules/section-description/SectionDescription';
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 
@@ -45,7 +46,8 @@ export const ProfileScreen = ({
 }: {
   navigation: ProfileScreenNavigationProp;
 }) => {
-  const { currentUser } = auth();
+  const dispatch = useAppDispatch();
+  // const { currentUser } = auth();
   const {
     userType,
     firstName,
@@ -59,42 +61,67 @@ export const ProfileScreen = ({
     email,
     phoneNumber,
   } = useAppSelector(state => state.user);
-  const dispatch = useAppDispatch();
+  console.log('🚀 ~ businessName:', businessName);
+
+  //TODO: Make mailto work
+  const sendEmail = () => {
+    const email = 'info.help@gmail.com';
+    const subject = 'Hello';
+    const body = 'I wanted to reach out about...';
+    const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(
+      subject,
+    )}&body=${encodeURIComponent(body)}`;
+
+    console.log('mailtoLink:', mailtoLink);
+    Linking.canOpenURL(mailtoLink)
+      .then(supported => {
+        if (supported) {
+          Linking.openURL(mailtoLink);
+        } else {
+          Alert.alert(
+            'Mail app not available',
+            'This device does not appear to have a mail app configured.',
+          );
+        }
+      })
+      .catch(error => console.error('Error opening mail app', error));
+  };
 
   return (
     <SafeAreaViewStatus>
       <ScrollView>
         <InnerContainer>
-          <Subheading text="My Account" />
-          <Spacer size={theme.space.lg} />
           <ProfileContainer>
+            {/* <ProfileTitle>Name:</ProfileTitle> */}
             {userType === 'shelterUser' ? (
-              <ProfileTitle>{businessName}</ProfileTitle>
+              <ProfileContent>{businessName}</ProfileContent>
             ) : (
-              <ProfileTitle>{`${firstName} ${surname}`}</ProfileTitle>
+              <ProfileContent>{`${firstName} ${surname}`}</ProfileContent>
             )}
             {addressLineOne && (
               <>
-                <Spacer size={theme.space.sm} />
-                <ProfileTitle>Address</ProfileTitle>
+                <Spacer size={theme.space.md} />
+                {/* <ProfileTitle>Address:</ProfileTitle> */}
 
                 <ProfileContent>{`${houseNameOrNumber} ${addressLineOne}`}</ProfileContent>
-                <ProfileContent>{addressLineTwo}</ProfileContent>
+                {addressLineTwo && (
+                  <ProfileContent>{addressLineTwo}</ProfileContent>
+                )}
                 <ProfileContent>{city}</ProfileContent>
                 <ProfileContent>{postcode}</ProfileContent>
-                <Spacer size={theme.space.sm} />
+                <Spacer size={theme.space.md} />
               </>
             )}
-            <ProfileTitle>Email</ProfileTitle>
+            {/* <ProfileTitle>Email:</ProfileTitle> */}
             <ProfileContent>{email}</ProfileContent>
-            <Spacer size={theme.space.sm} />
-            <ProfileTitle>Phone</ProfileTitle>
+            <Spacer size={theme.space.md} />
+            {/* <ProfileTitle>Phone:</ProfileTitle> */}
             <ProfileContent>{phoneNumber}</ProfileContent>
             <Spacer size={theme.space.md} />
-            <ProfileTitle>Card Details</ProfileTitle>
+            {/* <ProfileTitle>Card Details:</ProfileTitle> */}
             <ProfileContent>Card number: **** **** 4382</ProfileContent>
             <ProfileContent>Expiry date: 08/2026</ProfileContent>
-            <Spacer size={theme.space.lg} />
+            <Spacer size={theme.space.xxl} />
 
             {/* //TODO: Add functionality to update user details */}
             {/* <ShareableButton
@@ -133,16 +160,13 @@ export const ProfileScreen = ({
                   ],
                 );
               }}
-              text="Delete My Account"
+              text="Delete my account"
             />
             <Spacer size={theme.space.lg} />
-
-            <ShareableButton
-              handler={function (): void {
-                Alert.alert('Help');
-              }}
-              text="Get Help"
-            />
+            <SectionDescription>For Assistance please email</SectionDescription>
+            <TouchableOpacity onPress={() => sendEmail()}>
+              <SectionDescription>info.help@gmail.com</SectionDescription>
+            </TouchableOpacity>
           </ProfileContainer>
         </InnerContainer>
       </ScrollView>

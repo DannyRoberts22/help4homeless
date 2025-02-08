@@ -10,8 +10,8 @@ export const ProfileContainer = styled.View`
 
 // TODO maybe put border radius into a theme
 export const HomelessPersonProfileImage = styled.Image`
-  width: 80%;
-  height: 200px;
+  width: 60%;
+  height: 150px;
   border-radius: 10px;
   align-self: center;
 `;

@@ -5,15 +5,15 @@ export const ProfileContainer = styled.View`
 `;
 
 export const ProfileTitle = styled.Text`
-  color: ${({theme}) => theme.colors.white};
-  font-size: ${({theme}) => theme.fontSizes.ProfileTitle};
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.fontSizes.ProfileTitle};
   font-weight: bold;
   text-align: center;
-  margin-top: ${({theme}) => theme.space.md};
+  margin-bottom: ${({ theme }) => theme.space.xs};
 `;
 export const ProfileContent = styled.Text`
-  color: ${({theme}) => theme.colors.white};
-  font-size: ${({theme}) => theme.fontSizes.ProfileContent};
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.fontSizes.ProfileContent};
   font-weight: bold;
   text-align: center;
 `;
