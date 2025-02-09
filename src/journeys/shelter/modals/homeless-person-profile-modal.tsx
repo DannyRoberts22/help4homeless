@@ -4,6 +4,7 @@ import { NavigationProp } from '@react-navigation/native';
 import {
   firebaseDeleteHomelessPerson,
   firebaseGetHomelessPersonById,
+  firebaseUpdateHomelessPersonBalance,
   firebaseUpdateHomelessPersonQrCodeExpiry,
 } from '@src/api/homeless-persons';
 import { InnerContainer } from '@src/components/layout/InnerContainer';
@@ -20,6 +21,7 @@ import { theme } from '@src/theme';
 import { Alert, Modal, ScrollView, View } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import { formatDaysRemaining } from '@src/utils/formatDaysRemaining';
+import TextInput from '@src/components/utility/text-input/TextInput';
 
 export type HomelessPersonProfileModalProps = {
   route: { params: { id: string } };
@@ -35,8 +37,10 @@ export const HomelessPersonProfileModal = ({
   const [surname, setSurname] = useState('');
   const [email, setEmail] = useState<null | string>(null);
   const [phoneNumber, setPhoneNumber] = useState<null | string>(null);
+  const [balance, setBalance] = useState(0);
+  const [reimburseAmount, setReimburseAmount] = useState(0);
   const [dateOfBirth, setDateOfBirth] = useState('');
-  const [gender, setGender] = useState('');
+  // const [gender, setGender] = useState('');
   const [imageSource, setImageSource] = useState('');
   const [lastQrCodeExpiryDate, setLastQrCodeExpiryDate] = useState(0);
   const [qrCodeValue, setQrCodeValue] = useState('');
@@ -50,9 +54,10 @@ export const HomelessPersonProfileModal = ({
       setSurname(person.surname);
       setEmail(person.email);
       setPhoneNumber(person.phoneNumber);
+      setBalance(person.balance);
       setLastQrCodeExpiryDate(person.lastQrCodeExpiryDate);
       setDateOfBirth(person.dateOfBirth);
-      setGender(person.gender);
+      // setGender(person.gender);
     });
   }, []);
 
@@ -101,6 +106,37 @@ export const HomelessPersonProfileModal = ({
       },
     ]);
   };
+
+  const calculateAge = (dobString: string) => {
+    const [day, month, year] = dobString.split('-').map(Number);
+    const dob = new Date(year, month - 1, day); // JS months are 0-based
+
+    const diff = Date.now() - dob.getTime();
+    const age = new Date(diff).getUTCFullYear() - 1970; // Extract years
+
+    return age;
+  };
+
+  const handleReimburseBalance = () => {
+    if (!reimburseAmount) {
+      Alert.alert('Please enter an amount to reimburse');
+      return;
+    }
+
+    const amount = reimburseAmount * 100;
+    console.log('🚀 ~ handleReimburseBalance ~ amount:', amount);
+    firebaseUpdateHomelessPersonBalance({
+      cost: amount,
+      id: homelessPersonId,
+    })
+      .then(() => {
+        setBalance(balance - amount);
+        setReimburseAmount(0);
+      })
+      .catch(error => {
+        Alert.alert('Error reimbursing balance', error.message);
+      });
+  };
   console.log('qrCodeValue', qrCodeValue);
 
   return (
@@ -114,25 +150,30 @@ export const HomelessPersonProfileModal = ({
                 <HomelessPersonProfileImage source={{ uri: imageSource }} />
               )}
               <Spacer size={theme.space.md} />
-              <SectionDescription>{`${firstName} ${surname}`}</SectionDescription>
+              <SectionDescription>{`Name: ${firstName} ${surname}`}</SectionDescription>
               <Spacer size={theme.space.sm} />
-
               {email && (
                 <>
-                  <SectionDescription>{`${email}`}</SectionDescription>
+                  <SectionDescription>{`Email: ${email}`}</SectionDescription>
                   <Spacer size={theme.space.sm} />
                 </>
               )}
-              <SectionDescription>{`${dateOfBirth}`}</SectionDescription>
+              <SectionDescription>{`Age: ${calculateAge(
+                dateOfBirth,
+              )}`}</SectionDescription>
               <Spacer size={theme.space.sm} />
-              <SectionDescription>{`${gender}`}</SectionDescription>
-              <Spacer size={phoneNumber ? theme.space.sm : theme.space.md} />
+              {/* <SectionDescription>{`${gender}`}</SectionDescription> */}
               {phoneNumber && (
                 <>
-                  <SectionDescription>{`${phoneNumber}`}</SectionDescription>
+                  <SectionDescription>{`Number: ${phoneNumber}`}</SectionDescription>
                   <Spacer size={theme.space.md} />
                 </>
               )}
+              {/* // start here next time */}
+              <SectionDescription>{`Balance: £${(balance / 100).toFixed(
+                2,
+              )}`}</SectionDescription>
+              <Spacer size={theme.space.md} />
               {qrCodeValue && (
                 <View style={{ alignItems: 'center' }}>
                   <QRCode value={qrCodeValue} size={150} />
@@ -161,6 +202,17 @@ export const HomelessPersonProfileModal = ({
                   The QR Code was updated successfully
                 </SectionDescription>
               )}
+              <TextInput
+                keyboardType="numeric"
+                placeholder="amount"
+                value={reimburseAmount}
+                onChangeText={number => setReimburseAmount(Number(number))}
+              />
+              <ShareableButton
+                handler={() => handleReimburseBalance()}
+                text="Reimburse"
+              />
+              <Spacer size={theme.space.lg} />
               <ShareableButton
                 handler={() => handleDeleteHomelessPerson()}
                 text="Delete"

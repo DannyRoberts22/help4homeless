@@ -26,9 +26,6 @@ const GeneralUserNavigator = () => {
       tabBarIcon: () => <Icon name={iconName} size={size} color={color} />,
       tabBarStyle: {
         backgroundColor: theme.colors.primary,
-        borderTopColor: theme.colors.offPrimary,
-        paddingBottom: 4,
-        paddingTop: 4,
       },
       tabBarActiveTintColor: theme.colors.white,
       tabBarInactiveTintColor: theme.colors.softWhite,

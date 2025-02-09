@@ -64,6 +64,7 @@ export const firebaseGetHomelessPersonById = async (
       lastQrCodeExpiryDate: data.lastQrCodeExpiryDate,
       dateOfBirth: data.dateOfBirth,
       gender: data.gender,
+      balance: data.balance,
     };
   } catch (error) {
     console.error('Error retrieving person:', error);
@@ -99,6 +100,40 @@ export const firebaseUpdateHomelessPersonQrCodeExpiry = async ({
     console.log('Person updated successfully:', id);
   } catch (error) {
     console.error('Error updating person:', error);
+    throw error;
+  }
+};
+
+// firebaseUpdateHomelessPersonBalance
+export const firebaseUpdateHomelessPersonBalance = async ({
+  id,
+  cost,
+}: {
+  id: string;
+  cost: number;
+}): Promise<void> => {
+  const personRef = firestore().collection('HomelessPersons').doc(id);
+
+  try {
+    await firestore().runTransaction(async transaction => {
+      const personDoc = await transaction.get(personRef);
+      if (!personDoc.exists) {
+        throw new Error('Homeless person not found');
+      }
+
+      const currentBalance = personDoc.data()?.balance || 0;
+
+      if (currentBalance < cost) {
+        throw new Error('Insufficient funds');
+      }
+
+      const newBalance = currentBalance - cost;
+      transaction.update(personRef, { balance: newBalance });
+    });
+
+    console.log('Balance updated successfully for:', id);
+  } catch (error) {
+    console.error('Error updating balance:', error);
     throw error;
   }
 };

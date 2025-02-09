@@ -8,8 +8,8 @@ type TextInputProps = {
   placeholder: string;
   secureTextEntry?: boolean;
   keyboardType?: KeyboardTypeOptions;
-  value?: string;
-  onChangeText?: (text: string) => void;
+  value?: string | number;
+  onChangeText?: (text: string | number) => void;
   autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
   autoCorrect?: boolean;
   errorText?: string;

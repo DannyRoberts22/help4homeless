@@ -7,4 +7,5 @@ export type HomelessPerson = {
   lastQrCodeExpiryDate: number;
   dateOfBirth: string;
   gender: string;
+  balance: number;
 };
