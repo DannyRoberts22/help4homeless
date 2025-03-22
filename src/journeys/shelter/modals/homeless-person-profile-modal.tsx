@@ -5,27 +5,36 @@ import {
   firebaseDeleteHomelessPerson,
   firebaseGetHomelessPersonById,
   firebaseUpdateHomelessPersonBalance,
+  firebaseUpdateHomelessPersonEmail,
+  firebaseUpdateHomelessPersonPhoneNumber,
   firebaseUpdateHomelessPersonQrCodeExpiry,
 } from '@src/api/homeless-persons';
 import { InnerContainer } from '@src/components/layout/InnerContainer';
 import { SafeAreaViewStatus } from '@src/components/layout/SafeAreaViewStatus';
 import ScreenHeader from '@src/components/utility/screen-header/ScreenHeader';
 import { RootStackParamList } from '@src/types/navigation-types';
-import { getRandomUserProfileImage } from '@src/api/get-people-donations';
 import { HomelessPersonProfileImage } from '../styles/homeless-person-profile-modal.styles';
 import { ProfileContainer } from '@src/journeys/shared/styles/profile-screen.styles';
 import SectionDescription from '@src/components/molecules/section-description/SectionDescription';
 import { ShareableButton } from '@src/components/organisms/shareable-button/ShareableButton';
 import { Spacer } from '@src/components/layout/Spacer';
 import { theme } from '@src/theme';
-import { Alert, Modal, ScrollView, View } from 'react-native';
+import { Alert, Button, Modal, ScrollView, View } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import { formatDaysRemaining } from '@src/utils/formatDaysRemaining';
 import TextInput from '@src/components/utility/text-input/TextInput';
+import { getRandomHomelessPersonImage } from '@src/utils/getRandomHomelessPersonImage';
+import { HomelessPerson } from '@src/api/types';
 
 export type HomelessPersonProfileModalProps = {
   route: { params: { id: string } };
   navigation: NavigationProp<RootStackParamList>;
+};
+
+const getHomelessPersonDetails = async (
+  homelessPersonId: string,
+): Promise<HomelessPerson> => {
+  return await firebaseGetHomelessPersonById(homelessPersonId);
 };
 
 export const HomelessPersonProfileModal = ({
@@ -38,35 +47,32 @@ export const HomelessPersonProfileModal = ({
   const [email, setEmail] = useState<null | string>(null);
   const [phoneNumber, setPhoneNumber] = useState<null | string>(null);
   const [balance, setBalance] = useState(0);
-  const [reimburseAmount, setReimburseAmount] = useState(0);
+  const [reimburseAmount, setReimburseAmount] = useState('');
+  const [refresh, setRefresh] = useState(false);
   const [dateOfBirth, setDateOfBirth] = useState('');
+  const [newEmail, setNewEmail] = useState('');
+  const [newPhoneNumber, setNewPhoneNumber] = useState('');
   // const [gender, setGender] = useState('');
-  const [imageSource, setImageSource] = useState('');
+  // const [imageSource, setImageSource] = useState('');
+  const [shouldUpdateEmail, setShouldUpdateEmail] = useState(false);
+  const [shouldUpdatePhoneNumber, setShouldUpdatePhoneNumber] = useState(false);
   const [lastQrCodeExpiryDate, setLastQrCodeExpiryDate] = useState(0);
   const [qrCodeValue, setQrCodeValue] = useState('');
   const [showGeneratedQrCodeMessage, setShowGeneratedQrCodeMessage] =
     useState(false);
 
   useEffect(() => {
-    // get homeless person details from firebase with if
-    firebaseGetHomelessPersonById(homelessPersonId).then(person => {
-      setFirstName(person.firstName);
-      setSurname(person.surname);
-      setEmail(person.email);
-      setPhoneNumber(person.phoneNumber);
-      setBalance(person.balance);
-      setLastQrCodeExpiryDate(person.lastQrCodeExpiryDate);
-      setDateOfBirth(person.dateOfBirth);
+    getHomelessPersonDetails(homelessPersonId).then(person => {
+      setFirstName(person?.firstName);
+      setSurname(person?.surname);
+      setEmail(person?.email);
+      setPhoneNumber(person?.phoneNumber);
+      setBalance(person?.balance);
+      setLastQrCodeExpiryDate(person?.lastQrCodeExpiryDate);
+      setDateOfBirth(person?.dateOfBirth);
       // setGender(person.gender);
     });
-  }, []);
-
-  // TODO get real data from firebase storage when setup
-  useEffect(() => {
-    getRandomUserProfileImage().then(response => {
-      setImageSource(response);
-    });
-  }, []);
+  }, [shouldUpdateEmail]);
 
   const isQRCodeExpired = (): boolean => {
     return Date.now() > lastQrCodeExpiryDate;
@@ -122,22 +128,54 @@ export const HomelessPersonProfileModal = ({
       Alert.alert('Please enter an amount to reimburse');
       return;
     }
-
-    const amount = reimburseAmount * 100;
-    console.log('🚀 ~ handleReimburseBalance ~ amount:', amount);
+    const amount = Number(reimburseAmount) * 100;
     firebaseUpdateHomelessPersonBalance({
-      cost: amount,
+      amount,
+      operation: 'cost',
       id: homelessPersonId,
     })
       .then(() => {
-        setBalance(balance - amount);
-        setReimburseAmount(0);
+        setBalance(prevBalance => prevBalance - amount);
+        setReimburseAmount(() => '');
+        setRefresh(prev => !prev);
+        console.log('After update:', reimburseAmount);
       })
       .catch(error => {
         Alert.alert('Error reimbursing balance', error.message);
       });
   };
-  console.log('qrCodeValue', qrCodeValue);
+
+  const handleUpdateEmail = () => {
+    firebaseUpdateHomelessPersonEmail({
+      id: homelessPersonId,
+      newEmail,
+    })
+      .then(() => setNewEmail(''))
+      .then(() => {
+        getHomelessPersonDetails(homelessPersonId).then(({ email }) =>
+          setEmail(email),
+        );
+      })
+      .catch(() => {
+        Alert.alert('Setting the new email failed, please try again');
+      });
+  };
+
+  const handleUpdatePhoneNumber = () => {
+    firebaseUpdateHomelessPersonPhoneNumber({
+      id: homelessPersonId,
+      newPhoneNumber,
+    })
+      .then(() => setNewPhoneNumber(''))
+      .then(() => {
+        getHomelessPersonDetails(homelessPersonId).then(({ phoneNumber }) =>
+          setPhoneNumber(phoneNumber),
+        );
+      })
+      .catch(() => {
+        Alert.alert('Setting the new email failed, please try again');
+      });
+  };
 
   return (
     <Modal visible={true} animationType="slide">
@@ -146,9 +184,9 @@ export const HomelessPersonProfileModal = ({
         <InnerContainer>
           <ScrollView>
             <ProfileContainer>
-              {imageSource && (
-                <HomelessPersonProfileImage source={{ uri: imageSource }} />
-              )}
+              <HomelessPersonProfileImage
+                source={getRandomHomelessPersonImage()}
+              />
               <Spacer size={theme.space.md} />
               <SectionDescription>{`Name: ${firstName} ${surname}`}</SectionDescription>
               <Spacer size={theme.space.sm} />
@@ -165,11 +203,10 @@ export const HomelessPersonProfileModal = ({
               {/* <SectionDescription>{`${gender}`}</SectionDescription> */}
               {phoneNumber && (
                 <>
-                  <SectionDescription>{`Number: ${phoneNumber}`}</SectionDescription>
+                  <SectionDescription>{`Phone: ${phoneNumber}`}</SectionDescription>
                   <Spacer size={theme.space.md} />
                 </>
               )}
-              {/* // start here next time */}
               <SectionDescription>{`Balance: £${(balance / 100).toFixed(
                 2,
               )}`}</SectionDescription>
@@ -198,15 +235,19 @@ export const HomelessPersonProfileModal = ({
               />
               <Spacer size={theme.space.lg} />
               {showGeneratedQrCodeMessage && (
-                <SectionDescription>
-                  The QR Code was updated successfully
-                </SectionDescription>
+                <>
+                  <SectionDescription>
+                    The QR Code was updated successfully
+                  </SectionDescription>
+                  <Spacer size={theme.space.lg} />
+                </>
               )}
               <TextInput
+                key={refresh ? 'refresh-true' : 'refresh-false'}
                 keyboardType="numeric"
                 placeholder="amount"
                 value={reimburseAmount}
-                onChangeText={number => setReimburseAmount(Number(number))}
+                onChangeText={text => setReimburseAmount(text)}
               />
               <ShareableButton
                 handler={() => handleReimburseBalance()}
@@ -214,8 +255,46 @@ export const HomelessPersonProfileModal = ({
               />
               <Spacer size={theme.space.lg} />
               <ShareableButton
+                handler={() => setShouldUpdateEmail(true)}
+                text="Update Email"
+              />
+              {shouldUpdateEmail && (
+                <>
+                  <Spacer size={theme.space.sm} />
+                  <TextInput
+                    key={refresh ? 'refresh-true' : 'refresh-false'}
+                    placeholder="Update email"
+                    value={newEmail}
+                    onChangeText={text => setNewEmail(text)}
+                  />
+                  <Button title="submit" onPress={() => handleUpdateEmail()} />
+                </>
+              )}
+              <Spacer size={theme.space.sm} />
+              <ShareableButton
+                handler={() => setShouldUpdatePhoneNumber(true)}
+                text="Update Phone Number"
+              />
+              {shouldUpdatePhoneNumber && (
+                <>
+                  <Spacer size={theme.space.sm} />
+                  <TextInput
+                    key={refresh ? 'refresh-true' : 'refresh-false'}
+                    keyboardType="numeric"
+                    placeholder="Update phone number"
+                    value={newPhoneNumber}
+                    onChangeText={text => setNewPhoneNumber(text)}
+                  />
+                  <Button
+                    title="submit"
+                    onPress={() => handleUpdatePhoneNumber()}
+                  />
+                </>
+              )}
+              <Spacer size={theme.space.lg} />
+              <ShareableButton
                 handler={() => handleDeleteHomelessPerson()}
-                text="Delete"
+                text="Delete Person"
               />
             </ProfileContainer>
           </ScrollView>

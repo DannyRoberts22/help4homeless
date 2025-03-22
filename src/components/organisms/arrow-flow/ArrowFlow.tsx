@@ -6,6 +6,7 @@ import { theme } from '@src/theme';
 import { ArrowFlowContainer } from './styles';
 import SectionDescription from '@src/components/molecules/section-description/SectionDescription';
 import SectionTitle from '@src/components/molecules/section-title/SectionTitle';
+import { Spacer } from '@src/components/layout/Spacer';
 
 type Item = {
   title: string;
@@ -19,6 +20,7 @@ const ArrowFlow = ({ content }: { content: Item[] }) => {
       <ArrowFlowContainer key={`arrow-flow-section-${index}`}>
         <SectionTitle>{item.title}</SectionTitle>
         <SectionDescription>{item.description}</SectionDescription>
+        <Spacer size={theme.space.md} />
         {!isLastItem && (
           <Icon
             name="arrow-down"

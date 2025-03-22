@@ -4,24 +4,27 @@ import {
   DetailsContainer,
   Title,
 } from '@src/components/molecules/card-components/styles';
-import { PeopleDonations } from '@src/types/people-donations-api-types';
 
 import {
   DonationTotal,
   PeopleProfileCardContainer,
   ProfileImage,
 } from './styles';
+import { getRandomHomelessPersonImage } from '@src/utils/getRandomHomelessPersonImage';
+import { PeopleDonation } from '@src/api/types';
 
-export const PeopleProfileCard = ({ item }: { item: PeopleDonations }) => {
+const PeopleProfileCard = ({ item }: { item: PeopleDonation }) => {
   return (
     <PeopleProfileCardContainer height="xs">
-      <ProfileImage source={{ uri: item.picture.large }} />
+      <ProfileImage source={getRandomHomelessPersonImage()} />
       <DetailsContainer>
-        <Title>{item.name.first}</Title>
+        <Title>{item.name}</Title>
         <DonationTotal>
-          Donation Total: £{Math.floor(Math.random() * 10) + 1}
+          Donation Total: £{(item?.amount / 100).toFixed(2)}
         </DonationTotal>
       </DetailsContainer>
     </PeopleProfileCardContainer>
   );
 };
+
+export default React.memo(PeopleProfileCard);

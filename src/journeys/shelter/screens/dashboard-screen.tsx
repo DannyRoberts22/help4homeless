@@ -100,11 +100,6 @@ export const DashboardScreen = ({
     <SafeAreaViewStatus>
       <InnerContainer>
         <DashboardContainer>
-          <ShareableButton
-            handler={() => setShowAddHomelessPersonModal(true)}
-            text="Add person"
-          />
-          <Spacer size={theme.space.lg} />
           <TextInput
             placeholder="Search for homeless person"
             value={searchQuery}
@@ -118,6 +113,11 @@ export const DashboardScreen = ({
             }
             renderItem={renderItem}
             keyExtractor={item => item.id}
+          />
+          <Spacer size={theme.space.xxl} />
+          <ShareableButton
+            handler={() => setShowAddHomelessPersonModal(true)}
+            text="Add person"
           />
         </DashboardContainer>
         {/* <ShareableButton

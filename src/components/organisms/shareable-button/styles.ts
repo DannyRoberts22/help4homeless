@@ -12,3 +12,10 @@ export const ButtonText = styled(Text)<ButtonTextProps>`
     color ? theme.colors[color] : theme.colors.white};
   text-align: center;
 `;
+
+export const TouchableButton = styled.TouchableOpacity`
+  padding: 10px;
+  border-width: 1px;
+  border-color: ${({ theme }) => theme.colors.white};
+  border-radius: 5px;
+`;

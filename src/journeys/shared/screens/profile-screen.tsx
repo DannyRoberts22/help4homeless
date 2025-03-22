@@ -47,7 +47,6 @@ export const ProfileScreen = ({
   navigation: ProfileScreenNavigationProp;
 }) => {
   const dispatch = useAppDispatch();
-  // const { currentUser } = auth();
   const {
     userType,
     firstName,
@@ -61,7 +60,6 @@ export const ProfileScreen = ({
     email,
     phoneNumber,
   } = useAppSelector(state => state.user);
-  console.log('🚀 ~ businessName:', businessName);
 
   //TODO: Make mailto work
   const sendEmail = () => {
@@ -72,7 +70,6 @@ export const ProfileScreen = ({
       subject,
     )}&body=${encodeURIComponent(body)}`;
 
-    console.log('mailtoLink:', mailtoLink);
     Linking.canOpenURL(mailtoLink)
       .then(supported => {
         if (supported) {

@@ -29,6 +29,7 @@ export const firebaseSignUp = async ({
       userType,
       createdAt: firestore.FieldValue.serverTimestamp(),
       phoneNumber,
+      donations: [],
     });
 
     console.log('User registered successfully:', user.uid);

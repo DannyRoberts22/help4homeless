@@ -39,17 +39,19 @@ export const HomelessShelterSignupScreen = ({
   const [city, setCity] = useState('');
   const [postcode, setPostcode] = useState('');
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  // const isButtonDisabled =
-  //   password === secondPassword &&
-  //   password.length > 0 &&
-  //   secondPassword.length > 0 &&
-  //   email.length > 0;
+
+  const phoneRegex = /^[0-9]{9,12}$/;
+  const emailRegex = /^[^@]+@[^@]+$/;
 
   const validate = () => {
     const newErrors: { [key: string]: string } = {};
     if (!businessName) newErrors.firstName = 'Business name is required';
     if (!phoneNumber) newErrors.phoneNumber = 'Phone number is required';
+    if (!phoneRegex.test(phoneNumber)) {
+      newErrors.phoneNumber = 'Invalid phone number';
+    }
     if (!email) newErrors.email = 'Email is required';
+    if (!emailRegex.test(email)) newErrors.email = 'Invalid email address';
     if (!houseNameOrNumber)
       newErrors.houseNameOrNumber = 'House name or number is required';
     if (!addressLineOne) newErrors.email = 'Address line one is required';
@@ -160,6 +162,8 @@ export const HomelessShelterSignupScreen = ({
             style={{ backgroundColor: 'white' }}
             boxType="square"
           /> */}
+          <Spacer size={theme.space.lg} />
+
           <ShareableButton
             color="white"
             text="Sign Up"
@@ -202,7 +206,7 @@ export const HomelessShelterSignupScreen = ({
               }
             }}
           />
-          <Spacer size={theme.space.lg} />
+          <Spacer size={theme.space.md} />
           <ShareableButton
             color="white"
             text="Back to Login"

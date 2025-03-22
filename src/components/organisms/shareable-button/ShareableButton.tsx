@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 
-import { ButtonText } from './styles';
+import { ButtonText, TouchableButton } from './styles';
 
 export const ShareableButton = ({
   handler,
@@ -15,8 +15,12 @@ export const ShareableButton = ({
   disabled?: boolean;
 }) => {
   return (
-    <TouchableOpacity onPress={handler} disabled={disabled}>
+    <TouchableButton
+      onPress={handler}
+      disabled={disabled}
+      style={{ padding: 10 }}
+    >
       <ButtonText color={color}>{text}</ButtonText>
-    </TouchableOpacity>
+    </TouchableButton>
   );
 };

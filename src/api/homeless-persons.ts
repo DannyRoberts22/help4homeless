@@ -105,12 +105,16 @@ export const firebaseUpdateHomelessPersonQrCodeExpiry = async ({
 };
 
 // firebaseUpdateHomelessPersonBalance
+type OperationType = 'cost' | 'donation';
+
 export const firebaseUpdateHomelessPersonBalance = async ({
   id,
-  cost,
+  amount,
+  operation,
 }: {
   id: string;
-  cost: number;
+  amount: number;
+  operation: OperationType;
 }): Promise<void> => {
   const personRef = firestore().collection('HomelessPersons').doc(id);
 
@@ -123,17 +127,87 @@ export const firebaseUpdateHomelessPersonBalance = async ({
 
       const currentBalance = personDoc.data()?.balance || 0;
 
-      if (currentBalance < cost) {
+      if (operation === 'cost' && currentBalance < amount) {
         throw new Error('Insufficient funds');
       }
 
-      const newBalance = currentBalance - cost;
+      const newBalance =
+        operation === 'cost'
+          ? currentBalance - amount
+          : currentBalance + amount;
+
       transaction.update(personRef, { balance: newBalance });
     });
 
-    console.log('Balance updated successfully for:', id);
+    console.log(`Balance ${operation} updated successfully for:`, id);
   } catch (error) {
-    console.error('Error updating balance:', error);
+    console.error(`Error updating balance for ${operation}:`, error);
+    throw error;
+  }
+};
+
+// Firebase update email
+export const firebaseUpdateHomelessPersonEmail = async ({
+  id,
+  newEmail,
+}: {
+  id: string;
+  newEmail: string;
+}): Promise<void> => {
+  const personRef = firestore().collection('HomelessPersons').doc(id);
+
+  try {
+    await firestore().runTransaction(async transaction => {
+      const personDoc = await transaction.get(personRef);
+      if (!personDoc.exists) {
+        throw new Error('Homeless person not found');
+      }
+
+      // Basic email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(newEmail)) {
+        throw new Error('Invalid email format');
+      }
+
+      transaction.update(personRef, { email: newEmail });
+    });
+
+    console.log('Email updated successfully for:', id);
+  } catch (error) {
+    console.error('Error updating email:', error);
+    throw error;
+  }
+};
+
+// Firebase update phone number
+export const firebaseUpdateHomelessPersonPhoneNumber = async ({
+  id,
+  newPhoneNumber,
+}: {
+  id: string;
+  newPhoneNumber: string;
+}): Promise<void> => {
+  const personRef = firestore().collection('HomelessPersons').doc(id);
+
+  try {
+    await firestore().runTransaction(async transaction => {
+      const personDoc = await transaction.get(personRef);
+      if (!personDoc.exists) {
+        throw new Error('Homeless person not found');
+      }
+
+      // Basic UK phone number validation
+      const phoneRegex = /^(?:(?:\+44)|(?:0))(?:\d\s?){9,10}$/;
+      if (!phoneRegex.test(newPhoneNumber)) {
+        throw new Error('Invalid UK phone number format');
+      }
+
+      transaction.update(personRef, { newPhoneNumber });
+    });
+
+    console.log('Phone number updated successfully for:', id);
+  } catch (error) {
+    console.error('Error updating phone number:', error);
     throw error;
   }
 };

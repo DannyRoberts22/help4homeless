@@ -1,5 +1,5 @@
 export type PeopleDonations = {
-  login: {uuid: string};
+  login: { uuid: string };
   name: {
     first: string;
   };
@@ -17,3 +17,5 @@ export type PeopleDonations = {
 export type PeopleDonationsData = {
   results: PeopleDonations[];
 };
+
+//TODO: DO we still need this?

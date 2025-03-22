@@ -1,7 +1,6 @@
 import styled from 'styled-components/native';
 
 export const DashboardContainer = styled.View`
-  flex: 1;
   padding: 20px;
 `;
 
@@ -14,7 +13,7 @@ export const HomelessUserItem = styled.View`
 `;
 
 export const HomelessUserDetails = styled.Text`
-  font-size: ${({theme}) => theme.fontSizes.homelessUserDetails};
+  font-size: ${({ theme }) => theme.fontSizes.homelessUserDetails};
   font-weight: bold;
-  color: ${({theme}) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.white};
 `;

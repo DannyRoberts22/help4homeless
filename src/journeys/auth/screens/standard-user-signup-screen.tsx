@@ -39,12 +39,19 @@ export const SignupScreen = ({
   //   secondPassword.length > 0 &&
   //   email.length > 0;
 
+  const phoneRegex = /^[0-9]{9,12}$/;
+  const emailRegex = /^[^@]+@[^@]+$/;
+
   const validate = () => {
     const newErrors: { [key: string]: string } = {};
     if (!firstName) newErrors.firstName = 'First name is required';
     if (!surname) newErrors.surname = 'Surname is required';
     if (!phoneNumber) newErrors.phoneNumber = 'Phone number is required';
+    if (!phoneRegex.test(phoneNumber)) {
+      newErrors.phoneNumber = 'Invalid phone number';
+    }
     if (!email) newErrors.email = 'Email is required';
+    if (!emailRegex.test(email)) newErrors.email = 'Invalid email address';
     if (!password) newErrors.password = 'Password is required';
     if (password.length < 6)
       newErrors.password = 'Password must be at least 6 characters';
@@ -110,6 +117,7 @@ export const SignupScreen = ({
           {errors.secondPassword && (
             <Text style={errorText}>{errors.secondPassword}</Text>
           )}
+          <Spacer size={theme.space.lg} />
           <ShareableButton
             color="white"
             text="Sign Up"
@@ -144,7 +152,7 @@ export const SignupScreen = ({
               }
             }}
           />
-          <Spacer size={theme.space.lg} />
+          <Spacer size={theme.space.md} />
           <ShareableButton
             color="white"
             text="Back to Login"

@@ -9,7 +9,7 @@ type TextInputProps = {
   secureTextEntry?: boolean;
   keyboardType?: KeyboardTypeOptions;
   value?: string | number;
-  onChangeText?: (text: string | number) => void;
+  onChangeText?: (text: string) => void;
   autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
   autoCorrect?: boolean;
   errorText?: string;

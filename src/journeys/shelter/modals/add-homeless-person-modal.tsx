@@ -37,10 +37,14 @@ const AddHomelessPersonModal = ({
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const lastQrCodeExpiryDate = Date.now() + 7 * 24 * 60 * 60 * 1000;
+  const phoneRegex = /^(?:(?:\+44)|(?:0))(?:\d\s?){9,10}$/;
   const validate = () => {
     const newErrors: { [key: string]: string } = {};
     if (!firstName) newErrors.firstName = 'First name is required';
     if (!surname) newErrors.surname = 'Surname is required';
+    if (phoneNumber && !phoneRegex.test(phoneNumber)) {
+      newErrors.phoneNumber = 'Invalid phone number';
+    }
     if (!gender) newErrors.gender = 'Please select a gender';
     if (!dateOfBirth) newErrors.dateOfBirth = 'Date of birth is required';
     setErrors(newErrors);
@@ -119,9 +123,17 @@ const AddHomelessPersonModal = ({
               value={phoneNumber}
               onChangeText={text => setPhoneNumber(text)}
             />
+            {errors.phoneNumber && (
+              <Text style={errorText}>{errors.phoneNumber}</Text>
+            )}
             <InputTextLabel text="Gender:" />
             <RNPickerSelect
               onValueChange={itemValue => setGender(itemValue)}
+              placeholder={{
+                label: 'Click to select a gender',
+                value: null,
+                color: 'white',
+              }}
               items={[
                 {
                   label: 'Male',
@@ -137,6 +149,7 @@ const AddHomelessPersonModal = ({
                 },
               ]}
               style={{
+                placeholder: { color: 'white', fontWeight: '500' },
                 inputIOS: { color: theme.colors.white },
                 inputAndroid: { color: theme.colors.white },
               }}

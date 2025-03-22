@@ -4,10 +4,14 @@ import { styled } from 'styled-components/native';
 import { CardContainer } from '@src/components/molecules/card-components/styles';
 
 export const PeopleProfileCardContainer = styled(CardContainer)`
+  min-height: 120px;
+  width: 100%;
   flex-direction: row;
   align-items: center;
-  flex: 1;
-  margin-vertical: 4px;
+  padding: 8px;
+  margin-bottom: 8px;
+  background-color: ${({ theme }) => theme.colors.cardBackground};
+  border-radius: 32px;
 `;
 
 export const ProfileImage = styled(Image)`

@@ -26,6 +26,7 @@ import SectionDescription from '@src/components/molecules/section-description/Se
 export const HomeScreen = () => {
   const [newsData, setNewsData] = useState<MappedItem[]>([]);
   const [postcode, setPostcode] = useState<string>('');
+  console.log('🚀 ~ HomeScreen ~ postcode:', postcode);
 
   const [shelters, setShelters] = useState<any>([]);
   const [shelterError, setShelterError] = useState<boolean>(false);

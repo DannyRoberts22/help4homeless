@@ -9,3 +9,9 @@ export type HomelessPerson = {
   gender: string;
   balance: number;
 };
+
+export type PeopleDonation = {
+  amount: number;
+  name: string;
+  id?: number;
+};
