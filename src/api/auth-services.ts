@@ -1,8 +1,11 @@
 // src/services/authService.js
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { GoogleAuthProvider } from '@firebase/auth';
 import { UserDocument } from '../types/auth-services-types';
+
+// Firebase -----------------------------
 
 export const firebaseSignUp = async ({
   email,
@@ -90,34 +93,6 @@ export const firebaseSignUpHomelessShelterUser = async ({
   }
 };
 
-// export const firebaseLogin = async (
-//   email: string,
-//   password: string,
-// ): Promise<UserDocument | null> => {
-//   try {
-//     const userCredential = await auth().signInWithEmailAndPassword(
-//       email,
-//       password,
-//     );
-//     const user = userCredential.user;
-
-//     // Fetch user data from Firestore
-//     const userDoc = await firestore().collection('Users').doc(user.uid).get();
-
-//     if (userDoc.exists) {
-//       const userData = userDoc.data() as UserDocument;
-//       console.log('User logged in:', userData);
-//       return userData;
-//     } else {
-//       console.error('No user document found.');
-//       return null;
-//     }
-//   } catch (error) {
-//     console.error('Error signing in user:', error);
-//     throw error;
-//   }
-// };
-
 export const firebaseLogin = async (
   email: string,
   password: string,
@@ -163,30 +138,6 @@ export const firebaseSignOut = async () => {
 export const firebaseResetPassword = async (email: string) => {
   return await auth().sendPasswordResetEmail(email);
 };
-
-// export const firebaseDeleteUser = async (userId: string): Promise<void> => {
-//   try {
-//     // 1. Delete the user's Firestore document
-//     await firestore().collection('Users').doc(userId).delete();
-//     console.log(`Firestore document for user ${userId} deleted successfully.`);
-
-//     // 2. Delete the user from Firebase Authentication
-//     const currentUser = auth().currentUser;
-
-//     if (currentUser?.uid === userId) {
-//       // If the user is currently signed in, delete them directly
-//       await currentUser.delete();
-//       console.log(`User ${userId} deleted successfully from Firebase Auth.`);
-//     } else {
-//       console.error(
-//         `The current user does not match the userId provided (${userId}). Ensure the user is signed in or an admin token is used.`,
-//       );
-//     }
-//   } catch (error) {
-//     console.error('Error deleting user:', error);
-//     throw error; // Re-throw to handle this in the UI or higher layers.
-//   }
-// };
 
 export const firebaseDeleteUser = async (userId: string): Promise<void> => {
   try {
@@ -237,6 +188,67 @@ export const firebaseDeleteUser = async (userId: string): Promise<void> => {
     }
   } catch (error) {
     console.error('Error deleting user:', error);
+    throw error;
+  }
+};
+
+// Google -----------------------------
+//TODO: Check this on real device
+export const loginWithGoogle = async (): Promise<void> => {
+  try {
+    // Step 1: Retrieve Google user details
+    const googleUser = __DEV__
+      ? {
+          user: {
+            id: `mock-user-id-${Math.random().toString(36).substring(2, 10)}`,
+            email: `mockuser+${Math.random()
+              .toString(36)
+              .substring(2, 10)}@example.com`,
+            givenName: 'Mock',
+            familyName: 'User',
+          },
+          idToken: `mock-id-token-${Math.random()
+            .toString(36)
+            .substring(2, 10)}`,
+        }
+      : await GoogleSignin.signIn();
+
+    if ('user' in googleUser && googleUser.user.email && googleUser.idToken) {
+      const { idToken, user } = googleUser;
+      const { email } = user;
+      console.log('does this run');
+      console.log('🚀 ~ loginWithGoogle ~ email:', email);
+      // Step 2: Check if the user exists in Firebase Authentication
+      const existingUser = await auth().fetchSignInMethodsForEmail(email);
+
+      if (existingUser.length > 0) {
+        // Step 3: Log the user in if they already exist
+        console.log('User exists, logging in...');
+        const credential = GoogleAuthProvider.credential(idToken);
+        await auth().signInWithCredential(credential);
+        console.log('User logged in successfully with Google');
+      } else {
+        // Step 4: Sign the user up if they don't exist
+        console.log('User does not exist, signing up...');
+        const credential = GoogleAuthProvider.credential(idToken);
+        const userCredential = await auth().signInWithCredential(credential);
+
+        // Add additional user details to Firestore
+        const userId = userCredential.user.uid;
+        await firestore().collection('Users').doc(userId).set({
+          userType: 'standard', // Adjust userType as needed
+          firstName: user.givenName,
+          surname: user.familyName,
+          phoneNumber: '', // Optional, can be left empty
+          email: userCredential.user.email,
+          createdAt: firestore.FieldValue.serverTimestamp(),
+        });
+
+        console.log('User signed up successfully with Google');
+      }
+    }
+  } catch (error) {
+    console.error('Error during Google login/signup:', error);
     throw error;
   }
 };

@@ -132,7 +132,6 @@ const AddHomelessPersonModal = ({
               placeholder={{
                 label: 'Click to select a gender',
                 value: null,
-                color: 'white',
               }}
               items={[
                 {
@@ -149,12 +148,17 @@ const AddHomelessPersonModal = ({
                 },
               ]}
               style={{
-                placeholder: { color: 'white', fontWeight: '500' },
+                placeholder: {
+                  color: 'white',
+                  fontWeight: '500',
+                  textAlign: 'center',
+                },
                 inputIOS: { color: theme.colors.white },
                 inputAndroid: { color: theme.colors.white },
               }}
             />
             {errors.gender && <Text style={errorText}>{errors.gender}</Text>}
+            <Spacer size={theme.space.xs} />
             <InputTextLabel text="Date of Birth:" />
             <ShareableButton
               handler={() => setShowDatePicker(true)}

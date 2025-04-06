@@ -20,4 +20,5 @@ export type RootStackParamList = {
   [screenNames.ACCOUNT_DRAWER_NAVIGATOR]: undefined;
   [screenNames.GENERAL_USER_NAVIGATOR]: undefined;
   [screenNames.SHELTER_USER_NAVIGATOR]: undefined;
+  [screenNames.CHECKOUT_MODAL]: undefined;
 };

@@ -18,6 +18,7 @@ import { HomelessPersonProfileModal } from '@src/journeys/shelter/modals/homeles
 
 import { AccountDrawerNavigator } from './account-drawer.navigator';
 import { RootStackParamList } from '@src/types/navigation-types';
+import { CheckoutModal } from '@src/journeys/general-user/modals/checkout-modal';
 
 export const navigationRef = createNavigationContainerRef();
 
@@ -70,6 +71,10 @@ export const Navigation = () => {
             options={{ presentation: 'modal' }}
             name={screenNames.HOMELESS_PERSON_PROFILE_MODAL}
             component={HomelessPersonProfileModal}
+          />
+          <Stack.Screen
+            name={screenNames.CHECKOUT_MODAL}
+            component={CheckoutModal}
           />
         </Stack.Group>
       </Stack.Navigator>

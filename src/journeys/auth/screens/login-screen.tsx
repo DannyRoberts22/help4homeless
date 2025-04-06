@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Text } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-
-import { firebaseLogin } from '@src/api/auth-services';
+import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
+import { firebaseLogin, loginWithGoogle } from '@src/api/auth-services';
 import { InnerContainer } from '@src/components/layout/InnerContainer';
 import { SafeAreaViewStatus } from '@src/components/layout/SafeAreaViewStatus';
 import { Spacer } from '@src/components/layout/Spacer';
@@ -36,6 +36,16 @@ export const LoginScreen = ({
   };
 
   const errorText = theme.fontStyles.errorText;
+
+  const handleGooglePress = () => {
+    loginWithGoogle()
+      .then(userInfo => {
+        console.log('Google login successful:', userInfo);
+      })
+      .catch(error => {
+        console.error('Error logging in with Google:', error);
+      });
+  };
   return (
     <SafeAreaViewStatus>
       <InnerContainer>
@@ -75,13 +85,15 @@ export const LoginScreen = ({
             }
           }}
         />
-        <Spacer size={theme.space.lg} />
-        <ShareableButton
-          color="white"
-          text="Forgot Password"
-          handler={() =>
-            navigation.navigate(screenNames.FORGOTTON_PASSWORD_SCREEN)
-          }
+        <Spacer size={theme.space.sm} />
+        <GoogleSigninButton
+          size={GoogleSigninButton.Size.Standard} // Options: Icon, Standard, Wide
+          color={GoogleSigninButton.Color.Light} // Options: Dark, Light
+          onPress={handleGooglePress}
+          style={{
+            width: '100%',
+            // height: 48,
+          }}
         />
         <Spacer size={theme.space.xxl} />
         <ShareableButton
@@ -89,6 +101,14 @@ export const LoginScreen = ({
           text="Sign Up"
           handler={() =>
             navigation.navigate(screenNames.CHOOSE_USER_TYPE_SCREEN)
+          }
+        />
+        <Spacer size={theme.space.md} />
+        <ShareableButton
+          color="white"
+          text="Forgot Password"
+          handler={() =>
+            navigation.navigate(screenNames.FORGOTTON_PASSWORD_SCREEN)
           }
         />
       </InnerContainer>

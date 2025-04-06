@@ -12,7 +12,20 @@
           "package_name": "com.helpforhomeless"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "668406264664-0a6n5g24e9sipvjiblj7gph3ishmt4ba.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.helpforhomeless",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "668406264664-309dqgin9eu0ump3bii23a7tv5c3slu4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAIC_GQhixTuHyKechQYYuLyt0iKuYA_MM"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "668406264664-309dqgin9eu0ump3bii23a7tv5c3slu4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "668406264664-dp6c50j9lj1m7cm9797d0mpn57j8hkai.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.HelpForHomeless.app"
+              }
+            }
+          ]
         }
       }
     }

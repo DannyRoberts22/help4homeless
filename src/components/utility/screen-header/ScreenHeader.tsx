@@ -23,11 +23,13 @@ const ScreenHeader = ({
 }) => {
   return (
     <ScreenHeaderView>
-      <AccountContainer>
-        <TouchableOpacity onPress={openDrawer}>
-          <Icon name="user" size={24} color={theme.colors.white} />
-        </TouchableOpacity>
-      </AccountContainer>
+      {!isModal && (
+        <AccountContainer>
+          <TouchableOpacity onPress={openDrawer}>
+            <Icon name="user" size={24} color={theme.colors.white} />
+          </TouchableOpacity>
+        </AccountContainer>
+      )}
       <Logo />
       {isModal && (
         <TouchableCloseButton onPress={handleClose}>

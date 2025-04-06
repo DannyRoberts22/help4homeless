@@ -1,6 +1,7 @@
 #import "AppDelegate.h"
 #import <Firebase.h>
 #import "RNSplashScreen.h"
+#import <React/RCTLinkingManager.h>
 #import <React/RCTBundleURLProvider.h>
 
 @implementation AppDelegate
@@ -19,6 +20,10 @@
     [RNSplashScreen show];
   }
   return ret;
+}
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+  return [RCTLinkingManager application:app openURL:url options:options];
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge

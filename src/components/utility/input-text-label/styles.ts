@@ -5,4 +5,5 @@ export const InputTextLabel = styled(Text)`
   color: ${({ theme }) => theme.colors.white};
   padding-vertical: 10px;
   font-size: ${({ theme }) => theme.fontSizes.inputTextLabel};
+  font-weight: bold;
 `;

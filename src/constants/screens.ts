@@ -39,6 +39,7 @@ const screens = {
     name: 'homeless-person-profile.modal',
     key: 'homeless-person-profile.modal',
   },
+  CHECKOUT_MODAL: { name: 'checkout.screen', key: 'checkout.screen' },
 
   //NAVIGATORS
   GENERAL_USER_NAVIGATOR: {

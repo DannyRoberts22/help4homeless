@@ -42,5 +42,5 @@ export const DetailsContainer = styled.View`
 export const Title = styled.Text`
   color: white;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: bold;
 `;

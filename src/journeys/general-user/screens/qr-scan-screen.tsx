@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Alert, Button, TouchableOpacity } from 'react-native';
+import { Alert, Button } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 
@@ -12,7 +12,7 @@ import {
 } from '@src/api/homeless-persons';
 import { Spacer } from '@src/components/layout/Spacer';
 import { theme } from '@src/theme';
-import { useFocusEffect } from '@react-navigation/native';
+import { NavigationProp, useFocusEffect } from '@react-navigation/native';
 
 import {
   FormContainer,
@@ -24,8 +24,15 @@ import TextInput from '@src/components/utility/text-input/TextInput';
 import { ShareableButton } from '@src/components/organisms/shareable-button/ShareableButton';
 import { InnerContainer } from '@src/components/layout/InnerContainer';
 import { firebasePushPeopleDonation } from '@src/api/people-donations';
+import { RootStackParamList } from '@src/types/navigation-types';
+import screenNames from '@src/constants/screen-names';
 
-export const QRScanScreen = () => {
+type QRCodeScreenProp = NavigationProp<RootStackParamList>;
+export const QRScanScreen = ({
+  navigation,
+}: {
+  navigation: QRCodeScreenProp;
+}) => {
   const [homelessPersonId, setHomelessPersonId] = useState('');
   const [homelessPersonFirstName, setHomelessPersonFirstName] = useState('');
   const [isQrCodeExpired, setisQrCodeExpired] = useState(false);
@@ -62,27 +69,28 @@ export const QRScanScreen = () => {
   };
 
   const simulateQRScan = () => {
-    handleQRCodeRead({ data: 'Wbq34DqVYSPeV1y2DKcz_1743270904314' });
+    handleQRCodeRead({ data: 'Wbq34DqVYSPeV1y2DKcz_1744534089329' });
   };
 
   const handleDonation = () => {
-    firebaseUpdateHomelessPersonBalance({
-      amount: Number(donationAmount) * 100,
-      id: homelessPersonId,
-      operation: 'donation',
-    })
-      .then(() => {
-        firebasePushPeopleDonation({
-          amount: Number(donationAmount) * 100,
-          name: homelessPersonFirstName,
-        });
-      })
-      .then(() => {
-        Alert.alert('Donation successful', 'Thank you for your donation');
-        setDonationAmount('');
-        setDonationSubmitted(true);
-        setHomelessPersonFirstName('');
-      });
+    navigation.navigate(screenNames.CHECKOUT_MODAL);
+    // firebaseUpdateHomelessPersonBalance({
+    //   amount: Number(donationAmount) * 100,
+    //   id: homelessPersonId,
+    //   operation: 'donation',
+    // })
+    //   .then(() => {
+    //     firebasePushPeopleDonation({
+    //       amount: Number(donationAmount) * 100,
+    //       name: homelessPersonFirstName,
+    //     });
+    //   })
+    //   .then(() => {
+    //     Alert.alert('Donation successful', 'Thank you for your donation');
+    //     setDonationAmount('');
+    //     setDonationSubmitted(true);
+    //     setHomelessPersonFirstName('');
+    //   });
   };
 
   console.log('donationAmount:', donationAmount);
@@ -109,7 +117,8 @@ export const QRScanScreen = () => {
                       placeholder={{
                         label: 'Click to select an amount',
                         value: null,
-                        color: 'white',
+                        fontWeight: 'bold',
+                        textAlign: 'center',
                       }}
                       items={[
                         {
@@ -134,7 +143,12 @@ export const QRScanScreen = () => {
                         },
                       ]}
                       style={{
-                        placeholder: { color: 'white', fontWeight: '500' },
+                        placeholder: {
+                          color: 'white',
+                          fontWeight: 'bold',
+                          fontSize: 14,
+                          textAlign: 'center',
+                        },
                         inputIOS: { color: theme.colors.white },
                         inputAndroid: { color: theme.colors.white },
                       }}
