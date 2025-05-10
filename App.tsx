@@ -7,7 +7,7 @@ import React, {
   useLayoutEffect,
   useState,
 } from 'react';
-import { ActivityIndicator, Linking, StatusBar } from 'react-native';
+import { ActivityIndicator, Alert, Linking, StatusBar } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -51,6 +51,7 @@ function App(): JSX.Element | null {
   const handleDeepLink = useCallback(
     async (url: string | null) => {
       if (url) {
+        console.log('🚀 ~ url:', url);
         const stripeHandled = await handleURLCallback(url);
         if (stripeHandled) {
           // This was a Stripe URL - you can return or add extra handling here as you see fit
@@ -65,7 +66,19 @@ function App(): JSX.Element | null {
   useEffect(() => {
     const getUrlAsync = async () => {
       const initialUrl = await Linking.getInitialURL();
-      handleDeepLink(initialUrl);
+      console.log('🚀 ~ getUrlAsync ~ initialUrl:', initialUrl);
+      // Alert.alert(
+      //   'Initial URL',
+      //   initialUrl || 'No URL',
+      //   [
+      //     {
+      //       text: 'OK',
+      //       onPress: () => console.log('OK Pressed'),
+      //     },in handleDeelink
+      //   ],
+      //   { cancelable: false },
+      // );
+      // handleDeepLink(initialUrl);
     };
 
     getUrlAsync();
@@ -79,6 +92,18 @@ function App(): JSX.Element | null {
 
     return () => deepLinkListener.remove();
   }, [handleDeepLink]);
+
+  // useEffect(() => {
+  //   const handleDeepLink = event => {
+  //     console.log('Deep link received:', event.url);
+  //   };
+
+  //   const subscription = Linking.addEventListener('url', handleDeepLink);
+
+  //   return () => {
+  //     subscription.remove();
+  //   };
+  // }, []);
 
   return (
     <>

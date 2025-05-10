@@ -58,6 +58,7 @@ export const HomelessPersonProfileModal = ({
   const [shouldUpdatePhoneNumber, setShouldUpdatePhoneNumber] = useState(false);
   const [lastQrCodeExpiryDate, setLastQrCodeExpiryDate] = useState(0);
   const [qrCodeValue, setQrCodeValue] = useState('');
+  console.log('🚀 ~ qrCodeValue:', qrCodeValue);
   const [showGeneratedQrCodeMessage, setShowGeneratedQrCodeMessage] =
     useState(false);
 
@@ -80,7 +81,9 @@ export const HomelessPersonProfileModal = ({
 
   useEffect(() => {
     // Set initial QR code value when component mounts or lastQrCodeExpiryDate changes
-    setQrCodeValue(`${homelessPersonId}_${lastQrCodeExpiryDate}`);
+    setQrCodeValue(
+      `helpapp://app/qrscan?homelessPersonId=${homelessPersonId}_${lastQrCodeExpiryDate}`,
+    );
   }, [lastQrCodeExpiryDate]);
 
   const handleUpdateQRCode = async () => {

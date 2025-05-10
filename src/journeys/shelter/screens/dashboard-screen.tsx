@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Alert, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 
@@ -18,10 +18,17 @@ import {
   HomelessUserDetails,
   HomelessUserItem,
 } from '../styles/dashboard-screen.styles';
-interface HomelessPerson {
-  id: string;
+
+interface Person {
   firstName: string;
   surname: string;
+}
+
+interface HomelessPerson {
+  id: string;
+  person?: Person; // For nested structure
+  firstName?: string; // For flat structure
+  surname?: string; // For flat structure
 }
 
 import { NavigationProp, useFocusEffect } from '@react-navigation/native';
@@ -38,47 +45,68 @@ export const DashboardScreen = ({
   const [showAddHomelessPersonModal, setShowAddHomelessPersonModal] =
     useState(false);
   const [homelessPersons, setHomelessPersons] = useState<HomelessPerson[]>([]);
-  const [filteredHomelessPersons, setfilteredHomelessPersons] =
-    useState(homelessPersons);
+  // const [filteredHomelessPersons, setfilteredHomelessPersons] =
+  useState(homelessPersons);
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const fetchHomelessPersons = useCallback(async () => {
     try {
       const data = await firebaseGetHomelessPersons();
-      console.log('🚀 ~ firebaseGetHomelessPersons ~ data:', data);
       setHomelessPersons(data);
     } catch (error) {
-      console.error('Error fetching homeless persons:', error);
+      Alert.alert(
+        'An error occurred while fetching homeless persons. Please try again later.',
+      );
     }
   }, [showAddHomelessPersonModal]);
 
   useFocusEffect(
     useCallback(() => {
       fetchHomelessPersons();
-
-      return () => {
-        console.log('Screen unfocused, cleanup if needed');
-      };
     }, [fetchHomelessPersons]),
   );
 
-  const handleSearch = (input: string) => {
-    setSearchQuery(input);
-
-    if (input) {
-      // Filter by both `name` and `id`
-      const filtered = homelessPersons.filter(
-        item =>
-          item.firstName.toLowerCase().includes(input.toLowerCase()) ||
-          item.surname.toLowerCase().includes(input.toLowerCase()) ||
-          item.id.includes(input),
-      );
-      setfilteredHomelessPersons(filtered);
-    } else {
-      // If the search is cleared, show the full list
-      setfilteredHomelessPersons(homelessPersons);
+  const filteredHomelessPersons = useMemo(() => {
+    if (!searchQuery.trim()) {
+      return homelessPersons; // Return all if search query is empty
     }
-  };
+
+    const normalizedInput = searchQuery.trim().toLowerCase();
+
+    return homelessPersons.filter(person => {
+      // Add some debugging to understand the data structure
+      console.log('Filtering person:', JSON.stringify(person));
+
+      // Check if person.person exists (nested structure)
+      if (person.person) {
+        const firstName = (person.person.firstName || '').toLowerCase();
+        const surname = (person.person.surname || '').toLowerCase();
+        const id = (person.id || '').toLowerCase();
+
+        return (
+          firstName.includes(normalizedInput) ||
+          surname.includes(normalizedInput) ||
+          id.includes(normalizedInput)
+        );
+      } else {
+        // Direct structure
+        const firstName = (person.firstName || '').toLowerCase();
+        const surname = (person.surname || '').toLowerCase();
+        const id = (person.id || '').toLowerCase();
+
+        return (
+          firstName.includes(normalizedInput) ||
+          surname.includes(normalizedInput) ||
+          id.includes(normalizedInput)
+        );
+      }
+    });
+  }, [searchQuery, homelessPersons]);
+
+  const handleSearch = useCallback((text: string) => {
+    console.log('Search input:', text);
+    setSearchQuery(text);
+  }, []);
 
   const renderItem = ({ item }: any) => {
     return (
@@ -106,11 +134,7 @@ export const DashboardScreen = ({
             onChangeText={handleSearch}
           />
           <FlatList
-            data={
-              filteredHomelessPersons.length > 0
-                ? filteredHomelessPersons
-                : homelessPersons
-            }
+            data={filteredHomelessPersons}
             renderItem={renderItem}
             keyExtractor={item => item.id}
           />
@@ -120,10 +144,6 @@ export const DashboardScreen = ({
             text="Add person"
           />
         </DashboardContainer>
-        {/* <ShareableButton
-          handler={() => Alert.alert('Generate QR codes for all')}
-          text="Generate QR codes for all"
-        /> */}
         <AddHomelessPersonModal
           modalVisible={showAddHomelessPersonModal}
           closeModal={() => setShowAddHomelessPersonModal(false)}
@@ -132,3 +152,11 @@ export const DashboardScreen = ({
     </SafeAreaViewStatus>
   );
 };
+
+function debounce(func: Function, wait: number) {
+  let timeout: NodeJS.Timeout;
+  return (...args: any[]) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+}

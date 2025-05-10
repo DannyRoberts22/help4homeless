@@ -41,7 +41,7 @@ const ShelterUserNavigator = () => {
         name={screenNames.DASHBOARD_SCREEN}
         component={DashboardScreen}
       />
-      <Tab.Screen name={screenNames.MANAGE_SCREEN} component={ManageScreen} />
+      {/* TODO remove this <Tab.Screen name={screenNames.MANAGE_SCREEN} component={ManageScreen} /> */}
       <Tab.Screen name={screenNames.PROFILE_SCREEN} component={ProfileScreen} />
     </Tab.Navigator>
   );

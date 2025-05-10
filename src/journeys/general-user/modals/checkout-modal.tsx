@@ -31,7 +31,7 @@ export const CheckoutModal = () => {
           Authorization: `Bearer ${env.STRIPE_TEST_SECRET_KEY}`,
         },
         body: JSON.stringify({
-          amount: 2099, // Pass the payment amount to the backend
+          amount: 2099,
         }),
       });
 
@@ -103,8 +103,6 @@ export const CheckoutModal = () => {
     } else if (response.error) {
       console.error('Error presenting payment sheet:', response.error);
       Alert.alert(`Error code: response.error.message`);
-    } else {
-      Alert.alert('Success', 'Your order is confirmed!');
     }
   };
 

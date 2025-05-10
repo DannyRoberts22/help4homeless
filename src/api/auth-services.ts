@@ -22,7 +22,6 @@ export const firebaseSignUp = async ({
       password,
     );
     const user = userCredential.user;
-    console.log('🚀 ~ user:', user);
 
     // Save the user type in Firestore
     await firestore().collection('Users').doc(user.uid).set({
@@ -216,8 +215,6 @@ export const loginWithGoogle = async (): Promise<void> => {
     if ('user' in googleUser && googleUser.user.email && googleUser.idToken) {
       const { idToken, user } = googleUser;
       const { email } = user;
-      console.log('does this run');
-      console.log('🚀 ~ loginWithGoogle ~ email:', email);
       // Step 2: Check if the user exists in Firebase Authentication
       const existingUser = await auth().fetchSignInMethodsForEmail(email);
 

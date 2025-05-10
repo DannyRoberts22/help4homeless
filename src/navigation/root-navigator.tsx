@@ -40,15 +40,41 @@ export const Navigation = () => {
 
   const onStateChange = (state: NavigationState | undefined) => {
     const currentRoute = state?.routes[state.index];
-    setIsModalActive(
-      currentRoute?.name === screenNames.HOMELESS_PERSON_PROFILE_MODAL,
-    );
+    console.log('🚀 ~ onStateChange ~ currentRoute:', currentRoute);
+    setIsModalActive(currentRoute?.name === screenNames.ABOUT_SCREEN);
+    console.log('Current navigation state:', state);
+    console.log('🚀 ~ onStateChange ~ currentRoute?.name:', currentRoute?.name);
   };
 
   const { loggedIn } = useAppSelector(state => state.user);
   const isUserSignedIn = loggedIn;
   return (
-    <NavigationContainer ref={navigationRef} onStateChange={onStateChange}>
+    <NavigationContainer
+      ref={navigationRef}
+      onStateChange={onStateChange}
+      linking={{
+        prefixes: ['https://example.com', 'helpapp://'],
+        config: {
+          screens: {
+            [screenNames.ACCOUNT_DRAWER_NAVIGATOR]: {
+              screens: {
+                [screenNames.MAIN_NAVIGATOR]: {
+                  screens: {
+                    [screenNames.GENERAL_USER_NAVIGATOR]: {
+                      screens: {
+                        [screenNames.QR_SCAN_SCREEN]: {
+                          path: 'app/qrscan',
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      }}
+    >
       {loggedIn && !isModalActive && <ScreenHeader openDrawer={openDrawer} />}
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
@@ -72,6 +98,7 @@ export const Navigation = () => {
             name={screenNames.HOMELESS_PERSON_PROFILE_MODAL}
             component={HomelessPersonProfileModal}
           />
+          {/* TODO: Remove checkout modal logic throughout app */}
           <Stack.Screen
             name={screenNames.CHECKOUT_MODAL}
             component={CheckoutModal}

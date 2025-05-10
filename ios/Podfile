@@ -63,8 +63,8 @@ end
 target 'HelpForHomeless' do
   config = use_native_modules!
   
-  $RNFirebaseAsStaticFramework = true
   use_frameworks! :linkage => :static
+  $RNFirebaseAsStaticFramework = true
   pod 'Firebase', :modular_headers => true
   pod 'FirebaseCoreInternal', :modular_headers => true
   pod 'GoogleUtilities', :modular_headers => true
