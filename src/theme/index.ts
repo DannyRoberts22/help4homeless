@@ -4,6 +4,7 @@ import {
   borderRadiusSizing,
   cardContainerSizing,
   imageSizing,
+  screenSizes,
 } from './sizing/sizing';
 import { space } from './spacing/spacing';
 
@@ -15,4 +16,5 @@ export const theme = {
   cardContainerSizing,
   borderRadiusSizing,
   fontStyles,
+  screenSizes,
 };

@@ -16,3 +16,8 @@ export const borderRadiusSizing = {
   md: 10,
   lg: 16,
 } as const;
+
+export const screenSizes = {
+  mobileWidth: '100%',
+  ipadWidth: '70%',
+} as const;
