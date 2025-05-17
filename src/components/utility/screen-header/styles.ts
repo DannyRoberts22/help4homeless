@@ -1,13 +1,15 @@
 import { Text, TouchableOpacity, View } from 'react-native';
 import { styled } from 'styled-components/native';
 
+import { isIpad } from '@src/constants/constants';
+
 export const ScreenHeaderView = styled(View)`
   flex-direction: row;
-  height: 65px;
+  height: ${isIpad ? '134px' : '84px'};
   background-color: ${({ theme }) => theme.colors.primary};
   justify-content: center;
   align-items: center;
-  padding-horizontal: 16px;
+  padding-vertical: ${isIpad ? '28px' : '16px'};
 `;
 
 export const ScreenTitle = styled(Text)`
@@ -19,8 +21,8 @@ export const ScreenTitle = styled(Text)`
 
 export const TouchableCloseButton = styled(TouchableOpacity)`
   position: absolute;
-  right: 16px;
-  padding: 10px;
+  right: ${isIpad ? '125px' : '16px'};
+  padding-horizontal: 10px;
 `;
 
 export const CloseIcon = styled(Text)`

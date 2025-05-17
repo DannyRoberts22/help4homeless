@@ -11,6 +11,7 @@ import { DashboardScreen } from '@src/journeys/shelter/screens/dashboard-screen'
 import { ManageScreen } from '@src/journeys/shelter/screens/manage-screen';
 import { theme } from '@src/theme';
 import { getMappedIcons } from '@src/utils/getMappedIcons';
+import { isIpad } from '@src/constants/constants';
 
 const Tab = createBottomTabNavigator();
 
@@ -28,7 +29,7 @@ const ShelterUserNavigator = () => {
       },
       tabBarActiveTintColor: theme.colors.white,
       tabBarInactiveTintColor: theme.colors.softWhite,
-      tabBarLabelStyle: { fontSize: 11, fontWeight: 'bold' },
+      tabBarLabelStyle: { fontSize: isIpad ? 18 : 12, fontWeight: 'bold' },
     };
   };
 

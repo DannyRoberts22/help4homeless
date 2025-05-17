@@ -40,10 +40,7 @@ export const Navigation = () => {
 
   const onStateChange = (state: NavigationState | undefined) => {
     const currentRoute = state?.routes[state.index];
-    console.log('🚀 ~ onStateChange ~ currentRoute:', currentRoute);
     setIsModalActive(currentRoute?.name === screenNames.ABOUT_SCREEN);
-    console.log('Current navigation state:', state);
-    console.log('🚀 ~ onStateChange ~ currentRoute?.name:', currentRoute?.name);
   };
 
   const { loggedIn } = useAppSelector(state => state.user);

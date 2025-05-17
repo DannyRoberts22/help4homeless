@@ -13,7 +13,6 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 const MainNavigator = () => {
   const { userType } = useAppSelector(state => state.user);
-  console.log('🚀 ~ MainNavigator ~ isShelterUser:', userType);
 
   return (
     <Stack.Navigator

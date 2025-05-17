@@ -12,6 +12,7 @@ import { MyDonationsScreen } from '@src/journeys/general-user/screens/my-donatio
 import { QRScanScreen } from '@src/journeys/general-user/screens/qr-scan-screen';
 import { theme } from '@src/theme';
 import { getMappedIcons } from '@src/utils/getMappedIcons';
+import { isIpad } from '@src/constants/constants';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,7 +30,7 @@ const GeneralUserNavigator = () => {
       },
       tabBarActiveTintColor: theme.colors.white,
       tabBarInactiveTintColor: theme.colors.softWhite,
-      tabBarLabelStyle: { fontSize: 11, fontWeight: 'bold' },
+      tabBarLabelStyle: { fontSize: isIpad ? 18 : 12, fontWeight: 'bold' },
     };
   };
   return (

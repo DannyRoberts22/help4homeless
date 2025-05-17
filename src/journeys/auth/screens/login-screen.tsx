@@ -14,6 +14,8 @@ import { useAppDispatch } from '@src/hooks/redux/reduxHooks';
 import { loginUser } from '@src/store/redux/slices/userSlice';
 import { theme } from '@src/theme';
 import { RootStackParamList } from '@src/types/navigation-types';
+import { Logo } from '@src/components/utility/logo/logo';
+import { LogoContainer } from '@src/journeys/general-user/styles/login-screen.styles';
 
 type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 
@@ -49,6 +51,9 @@ export const LoginScreen = ({
   return (
     <SafeAreaViewStatus>
       <InnerContainer>
+        <LogoContainer>
+          <Logo />
+        </LogoContainer>
         <InputTextLabel text="Email:" />
         <TextInput
           placeholder="Email"

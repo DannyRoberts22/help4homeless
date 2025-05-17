@@ -11,6 +11,7 @@ import {
   ScreenHeaderView,
   TouchableCloseButton,
 } from './styles';
+import { isIpad } from '@src/constants/constants';
 
 const ScreenHeader = ({
   openDrawer,
@@ -26,7 +27,11 @@ const ScreenHeader = ({
       {!isModal && (
         <AccountContainer>
           <TouchableOpacity onPress={openDrawer}>
-            <Icon name="user" size={24} color={theme.colors.white} />
+            <Icon
+              name="user"
+              size={isIpad ? 48 : 24}
+              color={theme.colors.white}
+            />
           </TouchableOpacity>
         </AccountContainer>
       )}

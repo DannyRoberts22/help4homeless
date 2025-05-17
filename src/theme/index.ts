@@ -17,4 +17,5 @@ export const theme = {
   borderRadiusSizing,
   fontStyles,
   screenSizes,
+  borderRadius: '14px',
 };

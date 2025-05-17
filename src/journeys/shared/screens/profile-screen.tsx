@@ -7,7 +7,6 @@ import { firebaseDeleteUser } from '@src/api/auth-services';
 import { InnerContainer } from '@src/components/layout/InnerContainer';
 import { SafeAreaViewStatus } from '@src/components/layout/SafeAreaViewStatus';
 import { Spacer } from '@src/components/layout/Spacer';
-import { Subheading } from '@src/components/molecules/subheading/Subheading';
 import { ShareableButton } from '@src/components/organisms/shareable-button/ShareableButton';
 import screenNames from '@src/constants/screen-names';
 import { useAppDispatch, useAppSelector } from '@src/hooks/redux/reduxHooks';
@@ -17,7 +16,6 @@ import { theme } from '@src/theme';
 import {
   ProfileContainer,
   ProfileContent,
-  ProfileTitle,
 } from '../styles/profile-screen.styles';
 
 const handleDeleteCurrentUser = async () => {
