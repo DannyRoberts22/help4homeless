@@ -13,5 +13,5 @@ export type HomelessPerson = {
 export type PeopleDonation = {
   amount: number;
   name: string;
-  id?: number;
+  id: string;
 };

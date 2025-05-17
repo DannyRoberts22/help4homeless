@@ -9,11 +9,11 @@ export const fontSizes = {
   arrowFlowDescription: '16px',
   inputTextLabel: isIpad ? '22px' : '14px',
   cardText: '14px',
-  sectionTitle: '18px',
+  sectionTitle: isIpad ? '24px' : '18px',
   sectionText: isIpad ? '20px' : '14px',
   buttonText: isIpad ? '22px' : '16px',
   ProfileTitle: '16px',
-  ProfileContent: '14px',
+  ProfileContent: isIpad ? '18px' : '14px',
   homelessUserDetails: isIpad ? '22px' : '14px',
 };
 

@@ -22,17 +22,17 @@ import {
   ShelterSearchContainer,
 } from '../styles/home-screen.styles';
 import SectionDescription from '@src/components/molecules/section-description/SectionDescription';
+import { isIpad } from '@src/constants/constants';
 
 export const HomeScreen = () => {
   const [newsData, setNewsData] = useState<MappedItem[]>([]);
   const [postcode, setPostcode] = useState<string>('');
-  console.log('🚀 ~ HomeScreen ~ postcode:', postcode);
 
   const [shelters, setShelters] = useState<any>([]);
   const [shelterError, setShelterError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [userHasSearched, setUserHasSearched] = useState<boolean>(false);
-  const CARD_WIDTH = Dimensions.get('window').width * 0.7;
+  const CARD_WIDTH = Dimensions.get('window').width * (isIpad ? 0.3 : 0.7);
 
   const handleSetNewsData = (data: NewsData) => {
     setNewsData(

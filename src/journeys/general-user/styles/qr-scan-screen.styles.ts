@@ -10,8 +10,7 @@ export const TopContentContainer = styled.View`
 `;
 
 export const FormContainer = styled.View`
-  padding: 16px;
-  width: 80%;
+  width: 100%;
   justify-content: center;
   align-self: center;
 `;

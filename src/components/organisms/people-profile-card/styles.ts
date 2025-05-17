@@ -24,3 +24,9 @@ export const DonationTotal = styled.Text`
   font-weight: bold;
   margin-top: 8px;
 `;
+
+export const DonateAgain = styled.Text`
+  color: white;
+  font-weight: bold;
+  margin-top: 8px;
+`;

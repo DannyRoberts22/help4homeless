@@ -33,7 +33,7 @@ export const MyDonationsScreen = () => {
         .then(response =>
           setPeopleDonations(
             response.map((donation: PeopleDonation, i: number) => {
-              return { ...donation, id: i };
+              return { ...donation, id: `${donation.id}_${String(i)}` };
             }),
           ),
         )

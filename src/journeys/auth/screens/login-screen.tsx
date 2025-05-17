@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text } from 'react-native';
+import { Alert, Text } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import { firebaseLogin, loginWithGoogle } from '@src/api/auth-services';
@@ -86,7 +86,9 @@ export const LoginScreen = ({
                 .then(() =>
                   navigation.navigate(screenNames.ACCOUNT_DRAWER_NAVIGATOR),
                 )
-                .catch(error => console.error(error));
+                .catch(error =>
+                  Alert.alert('Login failed and try again', error.message),
+                );
             }
           }}
         />

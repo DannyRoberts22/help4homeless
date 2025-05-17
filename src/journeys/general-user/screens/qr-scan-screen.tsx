@@ -26,12 +26,14 @@ import { InnerContainer } from '@src/components/layout/InnerContainer';
 import { firebasePushPeopleDonation } from '@src/api/people-donations';
 import { useStripe } from '@stripe/stripe-react-native';
 import { fetchPaymentSheetParams } from '@src/api/handle-payment-services';
+import { isIpad } from '@src/constants/constants';
 
 type QrScanScreenProps = {
   route: { params?: { homelessPersonId?: string } };
 };
 export const QRScanScreen = ({ route: { params } }: QrScanScreenProps) => {
   const [homelessPersonId, setHomelessPersonId] = useState('');
+  const [homelessPersonExpiryDate, setHomelessPersonExpiryDate] = useState('');
   const [homelessPersonFirstName, setHomelessPersonFirstName] = useState('');
   const [isQrCodeExpired, setIsQrCodeExpired] = useState(false);
   const [donationAmount, setDonationAmount] = useState('');
@@ -68,6 +70,7 @@ export const QRScanScreen = ({ route: { params } }: QrScanScreenProps) => {
     processedQrCode.current = homelessPersonId;
 
     setHomelessPersonId(homelessPersonId);
+    setHomelessPersonExpiryDate(expiryDate);
 
     const isExpired = Date.now() > Number(expiryDate);
 
@@ -156,6 +159,7 @@ export const QRScanScreen = ({ route: { params } }: QrScanScreenProps) => {
       await firebasePushPeopleDonation({
         amount: Number(donationAmount) * 100,
         name: homelessPersonFirstName,
+        id: `${homelessPersonId}_${homelessPersonExpiryDate}`,
       });
 
       setDonationAmount('');
@@ -242,7 +246,7 @@ export const QRScanScreen = ({ route: { params } }: QrScanScreenProps) => {
                           placeholder: {
                             color: 'white',
                             fontWeight: 'bold',
-                            fontSize: 14,
+                            fontSize: isIpad ? 18 : 14,
                             textAlign: 'center',
                           },
                           inputIOS: { color: theme.colors.white },
@@ -258,16 +262,16 @@ export const QRScanScreen = ({ route: { params } }: QrScanScreenProps) => {
                         value={donationAmount}
                         onChangeText={text => setDonationAmount(text)}
                       />
-                      <Spacer size={theme.space.md} />
-                      <ShareableButton text="Cancel" handler={handleCancel} />
                     </FormContainer>
                     {donationAmount && (
                       <>
-                        <Spacer size={theme.space.sm} />
+                        <Spacer size={theme.space.lg} />
                         <ShareableButton
                           text={`Click to Donate to £${donationAmount} ${homelessPersonFirstName}`}
                           handler={handleDonation}
                         />
+                        <Spacer size={theme.space.md} />
+                        <ShareableButton text="Cancel" handler={handleCancel} />
                       </>
                     )}
                   </>
@@ -288,7 +292,10 @@ export const QRScanScreen = ({ route: { params } }: QrScanScreenProps) => {
                 }
                 cameraStyle={{
                   width: '80%',
+                  height: '80%',
                   alignSelf: 'center',
+                  justifyContent: 'center',
+                  marginTop: 20,
                 }}
               />
             )}

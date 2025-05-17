@@ -59,7 +59,6 @@ export const ProfileScreen = ({
     phoneNumber,
   } = useAppSelector(state => state.user);
 
-  //TODO: Make mailto work
   const sendEmail = () => {
     const email = 'info.help@gmail.com';
     const subject = 'Hello';
@@ -108,6 +107,7 @@ export const ProfileScreen = ({
               </>
             )}
             {/* <ProfileTitle>Email:</ProfileTitle> */}
+            <Spacer size={theme.space.md} />
             <ProfileContent>{email}</ProfileContent>
             <Spacer size={theme.space.md} />
             {/* <ProfileTitle>Phone:</ProfileTitle> */}
