@@ -14,6 +14,18 @@
       "filename" : "logo-3x.png",
       "idiom" : "universal",
       "scale" : "3x"
+    },
+    {
+      "filename" : "app-icon-152.png",
+      "idiom" : "ipad",
+      "scale" : "1x",
+      "unassigned" : true
+    },
+    {
+      "filename" : "app-icon-167.png",
+      "idiom" : "ipad",
+      "scale" : "2x",
+      "unassigned" : true
     }
   ],
   "info" : {

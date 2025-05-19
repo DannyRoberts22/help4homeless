@@ -93,10 +93,10 @@ export const QRScanScreen = ({ route: { params } }: QrScanScreenProps) => {
   if (params?.homelessPersonId) {
     handleQRCodeRead({ data: params?.homelessPersonId });
   }
-  const simulateQRScan = () => {
-    const sevenDaysFromNow = Date.now() + 7 * 24 * 60 * 60 * 1000;
-    handleQRCodeRead({ data: `Wbq34DqVYSPeV1y2DKcz_${sevenDaysFromNow}` });
-  };
+  // const simulateQRScan = () => {
+  //   const sevenDaysFromNow = Date.now() + 7 * 24 * 60 * 60 * 1000;
+  //   handleQRCodeRead({ data: `Wbq34DqVYSPeV1y2DKcz_${sevenDaysFromNow}` });
+  // };
 
   const initializePaymentSheet = async () => {
     try {
@@ -300,7 +300,7 @@ export const QRScanScreen = ({ route: { params } }: QrScanScreenProps) => {
               />
             )}
           </QRCodeScannerContainer>
-          <Button title="Simulate QR Scan" onPress={simulateQRScan} />
+          {/* <Button title="Simulate QR Scan" onPress={simulateQRScan} /> */}
         </InnerContainer>
       </SafeAreaViewStatus>
       <Modal visible={showSuccessModal} animationType="slide">
