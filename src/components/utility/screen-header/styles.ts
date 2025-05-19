@@ -5,7 +5,7 @@ import { isIpad } from '@src/constants/constants';
 
 export const ScreenHeaderView = styled(View)`
   flex-direction: row;
-  height: ${isIpad ? '134px' : '84px'};
+  height: ${isIpad ? '106px' : '84px'};
   background-color: ${({ theme }) => theme.colors.primary};
   justify-content: center;
   align-items: center;

@@ -29,7 +29,7 @@ const ScreenHeader = ({
           <TouchableOpacity onPress={openDrawer}>
             <Icon
               name="user"
-              size={isIpad ? 48 : 24}
+              size={isIpad ? 34 : 24}
               color={theme.colors.white}
             />
           </TouchableOpacity>
