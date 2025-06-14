@@ -7,7 +7,7 @@ export const imageSizing = {
 export const cardContainerSizing = {
   xs: 125,
   sm: 150,
-  md: 200,
+  md: 180,
   lg: 250,
 } as const;
 

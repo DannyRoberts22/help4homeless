@@ -1,6 +1,7 @@
+import { ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 
-export const DashboardContainer = styled.View`
+export const DashboardContainer = styled(ScrollView)`
   padding: 20px;
 `;
 

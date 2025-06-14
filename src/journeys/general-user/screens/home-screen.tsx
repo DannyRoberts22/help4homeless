@@ -86,7 +86,7 @@ export const HomeScreen = () => {
 
     return (
       <>
-        <DetailsCardItem item={item} url={url} height="sm" />
+        <DetailsCardItem item={item} url={url} height="xs" />
       </>
     );
   };

@@ -143,8 +143,8 @@ const AddHomelessPersonModal = ({
                   value: 'female',
                 },
                 {
-                  label: 'Unspecified',
-                  value: 'unspecified',
+                  label: 'Prefer not to say',
+                  value: 'Prefer not to say',
                 },
               ]}
               style={{

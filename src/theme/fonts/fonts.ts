@@ -30,8 +30,8 @@ export const fontSizes = {
   sectionText: '14px',
   buttonText: '16px',
   ProfileTitle: '16px',
-  ProfileContent: '14px',
-  homelessUserDetails: '14px',
+  ProfileContent: isIpad ? '18px' : '14px',
+  homelessUserDetails: isIpad ? '18px' : '14px',
 };
 
 export const fontStyles = {

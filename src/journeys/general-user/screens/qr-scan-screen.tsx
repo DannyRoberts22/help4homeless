@@ -1,4 +1,10 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { ActivityIndicator, Alert, Button, Modal } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import QRCodeScanner from 'react-native-qrcode-scanner';
@@ -27,14 +33,25 @@ import { firebasePushPeopleDonation } from '@src/api/people-donations';
 import { useStripe } from '@stripe/stripe-react-native';
 import { fetchPaymentSheetParams } from '@src/api/handle-payment-services';
 import { isIpad } from '@src/constants/constants';
+import { useAppSelector } from '@src/hooks/redux/reduxHooks';
+import screenNames from '@src/constants/screen-names';
 
 type QrScanScreenProps = {
   route: { params?: { homelessPersonId?: string } };
+  navigation: any; // Replace with your actual navigation type
 };
-export const QRScanScreen = ({ route: { params } }: QrScanScreenProps) => {
+export const QRScanScreen = ({
+  route: { params },
+  navigation,
+}: QrScanScreenProps) => {
+  const { loggedIn } = useAppSelector(state => state.user);
+  const isUserSignedIn = loggedIn;
   const [homelessPersonId, setHomelessPersonId] = useState('');
+  console.log('🚀 ~ homelessPersonId:', homelessPersonId);
   const [homelessPersonExpiryDate, setHomelessPersonExpiryDate] = useState('');
+  console.log('🚀 ~ homelessPersonExpiryDate:', homelessPersonExpiryDate);
   const [homelessPersonFirstName, setHomelessPersonFirstName] = useState('');
+  console.log('🚀 ~ homelessPersonFirstName:', homelessPersonFirstName);
   const [isQrCodeExpired, setIsQrCodeExpired] = useState(false);
   const [donationAmount, setDonationAmount] = useState('');
   const [donationSubmitted, setDonationSubmitted] = useState(false);
@@ -53,6 +70,7 @@ export const QRScanScreen = ({ route: { params } }: QrScanScreenProps) => {
   );
 
   const handleQRCodeRead = ({ data }: { data: string }) => {
+    console.log('🚀 ~ handleQRCodeRead ~ data:', data);
     let homelessPersonId = '';
     let expiryDate = '';
 
@@ -85,6 +103,7 @@ export const QRScanScreen = ({ route: { params } }: QrScanScreenProps) => {
     if (homelessPersonId && !isExpired) {
       setIsQrCodeExpired(false);
       firebaseGetHomelessPersonById(homelessPersonId).then(person => {
+        console.log('🚀 ~ firebaseGetHomelessPersonById ~ person:', person);
         setHomelessPersonFirstName(person.firstName);
       });
     }
@@ -93,10 +112,10 @@ export const QRScanScreen = ({ route: { params } }: QrScanScreenProps) => {
   if (params?.homelessPersonId) {
     handleQRCodeRead({ data: params?.homelessPersonId });
   }
-  // const simulateQRScan = () => {
-  //   const sevenDaysFromNow = Date.now() + 7 * 24 * 60 * 60 * 1000;
-  //   handleQRCodeRead({ data: `Wbq34DqVYSPeV1y2DKcz_${sevenDaysFromNow}` });
-  // };
+  const simulateQRScan = () => {
+    const sevenDaysFromNow = Date.now() + 7 * 24 * 60 * 60 * 1000;
+    handleQRCodeRead({ data: `b0hdm3FbxRVEcbzBScpQ_${sevenDaysFromNow}` });
+  };
 
   const initializePaymentSheet = async () => {
     try {
@@ -166,6 +185,10 @@ export const QRScanScreen = ({ route: { params } }: QrScanScreenProps) => {
       setDonationSubmitted(true);
       setHomelessPersonFirstName('');
       setShowSuccessModal(true);
+      setIsQrCodeExpired(false);
+      setHomelessPersonId('');
+      setHomelessPersonExpiryDate('');
+      setIsLoading(false);
     } catch (error) {
       Alert.alert('Error', 'An unexpected error occurred. Please try again.');
     }
@@ -176,6 +199,16 @@ export const QRScanScreen = ({ route: { params } }: QrScanScreenProps) => {
     setDonationAmount('');
     setIsQrCodeExpired(false);
   };
+
+  useEffect(() => {
+    if (!isUserSignedIn) {
+      // navigation.reset({
+      //   index: 0, // Set the index to 0 to make the login screen the initial screen
+      //   routes: [{ name: screenNames.AUTH_NAVIGATOR }], // Define the route to reset to
+      // });
+      navigation.navigate(screenNames.AUTH_NAVIGATOR);
+    }
+  }, [isUserSignedIn, navigation]);
 
   if (isLoading) {
     return (
@@ -191,6 +224,7 @@ export const QRScanScreen = ({ route: { params } }: QrScanScreenProps) => {
       />
     );
   }
+
   return (
     <>
       <SafeAreaViewStatus>
@@ -300,7 +334,7 @@ export const QRScanScreen = ({ route: { params } }: QrScanScreenProps) => {
               />
             )}
           </QRCodeScannerContainer>
-          {/* <Button title="Simulate QR Scan" onPress={simulateQRScan} /> */}
+          <ShareableButton text="Simulate QR Scan" handler={simulateQRScan} />
         </InnerContainer>
       </SafeAreaViewStatus>
       <Modal visible={showSuccessModal} animationType="slide">

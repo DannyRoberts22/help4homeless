@@ -5,11 +5,12 @@ import { CardProps } from './types';
 
 export const CardContainer = styled.View<CardProps>`
   width: ${({ cardWidth }) => (cardWidth ? `${cardWidth}px` : '90%')};
-  margin-horizontal: 10px;
+  margin: 10px;
   border-radius: ${({ theme }) => theme.borderRadiusSizing.md}px;
   overflow: hidden;
   height: ${({ height, theme }) => theme.cardContainerSizing[height]}px;
 `;
+
 export const CardImageBackground = styled(ImageBackground)<ImageProps>`
   height: 100%;
 `;
@@ -18,6 +19,9 @@ export const CardBackground = styled.View`
   padding: ${({ theme }) => theme.space.md};
   border-radius: ${({ theme }) => theme.borderRadiusSizing.md}px;
   background-color: rgba(0, 0, 0, 0.7);
+  height: 100%;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const CardText = styled(Text)`

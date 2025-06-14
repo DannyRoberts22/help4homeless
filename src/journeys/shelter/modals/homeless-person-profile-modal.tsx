@@ -68,7 +68,7 @@ export const HomelessPersonProfileModal = ({
       setSurname(person?.surname);
       setEmail(person?.email);
       setPhoneNumber(person?.phoneNumber);
-      setBalance(person?.balance);
+      setBalance(person?.balance ?? 0);
       setLastQrCodeExpiryDate(person?.lastQrCodeExpiryDate);
       setDateOfBirth(person?.dateOfBirth);
       // setGender(person.gender);

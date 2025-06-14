@@ -19,8 +19,9 @@ import { HomelessPersonProfileModal } from '@src/journeys/shelter/modals/homeles
 import { AccountDrawerNavigator } from './account-drawer.navigator';
 import { RootStackParamList } from '@src/types/navigation-types';
 import { CheckoutModal } from '@src/journeys/general-user/modals/checkout-modal';
+import { useEffect } from 'react';
 
-export const navigationRef = createNavigationContainerRef();
+export const navigationRef = createNavigationContainerRef<RootStackParamList>();
 
 export const Navigation = () => {
   const [isModalActive, setIsModalActive] = React.useState(false);
@@ -28,6 +29,14 @@ export const Navigation = () => {
     if (navigationRef.current) {
       console.log('Current navigation ref:', navigationRef.current);
     }
+    // if (!isUserSignedIn) {
+    // navigationRef.current?.reset({
+    //   index: 0,
+    //   routes: [{ name: screenNames.AUTH_NAVIGATOR }],
+    // });
+    //   // }
+    //   navigationRef.current?.navigate(screenNames.AUTH_NAVIGATOR);
+    // }
   }, []);
 
   const openDrawer = () => {
@@ -40,11 +49,42 @@ export const Navigation = () => {
 
   const onStateChange = (state: NavigationState | undefined) => {
     const currentRoute = state?.routes[state.index];
+    console.log('🚀 ~ onStateChange ~ currentRoute:', currentRoute);
     setIsModalActive(currentRoute?.name === screenNames.ABOUT_SCREEN);
+    // if (!isUserSignedIn) {
+    //   // Redirect to login page if the user is not logged in
+    //   navigationRef.current?.navigate(screenNames.LOGIN_SCREEN);
+    //   return false; // Prevent further navigation
+    // }
+    // if (!isUserSignedIn) {
+    //   navigationRef.current?.reset({
+    //     index: 0,
+    //     routes: [{ name: screenNames.AUTH_NAVIGATOR }],
+    //   });
+    //   // }
+    //   navigationRef.current?.reset({
+    //     index: 0,
+    //     routes: [{ name: screenNames.AUTH_NAVIGATOR }],
+    //   });
+    //   return false; // Prevent further navigation
+    // }
   };
 
   const { loggedIn } = useAppSelector(state => state.user);
   const isUserSignedIn = loggedIn;
+
+  // useEffect(() => {
+  //   console.log(
+  //     'Current Navigation State:',
+  //     navigationRef.current?.getRootState(),
+  //   );
+  //   if (!isUserSignedIn) {
+  //     console.log('does this run?');
+  //     navigationRef.current?.navigate(screenNames.AUTH_NAVIGATOR);
+  //   }
+
+  // }, []);
+
   return (
     <NavigationContainer
       ref={navigationRef}

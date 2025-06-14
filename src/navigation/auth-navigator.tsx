@@ -13,7 +13,10 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 const AuthNavigator = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator
+      screenOptions={{ headerShown: false }}
+      initialRouteName={screenNames.LOGIN_SCREEN}
+    >
       <Stack.Screen name={screenNames.LOGIN_SCREEN} component={LoginScreen} />
       <Stack.Screen name={screenNames.SIGNUP_SCREEN} component={SignupScreen} />
       <Stack.Screen

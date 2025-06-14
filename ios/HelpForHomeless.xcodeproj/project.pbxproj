@@ -27,6 +27,7 @@
 		06202AEC2C49B6F300D6AE88 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 06202ACF2C49B56200D6AE88 /* Octicons.ttf */; };
 		06202AED2C49B6F300D6AE88 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 06202AD22C49B56200D6AE88 /* SimpleLineIcons.ttf */; };
 		06202AEE2C49B6F300D6AE88 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 06202AD72C49B56200D6AE88 /* Zocial.ttf */; };
+		06D5587F2DE8DD0C0035FDD0 /* currentRoute.txt in Resources */ = {isa = PBXBuildFile; fileRef = 06D5587E2DE8DD0C0035FDD0 /* currentRoute.txt */; };
 		06EEBEB22CE7F1F300592A7F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 06EEBEB12CE7F1F300592A7F /* GoogleService-Info.plist */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -69,6 +70,7 @@
 		06202AD92C49B56200D6AE88 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		06202ADA2C49B56200D6AE88 /* FontAwesome6_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome6_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome6_Solid.ttf"; sourceTree = "<group>"; };
 		06202ADB2C49B56200D6AE88 /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
+		06D5587E2DE8DD0C0035FDD0 /* currentRoute.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = currentRoute.txt; sourceTree = "<group>"; };
 		06EEBEB12CE7F1F300592A7F /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0DA41DAF55373CBA0134AECC /* Pods-HelpForHomeless.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelpForHomeless.debug.xcconfig"; path = "Target Support Files/Pods-HelpForHomeless/Pods-HelpForHomeless.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* HelpForHomeless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelpForHomeless.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -194,6 +196,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				06D5587E2DE8DD0C0035FDD0 /* currentRoute.txt */,
 				06EEBEB12CE7F1F300592A7F /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* HelpForHomeless */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -321,6 +324,7 @@
 				06202AE02C49B6F300D6AE88 /* FontAwesome.ttf in Resources */,
 				06202AE12C49B6F300D6AE88 /* FontAwesome5_Brands.ttf in Resources */,
 				06202AE22C49B6F300D6AE88 /* FontAwesome5_Regular.ttf in Resources */,
+				06D5587F2DE8DD0C0035FDD0 /* currentRoute.txt in Resources */,
 				06202AE32C49B6F300D6AE88 /* FontAwesome5_Solid.ttf in Resources */,
 				06202AE42C49B6F300D6AE88 /* FontAwesome6_Brands.ttf in Resources */,
 				06202AE52C49B6F300D6AE88 /* FontAwesome6_Regular.ttf in Resources */,
@@ -585,7 +589,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -619,7 +623,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

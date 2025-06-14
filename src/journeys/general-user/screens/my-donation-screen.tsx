@@ -55,7 +55,9 @@ export const MyDonationsScreen = () => {
             <Subheading text="My Donations" />
             <DonationAmount>
               {donationsTotal > 0
-                ? `Your total so far, Keep it going! £${donationsTotal / 100}`
+                ? `Your donation total so far, Keep it going! £${
+                    donationsTotal / 100
+                  }`
                 : 'You have made no donations yet, scan and start donating'}
             </DonationAmount>
             <FlatList
