@@ -1,4 +1,10 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+<img width="206" height="622" alt="Simulator Screenshot - iPhone 16 Pro - 2025-09-19 at 20 59 24" src="https://github.com/user-attachments/assets/8b75e42d-2301-47ee-a30f-654b0f9d10fc" />
+<img width="206" height="622" alt="Simulator Screenshot - iPhone 16 Pro - 2025-09-19 at 20 55 37" src="https://github.com/user-attachments/assets/76d0e1a8-82fd-4572-a6ff-0ab529d8c27d" />
+<img width="206" height="622" alt="Simulator Screenshot - iPhone 16 Pro - 2025-09-19 at 20 56 47" src="https://github.com/user-attachments/assets/ffb74377-0232-4753-9806-bb0ffd7b22dc" />
+<img width="206" height="622" alt="Simulator Screenshot - iPhone 16 Pro - 2025-09-19 at 20 56 51" src="https://github.com/user-attachments/assets/eb080339-b9f8-451a-84f4-74052075c2f0" />
+<img width="206" height="622" alt="Simulator Screenshot - iPhone 16 Pro - 2025-09-19 at 21 00 49" src="https://github.com/user-attachments/assets/e64cd6fc-79d3-4f80-a5ac-71cb2a9712d7" />
+<img width="206" height="622" alt="Simulator Screenshot - iPhone 16 Pro - 2025-09-19 at 21 01 01" src="https://github.com/user-attachments/assets/3b59277f-9e89-4f39-9d04-4cfea9740c76" />
+
 
 # Getting Started
 
